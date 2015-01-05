@@ -399,7 +399,7 @@ function pat_article_social_sum($atts) {
 
 	if ( $site && !gps('txpreview') ) {
 
-		($prefs['language'] == 'fr-fr' || $lang == 'fr-fr') ? $space = '&thinsp;' : '';
+		($prefs['language'] == 'fr-fr' && $lang == 'fr-fr') ? $space = '&thinsp;' : '';
 
 		$sum = 0;
 
