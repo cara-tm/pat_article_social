@@ -417,9 +417,9 @@ function pat_article_social_sum($atts) {
 		}
 
 		for ($i=0; $i < $n; ++$i)
-if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
-			$sum += file_get_contents( 'cache/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
-}
+			if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
+				$sum += file_get_contents( 'cache/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
+			}
 
 		_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero);
 
