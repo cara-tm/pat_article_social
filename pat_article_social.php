@@ -393,13 +393,13 @@ function pat_article_social_sum($atts) {
 		'showalways' 	=> 0,
 		'text'		=> 'Total share',
 		'plural'	=> 's',
-		'lang'		=> NULL,
+		'lang'		=> $prefs['language'],
 		'zero' 		=> false,
 	), $atts));
 
 	if ( $site && !gps('txpreview') ) {
 
-		($prefs['language'] == 'fr-fr' && $lang == 'fr-fr') ? $space = '&thinsp;' : '';
+		($lang == 'fr-fr') ? $space = '&thinsp;' : '';
 
 		$sum = 0;
 
