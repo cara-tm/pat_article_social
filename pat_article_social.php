@@ -1,3 +1,4 @@
+<?php
 /*
  * pat_article_social (formerly pat_article_tweet) Textpattern CMS plugin
  * @author:  © Patrick LEFEVRE, all rights reserved. <patrick[dot]lefevre[at]gmail[dot]com>
