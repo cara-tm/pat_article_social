@@ -332,8 +332,7 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 // Twitter
 function _pat_article_social_get_twitter($url, $unit = NULL)
 {
-	$json_string = file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url='.$url);
-	$json = json_decode($json_string, true);
+	$json = json_decode( @file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url='.$url), true );
 
 	if (isset($json['count']) ) 
 		$tw = intval($json['count']);
@@ -345,7 +344,7 @@ function _pat_article_social_get_twitter($url, $unit = NULL)
 // Facebook
 function _pat_article_social_get_facebook($url, $unit = NULL)
 {
-	$src = json_decode(file_get_contents('http://graph.facebook.com/'.$url));
+	$src = json_decode( @file_get_contents('http://graph.facebook.com/'.$url) );
 	$src->shares ? $fb_count = $src->shares : $fb_count = 0;
 
 	return $fb_count;
@@ -370,7 +369,7 @@ function _pat_article_social_get_google($url, $unit = NULL)
 // Pinterest
 function _pat_article_social_get_pinterest($url, $unit = NULL)
 {
-	$pinfo = json_decode(preg_replace('/^receiveCount\((.*)\)$/', "\\1",file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url)));
+	$pinfo = json_decode(preg_replace('/^receiveCount\((.*)\)$/', "\\1", @file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url)));
 
 	if ( isset($pinfo->count) ) return $pinfo->count;
 }
