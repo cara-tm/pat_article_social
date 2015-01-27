@@ -294,7 +294,7 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 	// Grab content file or create it.
 	if ( file_exists($file) && ($current_time - $expire_time < filemtime($file)) ) {
 		// Reading file.
-		$out = file_get_contents($file);
+		$out = @file_get_contents($file);
 	} else {
 		// Check what kind of datas.
 		if ( function_exists($type) )
@@ -407,7 +407,7 @@ function pat_article_social_sum($atts) {
 
 		for ($i=0; $i < $n; ++$i)
 			if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
-				$sum += file_get_contents( $path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
+				$sum += @file_get_contents( $path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
 			}
 
 		_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
