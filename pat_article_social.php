@@ -394,7 +394,7 @@ function pat_article_social_sum($atts) {
 
 		if( !file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-shares.txt') ) {
 			_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
-			return;
+			// return;
 		}
 
 		$list = explode( ',', strtolower($site) );
