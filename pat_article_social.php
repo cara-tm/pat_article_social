@@ -62,7 +62,7 @@ function pat_article_social_meta($atts)
 
 		foreach ($type as $service) {
 
-			switch( strtolower($type) ) {
+			switch( strtolower($service) ) {
 
 			case 'twitter':
 	$tags = '<meta name="twitter:card" content="summary">'.n;
