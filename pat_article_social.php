@@ -35,13 +35,18 @@ function pat_article_social_meta($atts)
 
 	extract(lAtts(array(
 		'type'		=> NULL,
+		'card' 		=> 'summary',
 		'image'		=> NULL,
+		'width'		=> NULL,
+		'height'	=> NULL,
 		'api' 		=> '',
 		'locale' 	=> $prefs['language'],
 		'user'		=> NULL,
 		'creator'	=> NULL,
-		'author'	=> NULL,
-		'publisher'	=> NULL,
+		'fbauthor' 	=> NULL,
+		'gauthor' 	=> NULL,
+		'fbpublisher'	=> NULL,
+		'gpublisher'	=> NULL,
 		'title' 	=> $prefs['sitename'],
 		'description' 	=> $prefs['site_slogan'],
 	), $atts));
@@ -82,8 +87,8 @@ EOF;
 EOF;
 	$tags .= ($api ? '<meta property="fb:app_id" content="'.$api.'">'.n : '');
 	$tags .= ($admins ? '<meta property="fb:admins" content="'.$admins.'">'.n : '');
-	$tags .= ($author ? '<meta property="article:author" content="'.$author.'">'.n : '');
-	$tags .= ($publisher ? '<meta property="article:publisher" content="'.$publisher.'">' : ''); 
+	$tags .= ($fbauthor ? '<meta property="article:author" content="'.$fbauthor.'">'.n : '');
+	$tags .= ($fbpublisher ? '<meta property="article:publisher" content="'.$fbpublisher.'">' : ''); 
 			break;
 
 
@@ -94,7 +99,11 @@ EOF;
 <meta itemprop="description" content="$description">
 <meta itemprop="url" content="$current">
 <meta itemprop="image" content="$image">
+
 EOF;
+
+	$tags .= ($gauthor ? '<link rel="author" href="https://plus.google.com/'.$gauthor.'">'.n : '');
+	$tags .= ($gpublisher ? '<link rel="publisher" href="https://plus.google.com/'.$gpublisher.'">'.n : '');
 			break;
 
 
