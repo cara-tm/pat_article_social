@@ -54,12 +54,15 @@ function pat_article_social_meta($atts)
 
 	if ( $type && !gps('txpreview') ) {
 
+		$type = explode(',', $type);
 		$locale = preg_replace('/([a-z]{2})\-([A-Z]{2})/i', '$1_$2', $locale);
 		$current = _pat_article_social_get_uri();
 		$image ? $image : $image = _pat_article_social_image();
 		$description = txpspecialchars($description);
 
-		switch( strtolower($type) ) {
+		foreach ($type as $service) {
+
+			switch( strtolower($type) ) {
 
 			case 'twitter':
 	$tags = '<meta name="twitter:card" content="summary">'.n;
@@ -106,6 +109,7 @@ EOF;
 	$tags .= ($gpublisher ? '<link rel="publisher" href="https://plus.google.com/'.$gpublisher.'">'.n : '');
 			break;
 
+			}
 
 		}
 
