@@ -20,7 +20,7 @@ if (txpinterface == 'admin')
 }
 
 global $refs;
-$refs = array('facebook', 'twitter', 'google', 'pinterest');
+$refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer');
 
 /**
  * Generate meta tag for social websites
