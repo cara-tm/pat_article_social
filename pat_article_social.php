@@ -382,6 +382,13 @@ function _pat_article_social_get_pinterest($url, $unit = NULL)
 
 	if ( isset($pinfo->count) ) return $pinfo->count;
 }
+// LinkedIn
+function _pat_article_social_get_linkedin($url, $unit = NULL)
+{
+	$linfo = json_decode( @file_get_contents('https://www.linkedin.com/countserv/count/share?url='.$url.'&amp;format=json') );
+
+	if ( isset($linfo->count) ) return $linfo->count;
+}
 // Buffer
 function _pat_article_social_get_buffer($url, $unit = NULL)
 {
