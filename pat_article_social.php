@@ -49,6 +49,7 @@ function pat_article_social_meta($atts)
 
 	if ( $type && !gps('txpreview') ) {
 
+		$locale = preg_replace('/([a-z]{2})\-([A-Z]{2})/i', '$1_$2', $locale);
 		$current = _pat_article_social_get_uri();
 		$image ? $image : $image = _pat_article_social_image();
 		$description = txpspecialchars($description);
@@ -70,7 +71,7 @@ EOF;
 
 			case 'facebook':
 	$tags = <<<EOF
-<meta property="og:locale" content="{$prefs['language']}">
+<meta property="og:locale" content="$locale">
 <meta property="og:site_name" content="{$prefs['sitename']}">
 <meta property="og:title" content="<txp:if_article_list>{$title}<txp:else /><txp:title no_widow="0" /></txp:if_article_list>">
 <meta property="og:description" content="$description">
