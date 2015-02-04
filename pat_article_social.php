@@ -382,6 +382,13 @@ function _pat_article_social_get_pinterest($url, $unit = NULL)
 
 	if ( isset($pinfo->count) ) return $pinfo->count;
 }
+// Buffer
+function _pat_article_social_get_buffer($url, $unit = NULL)
+{
+	$binfo = json_decode( @file_get_contents('https://api.bufferapp.com/1/links/shares.json?url='.$url) );
+
+	if ( isset($binfo->shares) ) return $binfo->shares;
+}
 
 
 /**
