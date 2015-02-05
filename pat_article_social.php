@@ -55,7 +55,7 @@ function pat_article_social_meta($atts)
 	if ( $type && !gps('txpreview') ) {
 
 		$type = explode(',', $type);
-		$locale = preg_replace_callback('(([a-z]{2})(.*)?([a-z]{2}))', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale);
+		$locale = preg_replace_callback('(^([a-z]{2})(.*)?([A-Z]{2}))i', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale);
 		$current = _pat_article_social_get_uri();
 		$image ? $image : $image = _pat_article_social_image();
 		$description = txpspecialchars($description);
