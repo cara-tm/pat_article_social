@@ -34,21 +34,22 @@ function pat_article_social_meta($atts)
 	global $prefs, $thisarticle;
 
 	extract(lAtts(array(
-		'type'		=> NULL,
+		'type'		=> array(),
 		'card' 		=> 'summary',
 		'image'		=> NULL,
 		'width'		=> NULL,
 		'height'	=> NULL,
-		'api' 		=> '',
+		'api' 		=> NULL,
 		'locale' 	=> $prefs['language'],
 		'user'		=> NULL,
 		'creator'	=> NULL,
+		'fbtype' 	=> 'website',
 		'fbauthor' 	=> NULL,
 		'gauthor' 	=> NULL,
 		'fbpublisher'	=> NULL,
 		'gpublisher'	=> NULL,
 		'title' 	=> $prefs['sitename'],
-		'description' 	=> $prefs['site_slogan'],
+		'description' 	=> page_title(array()),
 	), $atts));
 
 
@@ -65,13 +66,13 @@ function pat_article_social_meta($atts)
 			switch( strtolower($service) ) {
 
 			case 'twitter':
-	$tags = '<meta name="twitter:card" content="summary">'.n;
+	$tags = '<meta name="twitter:card" content="'.$card.'">'.n;
 	$tags .= _pat_article_social_validate_user($user, 'site');
 	$tags .= _pat_article_social_validate_user($creator, 'creator');
 	$tags .= '<meta property="twitter:image" content="'._pat_article_social_image($image).'">'.n;
 	$tags .= <<<EOF
+<meta property="twitter:url" content="{$current()}">
 <meta property="twitter:title" content="<txp:if_article_list>{$title}<txp:else /><txp:title no_widow="0" /></txp:if_article_list>">
-<meta property="twitter:url" content="$current">
 <meta name="twitter:description" content="$description">
 EOF;
 			break;
@@ -83,15 +84,15 @@ EOF;
 <meta property="og:site_name" content="{$prefs['sitename']}">
 <meta property="og:title" content="<txp:if_article_list>{$title}<txp:else /><txp:title no_widow="0" /></txp:if_article_list>">
 <meta property="og:description" content="$description">
-<meta property="og:type" content="website">
-<meta property="og:url" content="$current">
+<meta property="og:url" content="{$current()}">
 <meta property="og:image" content="$image">
 
 EOF;
+	$tags .= ($fbtype ? '<meta property="og:type" content="'.$fbtype.'">'.n : '');
 	$tags .= ($api ? '<meta property="fb:app_id" content="'.$api.'">'.n : '');
 	$tags .= ($admins ? '<meta property="fb:admins" content="'.$admins.'">'.n : '');
-	$tags .= ($fbauthor ? '<meta property="article:author" content="'.$fbauthor.'">'.n : '');
-	$tags .= ($fbpublisher ? '<meta property="article:publisher" content="'.$fbpublisher.'">' : ''); 
+	$tags .= ($fbauthor ? '<meta property="article:author" content="https://www.facebook.com/'.$fbauthor.'">'.n : '');
+	$tags .= ($fbpublisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fbpublisher.'">' : ''); 
 			break;
 
 
@@ -100,7 +101,7 @@ EOF;
 <meta itemprop="name" content="{$prefs['sitename']}">
 <meta itemprop="title" content="<txp:if_article_list>{$title}<txp:else /><txp:title no_widow="0" /></txp:if_article_list>">
 <meta itemprop="description" content="$description">
-<meta itemprop="url" content="$current">
+<meta itemprop="url" content="{$current()}">
 <meta itemprop="image" content="$image">
 
 EOF;
