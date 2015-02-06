@@ -20,6 +20,7 @@ if (txpinterface == 'admin')
 }
 
 global $refs;
+// List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer');
 
 /**
