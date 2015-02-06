@@ -462,6 +462,8 @@ function pat_article_social_sum($atts) {
 /**
  * Check values from a list
  *
+ * @param  $array $base
+ * @return boolean
  */
 function _pat_article_social_occurs($array, $base)
 {
