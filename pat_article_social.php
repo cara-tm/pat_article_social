@@ -425,10 +425,9 @@ function pat_article_social_sum($atts) {
 
 		($lang == 'fr-fr') ? $space = '&thinsp;' : '';
 
-		$sum = 0;
-
 		$list = explode( ',', strtolower($site) );
 		$n = count($list);
+		$sum = 0;
 
 		foreach ( $list as $el ) {
 			if ( _pat_article_social_occurs($el) === false )
