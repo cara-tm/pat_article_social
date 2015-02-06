@@ -19,9 +19,11 @@ if (txpinterface == 'admin')
 	register_callback('pat_article_social_cleanup', 'plugin_lifecycle.pat_article_social', 'deleted');
 }
 
-global $refs;
+global $refs, $twcards;
 // List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer');
+// List of Twitter Cards type.
+$twcards = array('summary', 'summary_large_image', 'photo');
 
 /**
  * Generate meta tag for social websites
@@ -32,7 +34,7 @@ $refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer'
 function pat_article_social_meta($atts)
 {
 
-	global $prefs, $thisarticle;
+	global $prefs, $thisarticle, $twcards;
 
 	extract(lAtts(array(
 		'type'		=> array(),
@@ -67,6 +69,9 @@ function pat_article_social_meta($atts)
 			switch( strtolower($service) ) {
 
 			case 'twitter':
+				if( false === _pat_article_social_occurs($card, $twcards) )
+					return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'card')), E_USER_WARNING);
+
 	$tags = '<meta name="twitter:card" content="'.$card.'">'.n;
 	$tags .= _pat_article_social_validate_user($user, 'site');
 	$tags .= _pat_article_social_validate_user($creator, 'creator');
@@ -409,7 +414,7 @@ function _pat_article_social_get_buffer($url, $unit = NULL)
 
 function pat_article_social_sum($atts) {
 
-	global $prefs, $path_to_site, $pat_article_social_dir, $thisarticle;
+	global $prefs, $path_to_site, $pat_article_social_dir, $thisarticle, $refs;
 
 	extract(lAtts(array(
 		'site'		=> NULL,
@@ -431,7 +436,7 @@ function pat_article_social_sum($atts) {
 		$sum = 0;
 
 		foreach ( $list as $el ) {
-			if ( _pat_article_social_occurs($el) === false )
+			if ( false === _pat_article_social_occurs($el, $refs) )
 				return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
 		}
 
@@ -458,12 +463,13 @@ function pat_article_social_sum($atts) {
  * Check values from a list
  *
  */
-function _pat_article_social_occurs($array)
+function _pat_article_social_occurs($array, $base)
 {
 	// $refs is an array outside this func.
-	global $refs;
+	if($base === $refs)
+		global $base;
 
-	return in_array($array, $refs);
+	return in_array($array, $base);
 
 }
 
