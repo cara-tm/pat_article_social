@@ -427,10 +427,6 @@ function pat_article_social_sum($atts) {
 
 		$sum = 0;
 
-		if( !file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-shares.txt') ) {
-			_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
-		}
-
 		$list = explode( ',', strtolower($site) );
 		$n = count($list);
 
@@ -443,8 +439,6 @@ function pat_article_social_sum($atts) {
 			if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
 				$sum += @file_get_contents( $path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
 			}
-
-		_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
 
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
