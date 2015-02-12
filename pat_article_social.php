@@ -202,20 +202,21 @@ function pat_article_social($atts)
 	global $thisarticle;
 
 	extract(lAtts(array(
-		'site'		=> 'permalink',
-		'tooltip' 	=> NULL,
-		'title'		=> NULL,
-		'via'		=> NULL,
-		'content' 	=> 'excerpt',
-		'class'		=> NULL,
-		'icon' 		=> false,
-		'width' 	=> '16',
-		'height' 	=> '16',
-		'count' 	=> false,
-		'zero' 		=> false,
-		'unit' 		=> 'k',
-		'delay' 	=> 3,
-		'image' 	=> NULL,
+		'site'			=> 'permalink',
+		'tooltip' 		=> NULL,
+		'input_tooltip' 	=> NULL,
+		'title'			=> NULL,
+		'via'			=> NULL,
+		'content' 		=> 'excerpt',
+		'class'			=> NULL,
+		'icon' 			=> false,
+		'width' 		=> '16',
+		'height' 		=> '16',
+		'count' 		=> false,
+		'zero' 			=> false,
+		'unit' 			=> 'k',
+		'delay' 		=> 3,
+		'image' 		=> NULL,
 	), $atts));
 
 	if ( $site && !gps('txpreview') ) {
@@ -287,7 +288,7 @@ function pat_article_social($atts)
 				if ($rs)
 					$url = hu.$pretext['id'];
 
-				$link = '<span class="link-container"><a href="'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" onclick="toggle(\'show-link\');return false"><strong>&#128279;</strong>'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="permalink-icon" x="0px" y="0px" width="'.$width.'" height="'.$height.'" viewBox="0 0 512 512"><path d="M482.25,210.752L346.5,346.502c-37.5,37.5-98.25,37.5-135.75,0l-45.25-45.25l45.25-45.25l45.25,45.25c12.5,12.469,32.781,12.5,45.25,0L437,165.502c12.469-12.484,12.469-32.781,0-45.266l-45.25-45.25c-12.469-12.469-32.781-12.469-45.25,0l-48.469,48.469c-22.469-13.219-48-18.891-73.281-17.188l76.5-76.531c37.5-37.484,98.281-37.484,135.75,0l45.25,45.25C519.75,112.471,519.75,173.268,482.25,210.752z M213.938,388.564L165.5,437.002c-12.5,12.5-32.781,12.469-45.25,0L75,391.752c-12.5-12.469-12.5-32.75,0-45.25l135.75-135.75c12.469-12.469,32.781-12.469,45.25,0l45.25,45.25l45.25-45.25l-45.25-45.25c-37.5-37.484-98.25-37.484-135.75,0L29.75,301.252c-37.5,37.5-37.5,98.281,0,135.75L75,482.252c37.469,37.5,98.25,37.5,135.75,0l76.5-76.5C261.969,407.439,236.5,401.752,213.938,388.564z"/></svg>' : '').'<b>'.$title.'</b></a>'.n.'<input type="text" value="'.$url.'" id="show-link" onclick="select(this);return false" readonly></span>'.n.'<script>function toggle(e){var l=document.getElementById(e);l.style.display="block"==l.style.display?"none":"block"}</script>';
+				$link = '<span class="link-container"><a href="'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" onclick="toggle(\'show-link\');return false"><strong>&#128279;</strong>'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="permalink-icon" x="0px" y="0px" width="'.$width.'" height="'.$height.'" viewBox="0 0 512 512"><path d="M482.25,210.752L346.5,346.502c-37.5,37.5-98.25,37.5-135.75,0l-45.25-45.25l45.25-45.25l45.25,45.25c12.5,12.469,32.781,12.5,45.25,0L437,165.502c12.469-12.484,12.469-32.781,0-45.266l-45.25-45.25c-12.469-12.469-32.781-12.469-45.25,0l-48.469,48.469c-22.469-13.219-48-18.891-73.281-17.188l76.5-76.531c37.5-37.484,98.281-37.484,135.75,0l45.25,45.25C519.75,112.471,519.75,173.268,482.25,210.752z M213.938,388.564L165.5,437.002c-12.5,12.5-32.781,12.469-45.25,0L75,391.752c-12.5-12.469-12.5-32.75,0-45.25l135.75-135.75c12.469-12.469,32.781-12.469,45.25,0l45.25,45.25l45.25-45.25l-45.25-45.25c-37.5-37.484-98.25-37.484-135.75,0L29.75,301.252c-37.5,37.5-37.5,98.281,0,135.75L75,482.252c37.469,37.5,98.25,37.5,135.75,0l76.5-76.5C261.969,407.439,236.5,401.752,213.938,388.564z"/></svg>' : '').'<b>'.$title.'</b></a>'.n.'<input type="text" value="'.$url.'" '.($input_tooltip ? 'title="'.$input_tooltip.'" ' : '').'id="show-link" onclick="select(this);return false" readonly></span>'.n.'<script>function toggle(e){var l=document.getElementById(e);l.style.display="block"==l.style.display?"none":"block"}</script>';
 			break;
 
 
