@@ -46,11 +46,11 @@ function pat_article_social_meta($atts)
 		'locale' 	=> $prefs['language'],
 		'user'		=> NULL,
 		'creator'	=> NULL,
-		'fbtype' 	=> 'website',
-		'fbauthor' 	=> NULL,
-		'gauthor' 	=> NULL,
-		'fbpublisher'	=> NULL,
-		'gpublisher'	=> NULL,
+		'fb_type' 	=> 'website',
+		'fb_author' 	=> NULL,
+		'g_author' 	=> NULL,
+		'fb_publisher'	=> NULL,
+		'g_publisher'	=> NULL,
 		'title' 	=> $prefs['sitename'],
 		'description' 	=> page_title(array()),
 	), $atts));
@@ -94,11 +94,11 @@ EOF;
 <meta property="og:image" content="$image">
 
 EOF;
-	$tags .= ($fbtype ? '<meta property="og:type" content="'.$fbtype.'">'.n : '');
+	$tags .= ($fb_type ? '<meta property="og:type" content="'.$fb_type.'">'.n : '');
 	$tags .= ($api ? '<meta property="fb:app_id" content="'.$api.'">'.n : '');
 	$tags .= ($admins ? '<meta property="fb:admins" content="'.$admins.'">'.n : '');
-	$tags .= ($fbauthor ? '<meta property="article:author" content="https://www.facebook.com/'.$fbauthor.'">'.n : '');
-	$tags .= ($fbpublisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fbpublisher.'">' : ''); 
+	$tags .= ($fb_author ? '<meta property="article:author" content="https://www.facebook.com/'.$fb_author.'">'.n : '');
+	$tags .= ($fb_publisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fb_publisher.'">' : ''); 
 			break;
 
 
@@ -112,8 +112,8 @@ EOF;
 
 EOF;
 
-	$tags .= ($gauthor ? '<link rel="author" href="https://plus.google.com/'.$gauthor.'">'.n : '');
-	$tags .= ($gpublisher ? '<link rel="publisher" href="https://plus.google.com/'.$gpublisher.'">'.n : '');
+	$tags .= ($g_author ? '<link rel="author" href="https://plus.google.com/'.$g_author.'">'.n : '');
+	$tags .= ($g_publisher ? '<link rel="publisher" href="https://plus.google.com/'.$g_publisher.'">'.n : '');
 			break;
 
 			}
