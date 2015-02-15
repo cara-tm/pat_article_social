@@ -78,7 +78,7 @@ function pat_article_social_meta($atts)
 	$tags .= '<meta property="twitter:image" content="'._pat_article_social_image($image).'">'.n;
 	$tags .= <<<EOF
 <meta property="twitter:url" content="{$current()}">
-<meta property="twitter:title" content="<txp:if_article_list>{$title}<txp:else /><txp:title no_widow="0" /></txp:if_article_list>">
+<meta property="twitter:title" content="{$title}">
 <meta name="twitter:description" content="$description">
 EOF;
 			break;
@@ -88,7 +88,7 @@ EOF;
 	$tags = <<<EOF
 <meta property="og:locale" content="$locale">
 <meta property="og:site_name" content="{$prefs['sitename']}">
-<meta property="og:title" content="<txp:if_article_list>{$title}<txp:else /><txp:title no_widow="0" /></txp:if_article_list>">
+<meta property="og:title" content="{$title}">
 <meta property="og:description" content="$description">
 <meta property="og:url" content="{$current()}">
 <meta property="og:image" content="$image">
@@ -105,7 +105,7 @@ EOF;
 			case 'google':
 	$tags = <<<EOF
 <meta itemprop="name" content="{$prefs['sitename']}">
-<meta itemprop="title" content="<txp:if_article_list>{$title}<txp:else /><txp:title no_widow="0" /></txp:if_article_list>">
+<meta itemprop="title" content="{$title}">
 <meta itemprop="description" content="$description">
 <meta itemprop="url" content="{$current()}">
 <meta itemprop="image" content="$image">
