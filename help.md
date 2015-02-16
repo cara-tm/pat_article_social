@@ -51,8 +51,10 @@ Important Note: facebook use the first occurrence of Open Graph meta tags in the
 
     <txp:pat_article_social site="" tooltip="" title="" content="" via="" icon="" class="" width="" height="" count="" zero="" unit="" delay="" image="" />
 
-Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts.
-Attributes
+###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts.
+
+
+###Attributes
 
 >    **site**: String (required). The social website. Available choices: twitter, facebook, google, pinterest, tumblr, pocket instapaper & permalink. Default: permalink. Notice: "permalink" attribute creates a show/hide input bellow the icon with the current article's permalink.
 > 
