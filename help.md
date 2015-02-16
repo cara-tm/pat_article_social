@@ -91,14 +91,21 @@ Whatever place you want (individual or article lists)
 
 ###Attributes
 
-    site: String (required). Comma separated list of social websites (among: twitter, facebook, google, pinterest). Default: none (empty).
-    unit: String (optional). Unit for the count. Default: k.
-    delay: Integer (optional). Delay in hours for the cache. Default: 3 (hours).
-    text: String (optional). Text to display in front of the count. Default: "Total share".
-    showalways: Boolean (optional). Always show or not this tag rendering. Default: 0 (no).
-    plural: String (optional). The final letter for plural with the "text" attribute. Default: "s".
-    lang: String (optional). i18n support for the space before colon (typographic rule). If set, overwrites prefs. Default: TXP language prefs. (i.e. "fr-fr").
-    zero: Boolean (optional). Render or not zero value. Default: 0 (no).
+>    **site**: String (required). Comma separated list of social websites (among: twitter, facebook, google, pinterest). Default: none (empty).
+> 
+>    **unit**: String (optional). Unit for the count. Default: k.
+> 
+>    **delay**: Integer (optional). Delay in hours for the cache. Default: 3 (hours).
+> 
+>    **text**: String (optional). Text to display in front of the count. Default: "Total share".
+> 
+>    **showalways**: Boolean (optional). Always show or not this tag rendering. Default: 0 (no).
+> 
+>    **plural**: String (optional). The final letter for plural with the "text" attribute. Default: "s".
+> 
+>    **lang**: String (optional). i18n support for the space before colon (typographic rule). If set, overwrites prefs. Default: TXP language prefs. (i.e. "fr-fr").
+> 
+>    zero: Boolean (optional). Render or not zero value. Default: 0 (no).
 
 ###CSS layout
 
