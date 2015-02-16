@@ -8,7 +8,8 @@
 ##Plugin Preferences
 
 After installation, choose "Admin"->"Preferences" tab to access this plugin prefs and to set the "cache" directory. Default: /root/cache.
-Usages
+
+##Usages
 
 Notice: previews of articles don't show the renderings of this plugin, voluntarily. Depending of the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the "asy_jpcache" plugin.
 
