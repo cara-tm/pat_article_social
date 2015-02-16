@@ -468,7 +468,7 @@ Color palettes for social websites are available here: designpieces.com
 	line-height: 0
     }
     /* Correct first element 
-   You can apply a class name instead
+    You can apply a class name instead
     */
     .social-link.first-item {
 	top:.5em
