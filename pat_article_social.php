@@ -77,13 +77,13 @@ function pat_article_social_meta($atts)
 	$img = $thisarticle['article_image'];
 	$gallery = explode(',', $img);
 	if (count($gallery) > 1 && $card == 'gallery') {
-	$i = 0;
-	foreach($gallery as $pic) {
-	$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
-	++$i;
-	}
+		$i = 0;
+		foreach($gallery as $pic) {
+			$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
+		++$i;
+		}
 	} else {
-	$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
+		$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 	}
 	$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 	$tags .= <<<EOF
