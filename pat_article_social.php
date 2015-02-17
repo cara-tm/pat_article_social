@@ -75,7 +75,7 @@ function pat_article_social_meta($atts)
 	$tags = '<meta name="twitter:card" content="'.$card.'">'.n;
 	$tags .= _pat_article_social_validate_user($user, 'site');
 	$tags .= _pat_article_social_validate_user($creator, 'creator');
-	$tags .= '<meta property="twitter:image" content="'._pat_article_social_image($image).'">'.n;
+	$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 	$tags .= <<<EOF
 <meta property="twitter:url" content="{$current()}">
 <meta property="twitter:title" content="{$title}">
