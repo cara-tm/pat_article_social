@@ -22,7 +22,7 @@ global $refs, $twcards;
 // List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer');
 // List of Twitter Card types.
-$twcards = array('summary', 'summary_large_image', 'photo', 'gallery');
+$twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product');
 
 /**
  * Generate meta tag for social websites
@@ -45,6 +45,10 @@ function pat_article_social_meta($atts)
 		'locale' 	=> $prefs['language'],
 		'user'		=> NULL,
 		'creator'	=> NULL,
+		'label1' 	=> NULL,
+		'data1' 	=> NULL,
+		'label2' 	=> NULL,
+		'data2' 	=> NULL,
 		'fb_type' 	=> 'website',
 		'fb_author' 	=> NULL,
 		'g_author' 	=> NULL,
@@ -86,6 +90,10 @@ function pat_article_social_meta($atts)
 		$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 	}
 	$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
+	$tags .= ($label1 ? '<meta name="twitter:label1" content="'.$label1.'">'.n : '');
+	$tags .= ($data1 ? '<meta name="twitter:data1" content="'.$data1.'">'.n : '');
+	$tags .= ($label2 ? '<meta name="twitter:label2" content="'.$label2.'">'.n : '');
+	$tags .= ($data2 ? '<meta name="twitter:data2" content="'.$data2.'">'.n : '');
 	$tags .= <<<EOF
 <meta property="twitter:url" content="{$current()}">
 <meta property="twitter:title" content="{$title}">
