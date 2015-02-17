@@ -10,7 +10,7 @@
  * @license: GPLv2
 */
 
-// TO DO: ADD SUPPORT FOR EMBEDED @font-face ICONS. ADD SIZE VALUES FROM IMAGES. ADD TWITTER CARD TYPES SELECTION.
+// TO DO: ADD SUPPORT FOR EMBEDED @font-face ICONS.
 //        BACK-OFFICE CHART VISUALISATION OF SHARES BY INDIVIDUAL ARTICLES.
 
 if (txpinterface == 'admin')
@@ -22,8 +22,8 @@ if (txpinterface == 'admin')
 global $refs, $twcards;
 // List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer');
-// List of Twitter Cards type.
-$twcards = array('summary', 'summary_large_image', 'photo');
+// List of Twitter Card types.
+$twcards = array('summary', 'summary_large_image', 'photo', 'gallery');
 
 /**
  * Generate meta tag for social websites
@@ -75,6 +75,17 @@ function pat_article_social_meta($atts)
 	$tags = '<meta name="twitter:card" content="'.$card.'">'.n;
 	$tags .= _pat_article_social_validate_user($user, 'site');
 	$tags .= _pat_article_social_validate_user($creator, 'creator');
+	$img = $thisarticle['article_image'];
+	$gallery = explode(',', $img);
+	if (count($gallery) > 1 && $card == 'gallery') {
+	$i = 0;
+	foreach($gallery as $pic) {
+	$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
+	++$i;
+	}
+	} else {
+	$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
+	}
 	$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 	$tags .= <<<EOF
 <meta property="twitter:url" content="{$current()}">
@@ -154,12 +165,15 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
  * @param
  * @return URI  Full article image URI
  */
-function _pat_article_social_image()
+function _pat_article_social_image($pic = NULL)
 {
 
 	global $thisarticle;
 
-	$img = $thisarticle['article_image'];
+	if (false == $pic)
+		$img = $thisarticle['article_image'];
+	else
+		$img = $pic;
 
 	if (intval($img)) {
 
