@@ -47,10 +47,11 @@ function pat_article_social_meta($atts)
 		'data2' 	=> NULL,
 		'fb_type' 	=> 'website',
 		'fb_api' 	=> NULL,
+		'fb_admins' 	=> NULL,
 		'locale' 	=> $prefs['language'],
 		'fb_author' 	=> NULL,
-		'g_author' 	=> NULL,
 		'fb_publisher'	=> NULL,
+		'g_author' 	=> NULL,
 		'g_publisher'	=> NULL,
 		'title' 	=> $prefs['sitename'],
 		'description' 	=> page_title(array()),
@@ -111,8 +112,8 @@ EOF;
 
 EOF;
 	$tags .= ($fb_type ? '<meta property="og:type" content="'.$fb_type.'">'.n : '');
-	$tags .= ($api ? '<meta property="fb:app_id" content="'.$api.'">'.n : '');
-	$tags .= ($admins ? '<meta property="fb:admins" content="'.$admins.'">'.n : '');
+	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
+	$tags .= ($fb_admins ? '<meta property="fb:admins" content="'.$fb_admins.'">'.n : '');
 	$tags .= ($fb_author ? '<meta property="article:author" content="https://www.facebook.com/'.$fb_author.'">'.n : '');
 	$tags .= ($fb_publisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fb_publisher.'">' : ''); 
 			break;
