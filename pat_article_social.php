@@ -77,10 +77,10 @@ function pat_article_social_meta($atts)
 	$tags .= _pat_article_social_validate_user($user, 'site');
 	$tags .= _pat_article_social_validate_user($creator, 'creator');
 	$img = $thisarticle['article_image'];
-	$gallery = explode(',', $img);
-	if (count($gallery) > 1 && $card == 'gallery') {
+	$list = explode(',', $img);
+	if (count($list) > 0 && $card == 'gallery') {
 		$i = 0;
-		foreach($gallery as $pic) {
+		foreach($list as $pic) {
 			$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
 		++$i;
 		}
