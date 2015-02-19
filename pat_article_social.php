@@ -469,7 +469,7 @@ function pat_article_social_sum($atts) {
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
 
-	return $showalways ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : ($zero ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : '');
+	return ($showalways || $sum > 0) ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : ($zero ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : '');
 
 	} else {
 		return;
