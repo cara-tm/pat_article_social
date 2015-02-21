@@ -33,7 +33,7 @@ $twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product'
 function pat_article_social_meta($atts)
 {
 
-	global $prefs, $thisarticle, $twcards;
+	global $prefs, $pretext, $thisarticle, $twcards;
 
 	extract(lAtts(array(
 		'type'		=> array(),
@@ -111,7 +111,7 @@ EOF;
 
 EOF;
 	$tags .= ($image ? '<meta property="og:image" content="'.$image.'">'.n : '');
-	$tags .= ($fb_type ? '<meta property="og:type" content="'.$fb_type.'">'.n : '');
+	$tags .= ($pretext['id'] ? '<meta property="og:type" content="article">' : '<meta property="og:type" content="website">').n;
 	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
 	$tags .= ($fb_admins ? '<meta property="fb:admins" content="'.$fb_admins.'">'.n : '');
 	$tags .= ($fb_author ? '<meta property="article:author" content="https://www.facebook.com/'.$fb_author.'">'.n : '');
