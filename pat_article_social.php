@@ -86,7 +86,7 @@ function pat_article_social_meta($atts)
 		++$i;
 		}
 	} else {
-		$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
+		$tags .= ($image ? '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n : '');
 	}
 	$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 	$tags .= ($label1 ? '<meta name="twitter:label1" content="'.$label1.'">'.n : '');
@@ -108,9 +108,9 @@ EOF;
 <meta property="og:title" content="{$title}">
 <meta property="og:description" content="$description">
 <meta property="og:url" content="{$current()}">
-<meta property="og:image" content="$image">
 
 EOF;
+	$tags .= ($image ? '<meta property="og:image" content="'.$image.'">'.n : '');
 	$tags .= ($fb_type ? '<meta property="og:type" content="'.$fb_type.'">'.n : '');
 	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
 	$tags .= ($fb_admins ? '<meta property="fb:admins" content="'.$fb_admins.'">'.n : '');
@@ -125,10 +125,10 @@ EOF;
 <meta itemprop="title" content="{$title}">
 <meta itemprop="description" content="$description">
 <meta itemprop="url" content="{$current()}">
-<meta itemprop="image" content="$image">
 
 EOF;
-
+	
+	$tags .= ($image ? '<meta itemprop="image" content="'.$image.'">'.n : '');
 	$tags .= ($g_author ? '<link rel="author" href="https://plus.google.com/'.$g_author.'">'.n : '');
 	$tags .= ($g_publisher ? '<link rel="publisher" href="https://plus.google.com/'.$g_publisher.'">'.n : '');
 			break;
