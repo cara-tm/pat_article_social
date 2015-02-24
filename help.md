@@ -85,8 +85,9 @@ Important Note: facebook use the first occurrence of Open Graph meta tags in the
 > 
 >    **image**: String (optional). only in use for Pinterest links (Twitter & facebook use Open Graph meta tags instead). It can be a TXP form suitable for example with watermark solution. Default: the current article image. 
 
-Notice: Default color icons are black. See below how to change it. For counting, you need to create a /cache directory into the root of your website.
-Whatever place you want (individual or article lists)
+Notice: Default color icons are black. See below how to change it.
+
+##Whatever place you want (individual or article lists)
 
     <txp:pat_article_social_sum site="twitter,facebook,google,pinterest" unit="k" delay="3" showalways="1" text="" plural="" $lang="" zero="1" />
 
