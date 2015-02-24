@@ -445,6 +445,7 @@ function pat_article_social_sum($atts) {
 		'showalways' 	=> 0,
 		'text'		=> 'Total share',
 		'plural'	=> 's',
+		'alternative' 	=> '',
 		'lang'		=> $prefs['language'],
 		'zero' 		=> false,
 	), $atts));
@@ -470,7 +471,7 @@ function pat_article_social_sum($atts) {
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
 
-	return ($showalways || $sum > 0) ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : ($zero ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : '');
+	return ( $showalways || $sum > 0) ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : ($zero ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : tag('<b>'.$alternative.'</b>', 'span', ' class="shares"') );
 
 	} else {
 		return;
