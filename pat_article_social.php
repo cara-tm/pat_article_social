@@ -20,7 +20,7 @@ if (txpinterface == 'admin')
 
 global $refs, $twcards;
 // List of social networks that support share count.
-$refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer');
+$refs = array('facebook', 'twitter', 'google', 'pinterest', 'linkedin', 'buffer');
 // List of Twitter Card types.
 $twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product');
 
@@ -61,7 +61,7 @@ function pat_article_social_meta($atts)
 	if ( $type && !gps('txpreview') ) {
 
 		$type = explode(',', $type);
-		$locale = preg_replace_callback('(^([a-z]{2})(.*)?([a-z]{2}))i', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale);
+		$locale = preg_replace_callback( '(^([a-z]{2})(.*)?([a-z]{2}))i', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale );
 		$current = _pat_article_social_get_uri();
 		$image ? $image : $image = _pat_article_social_image();
 		$description = txpspecialchars($description);
@@ -161,7 +161,7 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
 	if ( preg_match("/\@[a-z0-9_]+/i", $entry) )
 		$out = ($attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : $entry);
 
-	return $out ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING);
+	return $out ? $out : trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING );
 
 }
 
@@ -184,7 +184,7 @@ function _pat_article_social_image($pic = NULL)
 
 	if (intval($img)) {
 
-		if ($rs = safe_row('*', 'txp_image', 'id = ' . intval($img))) {
+		if ( $rs = safe_row('*', 'txp_image', 'id = ' . intval($img)) ) {
 			$img = imagesrcurl($rs['id'], $rs['ext']);
 		} else {
 			$img = null;
@@ -245,9 +245,9 @@ function pat_article_social($atts)
 		if( in_array($content, array('excerpt', 'body')) )
 			$extract = $thisarticle[$content];
 		else
-			trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING);
+			trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING );
 
-		$url = permlink(array());
+		$url = permlink( array() );
 		$text = $thisarticle['title'].' '.dumbDown( strip_tags( preg_replace("/\s+/", " ", $extract) ) );
 		$minus = strlen($via)+7;
 		// Twitter shorten urls: http://bit.ly/ILMn3F
@@ -318,7 +318,7 @@ function pat_article_social($atts)
 		return $link;
 	}
 
-	return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
+	return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING );
 
 }
 
@@ -372,7 +372,7 @@ function _pat_article_social_get_twitter($url, $unit = NULL)
 {
 	$json = json_decode( @file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url='.$url), true );
 
-	if (isset($json['count']) ) 
+	if ( isset($json['count']) ) 
 		$tw = intval($json['count']);
 	else
 		$tw = 0;
@@ -395,7 +395,7 @@ function _pat_article_social_get_google($url, $unit = NULL)
 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, '[{"method":"pos.plusones.get", "id":"p", "params":{"nolog":true, "id":"'.$url.'", "source":"widget", "userId":"@viewer", "groupId":"@self"}, "jsonrpc":"2.0","key":"p", "apiVersion":"v1"}]');
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+	curl_setopt( $curl, CURLOPT_HTTPHEADER, array('Content-type: application/json') );
 	$curl_results = curl_exec ($curl);
 	curl_close ($curl);
 	$json = json_decode($curl_results, true);
@@ -463,7 +463,7 @@ function pat_article_social_sum($atts) {
 				return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
 		}
 
-		for ($i=0; $i < $n; ++$i)
+		for ($i = 0; $i < $n; ++$i)
 			if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
 				$sum += @file_get_contents( $path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
 			}
@@ -477,7 +477,7 @@ function pat_article_social_sum($atts) {
 		return;
 	}
 
-	return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site or cache directory')), E_USER_WARNING);
+	return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site or cache directory')), E_USER_WARNING );
 
 }
 
@@ -527,7 +527,7 @@ function pat_article_social_prefs()
 
 	$textarray['pat_article_social_dir'] = 'Cache directory';
 
-	if (!safe_field ('name', 'txp_prefs', "name='pat_article_social_dir'"))
+	if ( !safe_field ('name', 'txp_prefs', "name='pat_article_social_dir'") )
 		safe_insert('txp_prefs', "prefs_id=1, name='pat_article_social_dir', val='cache', type=1, event='admin', html='text_input', position=21");
 
 	safe_repair('txp_plugin');
@@ -543,7 +543,7 @@ function pat_article_social_cleanup()
 {
 	global $path_to_site, $pat_article_social_dir;
 
-	array_map('unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt"));
+	array_map( 'unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt") );
 	safe_delete('txp_prefs', "name='pat_article_social_dir'");
 
 }
