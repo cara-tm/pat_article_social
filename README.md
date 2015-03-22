@@ -9,3 +9,5 @@ Support for major services: Twitter ®, facebook ®, G+ ®, Pinterest ® Tumblr 
 [Dedicated website and €1 donation](http://pat-article-social.cara-tm.com/ "Go")
 
 [Plugin help](http://pat-article-social.cara-tm.com/help "Go")
+
+Many thanks for all purchasers who supported the development of this plugin.
