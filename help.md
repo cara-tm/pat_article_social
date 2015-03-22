@@ -78,6 +78,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 >    **tooltip**: String (optional). Tooltip of the link. Default: none (empty).
 > 
 >    **input_tooltip**: String (optional). Tooltip for the permalink input. Default: none (empty).
+    Note: this tag return full article permlink URL but deals with smd_short_url plugin if installed and activated (short article URL).
 > 
 >    **title**: String (optional). Title of the link. Default: none (empty).
 > 
@@ -128,7 +129,7 @@ Notice: Default color icons are black. See below how to change it. See below how
 > 
 >    **lang**: String (optional). i18n support for the space before colon (typographic rule). If set, overwrites prefs. Default: TXP language prefs. (i.e. "fr-fr").
 > 
->    zero: Boolean (optional). Render or not zero value. Default: 0 (no).
+>    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
 
 ###CSS layout
 
