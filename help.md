@@ -534,6 +534,8 @@ Color palettes for social websites are available here: designpieces.com
 
 ##Change log
 
+- 20th February 2015. v 0.4.7. Support for all Twitter card. 
+- 18th February 2015. v 0.4.6. Lot of changes for attributes (see list). Lot of improvements & new features added.
 - 25th Decembre 2014. v 0.4.5. "plural" & "lang" attributes added for i18n support. Support for smd_short_url into permlinks if this plugin exists.
 - 17th December 2014. v 0.4.4. "admins" attribute added for facebook. "showalways" attribute added. Correct the sum of "shares". Correct "zero" usage.
 - 19th November 2014. v 0.4.3. Some code refactoring; Open Graph meta tags added (author & api); title attribute context sensitive; proper results when attributes omitted.
