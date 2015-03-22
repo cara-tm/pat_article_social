@@ -1,5 +1,5 @@
 
-#pat_article_social v 0.4.6 (formerly pat_article_tweet)
+#pat_article_social v 0.4.7 (formerly pat_article_tweet)
 
 ##Purpose
 
@@ -11,47 +11,64 @@ After installation, choose "Admin"->"Preferences" tab to access this plugin pref
 
 ##Usages
 
-Notice: previews of articles don't show the renderings of this plugin, voluntarily. Depending of the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the "asy_jpcache" plugin.
+Notice: All the following pat_article_social tags are intented to be used as single tags, not container ones. Previews of articles don't show the renderings of this plugin, voluntarily. Depending of the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the "asy_jpcache" plugin.
 
 ##1.° In your doctype HTML document (before &lt;/head&gt;)
 
-    <txp:pat_article_social_meta type="" image="" api="" admins="" locale="" user="" creator="" author="" publisher="" title="" description="" />
+##Creates HTML meta tags for the social website:##
 
-Important Note: facebook use the first occurrence of Open Graph meta tags in the HTML document (i.e.: Twitter Open Graph) even if specific ones exist.
+    <txp:pat_article_social_meta type="" cart="" image="" user="" creator="" label1="" data1="" label2="" data2="" locale="" fb_api="" fb_admins="" fb_type="" fb_author="" fb_publisher="" g_author="" g_publisher="" title="" description="" />
 
-###Creates HTML meta tags for the social website.
+Important Note: facebook **use the first occurrence** of Open Graph meta tags in the HTML document (i.e.: Twitter Open Graph) even if specific ones exist.
 
 ###Attributes
 
->    **type**: String (required). Name of the social website. Only 3 available: facebook, twitter and google 1. Default: none (empty).
+>    **type**: String (required). Name of the social website. Only 3 available: facebook, twitter and google [1]. Default: none (empty).
 > 
->    **locale**: String (required). i18n support. Set the country language code. Notice: the two first letters are lowercases; the two last letters are uppercases (i.e. en_US). Default: locale TXP prefs.
+>    **card***: String (optional). Twitter card type among: "summary", "summary_large_image", "photo", "gallery", "product". Default: summary.
+    Notice: If there are more than one image associated with the current article, the value of the card attribute changes accordingly.
 > 
 >    **image**: URL (optional). Full path to a custom image for replacement. Default: article image (empty).
-> 
->    **api**: String (optional). API Key for facebook only. Default: none (empty).
-> 
->    **admins**: String (optional). Admin facebook page ID. Default: none (empty).
 > 
 >    **user**: String (optional). Twitter user account (with a @ prefix). Default: none (empty).
 > 
 >    **creator**: String (optional). Twitter user account of the site creator (with a @ prefix). Default: none (empty).
     Notice: Twitter accounts are case sensitive.
->    **author**: String (optional). Personal author's Social Network URL. Default: none (empty).
 > 
->    **publisher**: String (optional). Website author's profile page on facebook & G+. Notice: there is no validation for this content attribute. Default: none (empty).
+>    **label1**: String (optional). Twitter Open Graph meta tag for "product" type (see: card attribute). Default: empty (none).
+> 
+>    **data1**: String (optional). Twitter Open Graph meta tag for "product" type (see: card attribute). Default: empty (none).
+> 
+>    **label2**: String (optional). Twitter Open Graph meta tag for "product" type (see: card attribute). Default: empty (none).
+> 
+>    **data2**: String (optional). Twitter Open Graph meta tag for "product" type (see: card attribute). Default: empty (none).
+>
+>    **locale**: String (required). i18n support. Set the country language code. Notice: the two first letters are lowercases; the two last letters are uppercases (i.e. en_US). Default: locale TXP prefs.
+> 
+>    **fb_api**: String (optional). API Key for facebook only. Default: none (empty).
+> 
+>    **fb_admins**: String (optional). Admin facebook page ID. Default: none (empty).
+> 
+>    **fb_type**: String (optional). The type of website that you would like your website to be categorized by facebook. Default: website.
+> 
+>    **fb_author**: String (optional). Personal author's facebook page URL. Default: none (empty).
+> 
+>    **fb_publisher**: String (optional). Personal author's facebook page URL. Default: none (empty).
+> 
+>    **g_author**: String (optional). Personal author's Google + page URL. Default: none (empty).
+> 
+>    **g_publisher**: String (optional). Website author's profile page on G+. Notice: there is no validation for this content attribute. Default: none (empty).
     Examples: publisher="me" & publisher="+me" generate: <meta property="article:publisher" content="http://www.facebook.com/me"> & <link rel="publisher" href="http://google.com/+me">.
 > 
 >    **title**: String (optional). Title (event sensitive: individual article title or site name in article list context). Default: preferences site name.
 > 
->    **description**: String (optional). Short description for your website. Default: préférences site slogan.
+>    **description**: String (optional). Short description of the page (200 characters maximum). Default: page title.
 
 ##2.° In an article form (individual articles)
 
+##Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:##
 
-    <txp:pat_article_social site="" tooltip="" title="" content="" via="" icon="" class="" width="" height="" count="" zero="" unit="" delay="" image="" />
-
-###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts.
+    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" icon="" class="" width="" height="" count="" zero="" unit="" delay="" image="" />
 
 
 ###Attributes
@@ -59,6 +76,8 @@ Important Note: facebook use the first occurrence of Open Graph meta tags in the
 >    **site**: String (required). The social website. Available choices: twitter, facebook, google, pinterest, tumblr, pocket instapaper & permalink. Default: permalink. Notice: "permalink" attribute creates a show/hide input bellow the icon with the current article's permalink.
 > 
 >    **tooltip**: String (optional). Tooltip of the link. Default: none (empty).
+> 
+>    **input_tooltip**: String (optional). Tooltip for the permalink input. Default: none (empty).
 > 
 >    **title**: String (optional). Title of the link. Default: none (empty).
 > 
@@ -85,17 +104,17 @@ Important Note: facebook use the first occurrence of Open Graph meta tags in the
 > 
 >    **image**: String (optional). only in use for Pinterest links (Twitter & facebook use Open Graph meta tags instead). It can be a TXP form suitable for example with watermark solution. Default: the current article image. 
 
-Notice: Default color icons are black. See below how to change it.
+Notice: Default color icons are black. See below how to change it. See below how to change it. For counting, you need to create a /cache directory into the root of your website.
 
 ##Whatever place you want (individual or article lists)
 
-    <txp:pat_article_social_sum site="twitter,facebook,google,pinterest" unit="k" delay="3" showalways="1" text="" plural="" $lang="" zero="1" />
+##Creates a total shares count as shown in the Mashable.com website:##
 
-##Creates a total shares count as shown in the Mashable.com website
+    <txp:pat_article_social_sum site="twitter,facebook,google,pinterest" unit="k" delay="3" showalways="1" text="" plural="" lang="" zero="1" />
 
 ###Attributes
 
->    **site**: String (required). Comma separated list of social websites (among: twitter, facebook, google, pinterest). Default: none (empty).
+>    **site**: String (required). Comma separated list of social websites to be added in the share counting (among: twitter, facebook, google, pinterest). Default: none (empty).
 > 
 >    **unit**: String (optional). Unit for the count. Default: k.
 > 
@@ -550,7 +569,7 @@ All embed plugin icons come from courtesy © flaticon.com.
 
 ##Notes
 
-1 There are no Open Graph metatags for Pinterst & Tumblr. For G+ don't forget to use a proper declaration into your html document tag (i.e. <html itemscope itemtype="http://schema.org/Article" lang="fr-fr" dir="ltr">). See more here: schema.org.
-2 The text you choose here is shrinked and followed by the article URL and all respects the 140 characters limit by Twitter.
-3 Count is rounding up above 999. (e.g. 1 250 will be displayed 1.3 k)
+[1]: There are no Open Graph metatags for Pinterst & Tumblr. For G+ don't forget to use a proper declaration into your html document tag (i.e. <html itemscope itemtype="http://schema.org/Article" lang="fr-fr" dir="ltr">). See more here: schema.org.
+[2]: The text you choose here is shrinked and followed by the article URL and all respects the 140 characters limit by Twitter.
+[3]: Count is rounding up above 999. (e.g. 1 250 will be displayed 1.3 k)
 
