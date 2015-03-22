@@ -28,7 +28,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 >    **card**: String (optional). Twitter card type among: "summary", "summary_large_image", "photo", "gallery", "product". Default: summary.
     Notice: If there are more than one image associated with the current article, the value of the card attribute changes accordingly.
 > 
->    **image**: URL (optional). Full path to a custom image for replacement. Default: article image (empty).
+>    **image**: URL (optional). Full path to a custom image for replacement. Default: article image.
 > 
 >    **user**: String (optional). Twitter user account (with a @ prefix). Default: none (empty).
 > 
