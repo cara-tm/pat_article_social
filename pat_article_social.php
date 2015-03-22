@@ -303,7 +303,7 @@ function pat_article_social($atts)
 
 
 			case 'reddit':
-				$link = '<a href="http://www.reddit.com/submit?url='.$url.'&amp;title='.$text.'" class="social-link'.($class ? ''.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? '  <span>'._pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_reddit', $delay, $zero, $unit ).'</span>' : '').'<strong>R</strong></a>';
+				$link = '<a href="http://www.reddit.com/submit?url='.$url.'&amp;title='.$text.'" class="social-link'.($class ? ''.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? '  <span>'._pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_reddit', $delay, $zero, $unit, $real ).'</span>' : '').'<strong>R</strong></a>';
 			break;
 
 
@@ -432,7 +432,7 @@ function _pat_article_social_get_buffer($url, $unit = NULL)
 	if ( isset($binfo->shares) ) return $binfo->shares;
 }
 // Reddit
-function _pat_article_social_get_reddit($url, $unit = NULL)
+function _pat_article_social_get_reddit($url, $unit = NULL, $real)
 {
 	$score = $ups = $downs = 0;
 	
@@ -443,7 +443,8 @@ function _pat_article_social_get_reddit($url, $unit = NULL)
 			foreach($json['data']['children'] as $child) {
 				$score+= (int) $child['data']['score'];
 			}
-			//$score = $ups - $downs;
+			if ($real)
+				$score = $ups - $downs;
 	}
 
 	return $score;
