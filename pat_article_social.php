@@ -6,11 +6,11 @@
  * @type:    Public
  * @prefs:   no
  * @order:   5
- * @version: 0.4.7
+ * @version: 0.4.8
  * @license: GPLv2
 */
 
-// TO DO: BACK-OFFICE CHART VISUALISATION OF SHARES BY INDIVIDUAL ARTICLES.
+// TO DO: MORE OPTIONS FOR FB OPEN GRAPH. BACK-OFFICE CHART VISUALISATION OF SHARES BY INDIVIDUAL ARTICLES.
 
 if (txpinterface == 'admin')
 {
@@ -20,7 +20,7 @@ if (txpinterface == 'admin')
 
 global $refs, $twcards;
 // List of social networks that support share count.
-$refs = array('facebook', 'twitter', 'google', 'pinterest', 'linkedin', 'buffer');
+$refs = array('facebook', 'twitter', 'google', 'pinterest', 'linkedin', 'buffer', 'reddit'');
 // List of Twitter Card types.
 $twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product');
 
@@ -234,6 +234,7 @@ function pat_article_social($atts)
 		'width' 		=> '16',
 		'height' 		=> '16',
 		'count' 		=> false,
+		'real' 			=> false,
 		'zero' 			=> false,
 		'unit' 			=> 'k',
 		'delay' 		=> 3,
@@ -298,6 +299,11 @@ function pat_article_social($atts)
 
 			case 'buffer':
 				$link = '<a href="http://bufferapp.com/add?id=fd854fd5d145df9c&amp;url='.$url.'&amp;text='.urlencode( site_slogan(array()) ).'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" width="'.$width.'" height="'.$height.'" viewBox="0 0 979 1000" preserveAspectRatio="xMinYMin meet"><path d="M0 762q11-15 31.5-25.5t49-20 40.5-15.5q19 0 33.5 4.5t33.5 15 25 12.5q47 21 260 119 19 4 35.5 0t39.5-17.5 24-14.5q20-9 76.5-34.5t87.5-39.5q4-2 41.5-21t60.5-24q13-2 27.5 1t23.5 7.5 23 13 18 10.5 15.5 6 18.5 8 11 11q3 4 4 14-10 13-31 24t-51 22-40 16q-43 20-128.5 61.5t-128.5 61.5q-7 3-21 11.5t-23.5 13-25.5 11-27.5 7-29.5-1.5l-264-123q-6-3-32-14t-51.5-22-53.5-24-46.5-23.5-21.5-16.5q-4-4-4-13zm0-268q11-15 31.5-25t50-20 41.5-15q19 0 34 4.5t34.5 15 25.5 13.5q42 19 126.5 58t127.5 59q19 5 37 0.5t39-17 25-14.5q68-32 160-72 11-5 31.5-16.5t38.5-19.5 36-11q16-3 31.5 1t37.5 17 23 13q5 3 15.5 6.5t18 8 11.5 10.5q3 5 4 14-10 14-31.5 25.5t-52.5 22.5-41 16q-48 23-135.5 65t-122.5 59q-7 3-26 14t-29 15-32.5 10-35.5 0q-214-101-260-122-6-3-44-19t-69.5-30-61.5-29.5-34-22.5q-4-4-4-14zm0-267q10-15 31.5-26.5t52.5-22.5 41-16l348-162q30 0 53.5 7t56.5 26 40 22q39 18 117 54.5t117 54.5q4 2 36.5 15t54.5 24 27 20q3 4 4 13-9 13-26 22.5t-43.5 19-34.5 13.5q-47 22-140 66.5t-139 66.5q-6 3-20 11t-23 12.5-25 10.5-27 6-28-1q-245-114-256-119-4-2-63-27.5t-102-46.5-48-30q-4-4-4-13z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? '  <span>'._pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_linkedin', $delay, $zero, $unit ).'</span>' : '').'<strong>B</strong></a>';
+			break;
+
+
+			case 'reddit':
+				$link = '<a href="http://www.reddit.com/submit?url='.$url.'&amp;title='.$text.'" class="social-link'.($class ? ''.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? '  <span>'._pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_reddit', $delay, $zero, $unit ).'</span>' : '').'<strong>R</strong></a>';
 			break;
 
 
@@ -424,6 +430,39 @@ function _pat_article_social_get_buffer($url, $unit = NULL)
 	$binfo = json_decode( @file_get_contents('https://api.bufferapp.com/1/links/shares.json?url='.$url) );
 
 	if ( isset($binfo->shares) ) return $binfo->shares;
+}
+// Reddit
+function _pat_article_social_get_reddit($url, $unit = NULL)
+{
+	$score = $ups = $downs = 0;
+	
+	$content = _get_url('http://www.reddit.com/api/info.json?url='.$url);
+	if($content) {
+		
+			$json = json_decode($content,true);
+			foreach($json['data']['children'] as $child) {
+				$score+= (int) $child['data']['score'];
+			}
+			//$score = $ups - $downs;
+	}
+
+	return $score;
+
+}
+
+
+/**
+ * Util function for reddit
+ */
+function _get_url($url) {
+	$ch = curl_init();
+	curl_setopt($ch,CURLOPT_URL,$url);
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+	curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,1);
+	$content = curl_exec($ch);
+	curl_close($ch);
+
+	return $content;
 }
 
 
