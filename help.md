@@ -19,7 +19,7 @@ Notice: All the following pat_article_social tags are intented to be used as sin
 
     <txp:pat_article_social_meta type="" card="" image="" user="" creator="" label1="" data1="" label2="" data2="" locale="" fb_api="" fb_admins="" fb_type="" fb_author="" fb_publisher="" g_author="" g_publisher="" title="" description="" />
 
-Important Note: facebook **use the first occurrence** of Open Graph meta tags in the HTML document (i.e.: Twitter Open Graph) even if specific ones exist. You are strongly encouraged to call facebook first and all other social networks after it.
+Important Note: facebook **use the first occurrence** of Open Graph meta tags in the HTML document (i.e.: Twitter Open Graph) even if specific ones exist. You are strongly encouraged to call facebook first and all other social networks after it (see: "type" attribute below).
 
 ###Attributes
 
