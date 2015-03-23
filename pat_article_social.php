@@ -430,6 +430,8 @@ function _pat_article_social_get_buffer($url, $unit = NULL)
 // Reddit
 function _pat_article_social_get_reddit($url, $unit = NULL, $real)
 {
+	$score = $up = $down = 0;
+
 	$content = json_decode( @file_get_contents('http://www.reddit.com/api/info.json?url='.$url) );
 	if($content) {
 		$score = (int) $content->data->children[0]->data->score;
@@ -437,7 +439,7 @@ function _pat_article_social_get_reddit($url, $unit = NULL, $real)
 		$down = (int) $content->data->children[0]->data->down;
 	}
 	if ($real)
-		$score = $score - $down;
+		$score = $score + $up - $down;
 
 	return $score;
 }
