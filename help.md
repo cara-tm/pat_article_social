@@ -544,6 +544,125 @@ Color palettes for social websites are available here: designpieces.com
        font: .6em/1 Arial
     }
 
+###4°. Another simple flat layout with each counting on the right of little rounded, colored social icons 
+
+    .social-link {
+	display: inline-block;
+	position: relative;
+	top:. 3em;
+	width: 2em;
+	height: 2em;
+	margin: 0 1em 1em 0;
+	padding: 0;
+	text-decoration: none;
+	text-align: center;
+	vertical-align: middle;
+	color: #fff;
+	font: 300 1em 'HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;
+	cursor: pointer;
+	border-radius: 50%;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.15)
+    }
+
+    .social-link:hover {
+	-webkit-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
+	-moz-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
+	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
+    }
+
+    .twitter {background: #00aced; border: 1px solid #00aced}
+
+    .facebook {background: #3b5998; border: 1px solid #3b5998}
+
+    .google {background: #dd4b39; border: 1px solid #dd4b39}
+
+    .pinterest {background: #cb2027; border: 1px solid #cb2027}
+
+    .tumblr {background: #32506d; border: 1px solid #32506d}
+
+    .instapaper {background: #333; border: 1px solid #333}
+
+    .pocket {background: #ee4055; border: 1px solid #ee4055}
+
+    .pocket path.inner {fill: #ee4055}
+
+    .linkedin {background: #0e76a8; border: 1px solid #0e76a8}
+
+    .reddit {background: #a2a2a2; border:1px solid #ccc}
+
+    .permalink {background:#07e; border: 1px solid #07e}
+
+    .twitter:hover,
+	.facebook:hover,
+	.google:hover,
+	.pinterest:hover,
+	.tumblr:hover,
+	.pocket:hover,
+	.linkedin:hover,
+	.reddit:hover,
+	.permalink:hover {
+		background: transparent;
+		text-decoration: none !important;
+		
+    }
+
+    .social-link svg {
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	width: 1em;
+	height: 1em
+    }
+
+    .twitter path,
+	.facebook path,
+	.google path,
+	.pinterest path,
+	.tumblr path,
+	.instapaper path,
+	.pocket path,
+	.linkedin path,
+	.reddit path,
+	.permalink path {
+		fill: #fff
+    }
+
+    .twitter:hover path,
+	.facebook:hover path,
+	.google:hover path,
+	.pinterest:hover path,
+	.tumblr:hover path
+	.pocket:hover path,
+	.linkedin:hover path,
+	.reddit:hover path,
+	.permalink:hover {
+		fill: #333 !important
+    }
+
+    .social-link b {display: none}
+
+    .social-link span{
+    	display: block;
+    	position: absolute;
+    	right: -.3em;
+    	bottom: -.1em;
+    	min-width: 1.3em;
+    	height: 1.3em;
+    	padding: 0 .3em;
+    	background: #555;
+    	text-align: center;
+    	font-size: 50%;
+    	border-top-left-radius: 50%
+    }
+
+    .social-link strong{
+    	position: absolute;
+    	left: -900%;
+    	font-size: 0
+    }
+
 ##Change log
 
 - 20th February 2015. v 0.4.7. Support for all Twitter card. 
