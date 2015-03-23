@@ -139,11 +139,9 @@ EOF;
 		}
 
 	return $tags;
-
 	}
 
 	return '';
-
 }
 
 
@@ -162,7 +160,6 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
 		$out = ($attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : $entry);
 
 	return $out ? $out : trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING );
-
 }
 
 
@@ -325,7 +322,6 @@ function pat_article_social($atts)
 	}
 
 	return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING );
-
 }
 
 
@@ -362,7 +358,6 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 	}
 
 	return $zero ? $out : ( (int)$out > 0 ? $out : '' );
-
 }
 
 
@@ -434,36 +429,17 @@ function _pat_article_social_get_buffer($url, $unit = NULL)
 // Reddit
 function _pat_article_social_get_reddit($url, $unit = NULL, $real)
 {
-	$score = $ups = $downs = 0;
 	
-	$content = _get_url('http://www.reddit.com/api/info.json?url='.$url);
+	$content = json_decode( @file_get_contents('http://www.reddit.com/api/info.json?url='.$url) );
 	if($content) {
-		
-			$json = json_decode($content,true);
-			foreach($json['data']['children'] as $child) {
-				$score += (int) $child['data']['score'];
-			}
-			if ($real)
-				$score = $ups - $downs;
+		$score = (int) $content->data->children[0]->data->score;
+		$up = (int) $content->data->children[0]->data->up;
+		$down = (int) $content->data->children[0]->data->down;
 	}
+	if ($real)
+		$score = $ups - $downs;
 
 	return $score;
-
-}
-
-
-/**
- * Util function for reddit
- */
-function _get_url($url) {
-	$ch = curl_init();
-	curl_setopt($ch,CURLOPT_URL,$url);
-	curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-	curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,1);
-	$content = curl_exec($ch);
-	curl_close($ch);
-
-	return $content;
 }
 
 
@@ -474,7 +450,8 @@ function _get_url($url) {
  * @return String  HTML tag
  */
 
-function pat_article_social_sum($atts) {
+function pat_article_social_sum($atts)
+{
 
 	global $prefs, $path_to_site, $pat_article_social_dir, $thisarticle, $refs;
 
@@ -518,7 +495,6 @@ function pat_article_social_sum($atts) {
 	}
 
 	return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site or cache directory')), E_USER_WARNING );
-
 }
 
 
@@ -535,7 +511,6 @@ function _pat_article_social_occurs($array, $base)
 		global $base;
 
 	return in_array($array, $base);
-
 }
 
 
@@ -552,7 +527,6 @@ function _pat_format_count($number, $unit) {
 		return round($number/1000, 1, PHP_ROUND_HALF_UP).$unit;
 	else
 		return $number;
-
 }
 
 
@@ -571,7 +545,6 @@ function pat_article_social_prefs()
 		safe_insert('txp_prefs', "prefs_id=1, name='pat_article_social_dir', val='cache', type=1, event='admin', html='text_input', position=21");
 
 	safe_repair('txp_plugin');
-
 }
 
 
@@ -585,5 +558,4 @@ function pat_article_social_cleanup()
 
 	array_map( 'unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt") );
 	safe_delete('txp_prefs', "name='pat_article_social_dir'");
-
 }
