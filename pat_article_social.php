@@ -217,7 +217,7 @@ function _pat_article_social_get_uri()
 function pat_article_social($atts)
 {
 
-	global $thisarticle, $real;
+	global $thisarticle, $real, $shot;
 
 	extract(lAtts(array(
 		'site'		 => 'permalink',
@@ -307,7 +307,7 @@ function pat_article_social($atts)
 	
 	
 			case 'dribbble':
-				$link = '<a href="https://dribbble.com/'.$page.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? '  <span>'._pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_dribbble', $delay, $zero, $unit).'</span>' : '').'<strong>D</strong></a>';
+				$link = '<a href="https://dribbble.com/'.$page.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 430.117 430.118" style="enable-background:new 0 0 430.117 430.118;" xml:space="preserve"><g><path class="inner"  d="M215.05,0C96.274,0.009,0,96.289,0,215.068c0,118.758,96.274,215.049,215.05,215.049c118.776,0,215.054-96.291,215.067-215.049C430.104,96.289,333.826,0.009,215.05,0z M346.819,111.506c20.983,26.645,34.121,59.638,35.778,95.668c-24.278-5.153-47.217-7.661-68.602-7.661v-0.005h-0.158c-17.217,0-33.375,1.563-48.604,4.264c-3.701-9.071-7.453-17.784-11.233-26.129C287.916,162.767,320.47,141.585,346.819,111.506zM215.05,47.28c39.576,0,75.882,13.836,104.626,36.87c-21.996,26.334-51.029,45.406-82.393,58.873c-22.038-42.615-43.333-73.101-57.89-91.739C190.916,48.727,202.81,47.28,215.05,47.28z M140.941,64.77c11.646,13.756,34.963,44.013,59.867,91.253c-50.649,15.077-101.651,18.619-132.51,18.61c-0.88,0-1.75,0-2.604-0.009h-0.028c-5.197,0-9.666-0.082-13.397-0.196C64.308,126.254,97.311,86.357,140.941,64.77z M47.266,215.068c0-0.789,0.028-1.591,0.075-2.417c4.791,0.177,10.935,0.329,18.33,0.329h0.042c33.727-0.22,92.614-3.038,152.292-21.879c3.253,7.113,6.473,14.519,9.656,22.208c-39.853,13.329-71.241,34.564-94.457,55.711C110.854,289.377,95.754,309.54,86.931,323C62.242,293.769,47.279,256.204,47.266,215.068z M215.05,382.859c-37.339,0-71.754-12.349-99.673-33.07c5.934-9.773,18.657-28.535,38.917-47.922c20.845-19.975,49.62-40.538,87.19-52.775c12.77,35.797,24.325,76.718,33.127,122.781C256.068,378.934,236.032,382.859,215.05,382.859z M310.011,353.065c-8.513-41.659-19.215-79.224-30.966-112.748c10.897-1.563,22.336-2.445,34.41-2.445h0.434h0.028h0.028c20.012,0,42.003,2.487,65.852,7.906C371.541,290.143,345.844,328.352,310.011,353.065z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>' : '').'<b>'.$title.'</b>'.($count ? '  <span>'._pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_dribbble', $delay, $zero, $unit).'</span>' : '').'<strong>D</strong></a>';
 			break;
 
 
@@ -453,8 +453,9 @@ function _pat_article_social_get_reddit($url, $unit = NULL)
 	return $score;
 }
 // Dribbble
-function _pat_article_social_get_dribbble($url, $unit = NULL, $shot)
+function _pat_article_social_get_dribbble($url, $unit = NULL)
 {
+	global $shot;
 
 	$content = json_decode( @file_get_contents('http://api.dribbble.com/shots/'.$shot) );
 
