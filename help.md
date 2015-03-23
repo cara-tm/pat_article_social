@@ -3,7 +3,7 @@
 
 ##Purpose
 
-**Create social links for your articles (support for facebook, Twitter ,G+, Pinterest Tumblr, Pocket, Instapaper, Linkedin & Reddit) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document.**
+**Create social links for your articles (support for facebook, Twitter ,G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin & Reddit) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document.**
 
 ##Plugin Preferences
 
