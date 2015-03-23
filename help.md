@@ -136,9 +136,9 @@ Notice: Default color icons are black. See below how to change it. See below how
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
     .social-link: class attribute for the links.
-    .social-link.twitter, .social-link.facebook, .social-link.google, .social-link.pinterest, .social-link.tumblr, .social-link.instapaper, .social-link.pocket, .social-link.linkedin, .social-link.permalink: individual link class attributes.
+    .social-link.twitter, .social-link.facebook, .social-link.google, .social-link.pinterest, .social-link.tumblr, .social-link.instapaper, .social-link.pocket, .social-link.linkedin, .social-link.reddit, .social-link.permalink: individual link class attributes.
     .social-link svg: class attribute for symbols.
-    .twitter-icon path, .facebook-icon path, .gplus-icon path, .pinterest-icon path, .tumblr-icon path, .instapaper-icon path, .pocket-icon path, .pocket-icon path.inner, .linkedin-icon path, .permalink-icon path: class attributes to colorize the logos.
+    .twitter-icon path, .facebook-icon path, .gplus-icon path, .pinterest-icon path, .tumblr-icon path, .instapaper-icon path, .pocket-icon path, .pocket-icon path.inner, .linkedin-icon path, .reddit-icon path, .permalink-icon path: class attributes to colorize the logos.
     .social-link span: class attribute for counters.
 
 ##CSS layout examples
@@ -234,6 +234,7 @@ Color palettes for social websites are available here: designpieces.com
     .social-link.instapaper:hover {background: rgba(51,51,51,1)}
     .social-link.pocket:hover {background: rgba(238,64,85,1)}
     .social-link.linkedin:hover {background: rgba(0,123,182,1)}
+    .social-link.reddit:hover {background: rgba(204,204,204,1)}
     .social-link.permalink:hover {background: rgba(0,119,238,1)}
 
     /* Inner color form of this logo: use of inner class */
@@ -248,6 +249,7 @@ Color palettes for social websites are available here: designpieces.com
 	.instapaper-icon path,
 	.pocket-icon,
 	.linkedin-icon,
+	.reddit-icon,
 	.permalink-icon {fill: #ccc}
 
     /* Color of inner part of this logo */
@@ -262,6 +264,7 @@ Color palettes for social websites are available here: designpieces.com
     .social-link:hover .instapaper-icon path,
     .social-link:hover .pocket-icon path,
     .social-link:hover .linkedin-icon path,
+    .social-link:hover .reddit-icon path,
     .social-link:hover .permalink-icon path {fill: rgba(255,255,255,1)}
 
     /* Hover inner color for this logo */
@@ -294,7 +297,7 @@ Color palettes for social websites are available here: designpieces.com
     /* Social Network captions */
     .social-link b {
 	    display: block;
-    	position: absolute;
+    	    position: absolute;
 	    bottom: -1em;
 	    left: -2.1em;
 	    width: 3.5em;
@@ -311,7 +314,7 @@ Color palettes for social websites are available here: designpieces.com
 	    position: relative
     }
 
-    #show-link{
+    #show-link {
 	    display: none;
 	    position: absolute;
 	    top: 6em;
@@ -357,11 +360,11 @@ Color palettes for social websites are available here: designpieces.com
     .social-link {
 	    display: inline-block;
 	    position: relative;
-    	top:. 3em;
-    	width: 9em;
+    	    top:. 3em;
+    	    width: 9em;
 	    height: 2.3em;
 	    margin: 0 1em 1em 0;
-    	padding: 0.8em 0.2em 0 2em;
+    	    padding: 0.8em 0.2em 0 2em;
 	    text-decoration: none;
 	    text-align: center;
 	    vertical-align: middle;
@@ -396,6 +399,8 @@ Color palettes for social websites are available here: designpieces.com
 
     .linkedin {background: #0e76a8; border: 1px solid #0e76a8}
 
+    .reddit {background: #ccc; border: 1px solid #ccc}
+
     .permalink {background: #07e; border: 1px solid #07e}
 
     .social-link svg {
@@ -414,6 +419,7 @@ Color palettes for social websites are available here: designpieces.com
 	.instapaper path,
 	.pocket-icon,
 	.linkedin-icon,
+	.reddit-icon,
 	.permalink-icon {fill: #fff}
 
     .social-link:hover {
@@ -429,6 +435,7 @@ Color palettes for social websites are available here: designpieces.com
     .tumblr:hover,
     .pocket:hover,
     .linkedin:hover,
+    .reddit:hover,
     .permalink:hover {
 	    background: transparent;
 	    text-decoration: none !important;
@@ -442,6 +449,7 @@ Color palettes for social websites are available here: designpieces.com
     .tumblr:hover path,
     .pocket:hover path,
     .linkedin:hover path,
+    .reddit:hover path,
     .permalink path {fill: #333 !important}
 
 ###3°. This another "Flat" example creates a gray vertical barr with monochrome social icons in it:
@@ -508,7 +516,8 @@ Color palettes for social websites are available here: designpieces.com
     }
     /* Color for SVG icons */
     .social-link path {fill: #7e8890}
-    .pocket-icon path.inner,.social-link:hover .pocket-icon path.inner{fill:#f4f4f4}
+    .pocket-icon path.inner,.social-link:hover .pocket-icon path.inner,
+    .reddit-icon path.inner,.social-link:hover .reddit-icon path.inner{fill:#f4f4f4}
     /* Over state for SVG icons */
     .social-link:hover path {fill: inherit}
     /* The share counts */
@@ -524,13 +533,13 @@ Color palettes for social websites are available here: designpieces.com
     }
     */
     .social-link span {
-    display: block;
-    position: absolute;
-    z-index: 3;
-    top: 4.5em;
-    width: 100%;
-    text-align: center;
-    font: .6em/1 Arial
+       display: block;
+       position: absolute;
+       z-index: 3;
+       top: 4.5em;
+       width: 100%;
+       text-align: center;
+       font: .6em/1 Arial
     }
 
 ##Change log
