@@ -23,7 +23,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 ###Attributes
 
->    **type**: String (required). Name of the social website. Only 3 available: facebook, twitter and google [1]. Default: none (empty).
+>    **type**: String (required). Coma separated list of social network's name [1]. Default: none (empty).
 > 
 >    **card**: String (optional). Twitter card type among: "summary", "summary_large_image", "photo", "gallery", "product". Default: summary.
     Notice: If there are more than one image associated with the current article, the value of the card attribute changes accordingly.
