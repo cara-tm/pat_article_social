@@ -217,7 +217,7 @@ function _pat_article_social_get_uri()
 function pat_article_social($atts)
 {
 
-	global $thisarticle;
+	global $thisarticle, $real;
 
 	extract(lAtts(array(
 		'site'		 => 'permalink',
@@ -435,8 +435,10 @@ function _pat_article_social_get_buffer($url, $unit = NULL)
 	if ( isset($binfo->shares) ) return $binfo->shares;
 }
 // Reddit
-function _pat_article_social_get_reddit($url, $unit = NULL, $real)
+function _pat_article_social_get_reddit($url, $unit = NULL)
 {
+	global $real;
+
 	$score = $up = $down = 0;
 
 	$content = json_decode( @file_get_contents('http://www.reddit.com/api/info.json?url='.$url) );
