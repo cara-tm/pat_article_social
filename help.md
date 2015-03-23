@@ -3,7 +3,7 @@
 
 ##Purpose
 
-**Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin & Reddit) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document.**
+**Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit & Dribbble) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document.**
 
 ##Plugin Preferences
 
@@ -68,7 +68,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 ##Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:##
 
-    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" />
+    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" />
 
 
 ###Attributes
@@ -85,6 +85,10 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 >    **content**: String (optional). body or excerpt. Choose what to add as a short text2 (only for Twitter). Default: excerpt.
 > 
 >    **via**: String (optional). For Twitter only, add a "via" link into the tweet. Default: none (empty).
+>
+>    **shot**: Integer (optional). For Dribbble only, set the number of one of your shot (see your Dribbble URL content to find it). Default: none (empty).
+> 
+>    **page**: String (optional). For Dribbble only, set your account user name (see your Dribbble URL content to find it). Default: none (empty).
 > 
 >    **class**: String (optional). Additional CSS class attribute for the link. Default: none (empty).
     icon: Boolean (0 or 1 - optional). Display the official social icon (see format attribute below). Default: "0" (no icon).
