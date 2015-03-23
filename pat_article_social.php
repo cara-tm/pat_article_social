@@ -331,7 +331,8 @@ function pat_article_social($atts)
  * @param $file, $url, $type, $delay
  * @return String  File's content
  */
-function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zero) {
+function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zero)
+{
 
 	global $path_to_site, $pat_article_social_dir;
 
@@ -520,7 +521,8 @@ function _pat_article_social_occurs($array, $base)
  * @return String rounding up (e.g. 3K)
  */
 
-function _pat_format_count($number, $unit) {
+function _pat_format_count($number, $unit)
+{
 
 	if($number >= 1000)
 		return round($number/1000, 1, PHP_ROUND_HALF_UP).$unit;
