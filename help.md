@@ -68,7 +68,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 ##Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:##
 
-    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" icon="" class="" width="" height="" count="" zero="" unit="" delay="" image="" />
+    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" />
 
 
 ###Attributes
@@ -96,6 +96,8 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 >    **height**: Integer (optional). Height of the icon. Default: "16" (16px).
 > 
 >    **count**: Boolean (0 or 1 - optional). Display article share count value 3. Default: "0" (no counts). No count for Tumblr, Pocket neither Instapaper. Notice: share count results are in a catch for 3 hours by default in order to preserve your website speed against external calls to social networks.
+> 
+>    **real***: Boolean (0 or 1 - optional). For Reddit only: choose to minus counts by "down" shares. Default: false (0 - retrieve full scores without "downs").
 > 
 >    **zero**: Boolean (0 or 1 - optional). Choose to display 0 for empty counts. Default: false (no zero).
 > 
