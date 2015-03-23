@@ -436,7 +436,7 @@ function _pat_article_social_get_reddit($url, $unit = NULL, $real)
 		$down = (int) $content->data->children[0]->data->down;
 	}
 	if ($real)
-		$score = $ups - $downs;
+		$score = $score - $down;
 
 	return $score;
 }
