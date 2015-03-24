@@ -536,7 +536,7 @@ function pat_article_social_sum($atts)
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
 
-	return ( $showalways || $sum > 0) ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : ( $zero ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit), 'span', ' class="shares"') : tag('<b>'.$alternative.$space.':</b>', 'span', ' class="shares"') );
+	return ( $showalways || $sum > 0) ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : ( $zero ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : tag('<b>'.$alternative.$space.':</b>', 'span', ' class="shares"') );
 
 	} else {
 		return;
@@ -569,11 +569,12 @@ function _pat_article_social_occurs($array, $base)
  * @return String rounding up (e.g. 3K)
  */
 
-function _pat_format_count($number, $unit)
+function _pat_format_count($number, $unit, $lang)
 {
+	($lang == 'fr-fr') ? $separator = ',' : $separator = '.';
 
 	if($number >= 1000)
-		return round($number/1000, 1, PHP_ROUND_HALF_UP).$unit;
+		return number_format( round($number/1000, 1, PHP_ROUND_HALF_UP), 1, $separator, '' ).$unit;
 	else
 		return $number;
 }
