@@ -304,10 +304,20 @@ function pat_article_social($atts)
 			case 'reddit':
 				$link = '<a href="http://www.reddit.com/submit?url='.$url.'&amp;title='.$text.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="reddit-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 512 512" xml:space="preserve"><path class="inner" d="M480.5 251c0-27.7-22.2-50.2-49.5-50.2-13 0-24.7 5-33.6 13.3-32.4-22.8-76.1-37.8-124.9-40.6l21.9-73.2 67.1 13.5c2.3 22.7 21.2 40.4 44.3 40.4 0.1 0 0.1 0 0.2 0 0.1 0 0.1 0 0.2 0 24.6 0 44.5-20.2 44.5-45.1S430.7 64 406.1 64c-0.1 0-0.1 0-0.2 0 0 0-0.1 0-0.1 0-17.2 0-32 9.8-39.5 24.3l-89.7-18-30.8 103-2.5 0.1c-50.3 2.2-95.5 17.4-128.7 40.7-8.8-8.3-20.6-13.3-33.6-13.3-27.3 0-49.5 22.5-49.5 50.2 0 19.6 11 36.5 27.1 44.8-0.8 4.9-1.2 9.8-1.2 14.8C57.5 386.4 146.4 448 256 448s198.5-61.6 198.5-137.5c0-5-0.4-9.9-1.1-14.8C469.5 287.4 480.5 270.5 480.5 251zM65.8 271.1c-6.6-4.5-10.9-12.1-10.9-20.8 0-13.8 11.1-25.1 24.7-25.1 5.6 0 10.8 1.9 15 5.1C81.1 242.2 71.1 256 65.8 271.1zM389.3 109.1c0-9.2 7.4-16.8 16.5-16.8s16.5 7.5 16.5 16.8c0 9.2-7.4 16.8-16.5 16.8S389.3 118.4 389.3 109.1zM158.5 288.4c0-17.6 14.2-31.8 31.8-31.8s31.8 14.2 31.8 31.8c0 17.6-14.2 31.8-31.8 31.8S158.5 306 158.5 288.4zM256 400c-47.6-0.2-76-28.5-77.2-29.7l12.6-12.4c0.2 0.2 23.7 24.2 64.6 24.4 40.3-0.2 64.2-24.2 64.5-24.4l12.6 12.4C331.9 371.5 303.6 399.8 256 400zM322.3 320.2c-17.6 0-31.8-14.2-31.8-31.8 0-17.6 14.2-31.8 31.8-31.8s31.8 14.2 31.8 31.8C354.1 306 339.8 320.2 322.3 320.2zM446.4 271.5c-5.4-15.3-15.6-29.4-29.3-41.4 4.2-3.3 9.5-5.2 15.2-5.2 13.9 0 25.1 11.4 25.1 25.5C457.5 259.2 453.1 266.9 446.4 271.5z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_reddit', $delay, $zero, $unit, $real ) : '').'<strong>R</strong></a>';
 			break;
-	
-	
+
+
 			case 'dribbble':
 				$link = '<a href="https://dribbble.com/'.$page.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="dribbble-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 430.1 430.1" xml:space="preserve"><path class="inner" d="M215.1 0C96.3 0 0 96.3 0 215.1c0 118.8 96.3 215 215.1 215 118.8 0 215.1-96.3 215.1-215C430.1 96.3 333.8 0 215.1 0zM346.8 111.5c21 26.6 34.1 59.6 35.8 95.7-24.3-5.2-47.2-7.7-68.6-7.7v0h-0.2c-17.2 0-33.4 1.6-48.6 4.3-3.7-9.1-7.5-17.8-11.2-26.1C287.9 162.8 320.5 141.6 346.8 111.5zM215.1 47.3c39.6 0 75.9 13.8 104.6 36.9-22 26.3-51 45.4-82.4 58.9-22-42.6-43.3-73.1-57.9-91.7C190.9 48.7 202.8 47.3 215.1 47.3zM140.9 64.8c11.6 13.8 35 44 59.9 91.3-50.6 15.1-101.7 18.6-132.5 18.6-0.9 0-1.7 0-2.6 0h0c-5.2 0-9.7-0.1-13.4-0.2C64.3 126.3 97.3 86.4 140.9 64.8zM47.3 215.1c0-0.8 0-1.6 0.1-2.4 4.8 0.2 10.9 0.3 18.3 0.3h0c33.7-0.2 92.6-3 152.3-21.9 3.3 7.1 6.5 14.5 9.7 22.2-39.9 13.3-71.2 34.6-94.5 55.7C110.9 289.4 95.8 309.5 86.9 323 62.2 293.8 47.3 256.2 47.3 215.1zM215.1 382.9c-37.3 0-71.8-12.3-99.7-33.1 5.9-9.8 18.7-28.5 38.9-47.9 20.8-20 49.6-40.5 87.2-52.8 12.8 35.8 24.3 76.7 33.1 122.8C256.1 378.9 236 382.9 215.1 382.9zM310 353.1c-8.5-41.7-19.2-79.2-31-112.7 10.9-1.6 22.3-2.4 34.4-2.4h0.4 0 0c20 0 42 2.5 65.9 7.9C371.5 290.1 345.8 328.4 310 353.1z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_dribbble', $delay, $zero, $unit) : '').'<strong>D</strong></a>';
+			break;
+
+
+			case 'stumbleupon':
+				$link = '<a href="" title="" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_stumbleupon', $delay, $zero, $unit) : '').'<strong>S</strong></a>';
+			break;
+
+
+			case 'delicious':
+				$link = '<a href="" title="" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero, $unit) : '').'<strong>D</strong></a>';
 			break;
 
 
@@ -465,6 +475,19 @@ function _pat_article_social_get_dribbble($url, $unit = NULL)
 		$followers = (int) $content->player->followers_count;
 	
 	return $followers;
+}
+// Stumbleupon
+function _pat_article_social_get_tumbleupon($url, $unit = NULL)
+{
+	$json = json_decode( @file_get_contents('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url), true );
+
+	return isset($json['result']['views']) ? intval($json['result']['views']) : 0;
+}
+// Delicious
+function _pat_article_social_get_delicious($url, $unit = NULL) {
+	$json = json_decode( @file_get_contents_curl('http://feeds.delicious.com/v2/json/urlinfo/data?url='.$url), true );
+
+	return isset($json[0]['total_posts']) ? intval($json[0]['total_posts']) : 0;
 }
 
 
