@@ -661,9 +661,11 @@ Color palettes for social websites are available here: designpieces.com
     	border-top-left-radius: 50%
     }
 
-    .social-link strong{
+    .social-link strong {
     	position: absolute;
-    	left: -900%;
+    	top: 20%;
+    	left: 30%;
+    	color: #fff;
     	font-size: 0
     }
 
