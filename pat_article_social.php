@@ -425,7 +425,7 @@ function _pat_article_social_get_linkedin($url, $unit = NULL)
 {
 	$linfo = json_decode( @file_get_contents('https://www.linkedin.com/countserv/count/share?url='.$url.'&amp;format=json') );
 
-	if ( isset($linfo->count) ) return $linfo->count;
+	return ( isset($linfo->count) ? $linfo->count : 0 );
 }
 // Buffer
 function _pat_article_social_get_buffer($url, $unit = NULL)
@@ -456,6 +456,8 @@ function _pat_article_social_get_reddit($url, $unit = NULL)
 function _pat_article_social_get_dribbble($url, $unit = NULL)
 {
 	global $shot;
+
+	$followers = 0;
 
 	$content = json_decode( @file_get_contents('http://api.dribbble.com/shots/'.$shot) );
 
