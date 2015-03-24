@@ -242,7 +242,7 @@ function pat_article_social($atts)
 
 	if ( $site && !gps('txpreview') ) {
 
-		if( in_array($content, array('excerpt', 'body')) )
+		if( in_array($content, array('title', 'excerpt', 'body')) )
 			$extract = $thisarticle[$content];
 		else
 			trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING );
@@ -312,12 +312,12 @@ function pat_article_social($atts)
 
 
 			case 'stumbleupon':
-				$link = '<a href="" title="" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_stumbleupon', $delay, $zero, $unit) : '').'<strong>S</strong></a>';
+				$link = '<a href="http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$extract.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_stumbleupon', $delay, $zero, $unit) : '').'<strong>S</strong></a>';
 			break;
 
 
 			case 'delicious':
-				$link = '<a href="" title="" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero, $unit) : '').'<strong>D</strong></a>';
+				$link = '<a href="http://del.icio.us/post?url='.$url.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero, $unit) : '').'<strong>D</strong></a>';
 			break;
 
 
