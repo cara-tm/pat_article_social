@@ -594,7 +594,11 @@ Color palettes for social websites are available here: designpieces.com
 
     .linkedin {background: #0e76a8; border: 1px solid #0e76a8}
 
-    .reddit {background: #a2a2a2; border:1px solid #ccc}
+    .reddit, .delicious {background: #a2a2a2; border:1px solid #ccc}
+    
+    .dribbble {background: #ea4c89; border:1px solid #ea4c89}
+
+    .stumbleupon {background: #eb4823; border: 1px solid #eb4823}
 
     .permalink {background:#07e; border: 1px solid #07e}
 
@@ -606,6 +610,9 @@ Color palettes for social websites are available here: designpieces.com
 	.pocket:hover,
 	.linkedin:hover,
 	.reddit:hover,
+	.dribbble:hover,
+	.stumbleupon:hover,
+	.delicious:hover,
 	.permalink:hover {
 		background: transparent;
 		text-decoration: none !important;
@@ -637,6 +644,9 @@ Color palettes for social websites are available here: designpieces.com
 	.pocket path,
 	.linkedin path,
 	.reddit path,
+	.dribbble path,
+	.stumbleupon path,
+	.delicious path,
 	.permalink path {
 		fill: #fff
     }
@@ -652,7 +662,10 @@ Color palettes for social websites are available here: designpieces.com
 	.pocket:hover path,
 	.linkedin:hover path,
 	.reddit:hover path,
-	.permalink:hover {
+	.dribbble:hover path,
+	.stumbleupon:hover path,
+	.delicious:hover path,
+	.permalink:hover path{
 		fill: #333 !important
     }
     
