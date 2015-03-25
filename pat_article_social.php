@@ -314,7 +314,7 @@ function pat_article_social($atts)
 
 
 			case 'stumbleupon':
-				$link = '<a href="http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$extract.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_stumbleupon', $delay, $zero, $unit) : '').'<strong>S</strong></a>';
+				$link = '<a href="http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$extract.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="stumbleupon-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 100 76" xml:space="preserve"><path d="M55.3 28.3l6.8 3.3 10.3-3.3v-6C72.4 10 62.3 0 50 0S27.6 10 27.6 22.3v31.3c0 2.9-2.4 5.2-5.3 5.2s-5.3-2.4-5.3-5.2V40.5H0v13.1C0 66 10 76 22.4 76c12.3 0 22.4-10 22.4-22.3V22.3c0-2.9 2.4-5.2 5.3-5.2s5.3 2.4 5.3 5.2V28.3zM82.9 40.5v13.1c0 2.9-2.4 5.2-5.3 5.2s-5.3-2.4-5.3-5.2V40.3l-10.3 3.3 -6.8-3.3v13.4C55.3 66 65.3 76 77.6 76 90 76 100 66 100 53.7V40.5H82.9z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_stumbleupon', $delay, $zero, $unit) : '').'<strong>S</strong></a>';
 			break;
 
 
