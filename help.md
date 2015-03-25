@@ -550,7 +550,7 @@ Color palettes for social websites are available here: designpieces.com
        font: .6em/1 Arial
     }
 
-###4°. Another simple flat layout with each counting on the right of little rounded, colored social icons 
+###4°. Another simple flat layout with each counters in a black box on the right of little rounded, colored social icons 
 
     .social-link {
 	display: inline-block;
