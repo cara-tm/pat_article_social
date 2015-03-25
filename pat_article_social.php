@@ -228,6 +228,7 @@ function pat_article_social($atts)
 		'dribbble_data'  => 'followers',
 		'shot' 		 => NULL,
 		'page' 		 => NULL,
+		'ello' 		 => NULL,
 		'content' 	 => 'excerpt',
 		'class'		 => NULL,
 		'icon' 		 => false,
@@ -319,6 +320,11 @@ function pat_article_social($atts)
 
 			case 'delicious':
 				$link = '<a href="http://del.icio.us/post?url='.$url.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero, $unit) : '').'<strong>D</strong></a>';
+			break;
+
+
+			case 'ello':
+				$link = '<a href="https://ello.co/'.$ello.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg preserveAspectRatio="xMinYMin" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60" class="ello-icon"><image width="60" height="60" xlink:href="http://'._pat_article_social_get_ello($ello).'" /><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 290 350" enable-background="new 0 0 0 0" xml:space="preserve"><g><g><circle cx="150" cy="140" r="100%" /><path stroke="#000000" stroke-width="17" stroke-linecap="round" stroke-linejoin="bevel" stroke-miterlimit="10" d="M72,171c20.766,83.064,136,81.5,158.5-1"/></g></g></svg></svg>' : '').'<strong>e</strong></a>';
 			break;
 
 
@@ -493,6 +499,13 @@ function _pat_article_social_get_delicious($url, $unit = NULL) {
 	$json = json_decode( @file_get_contents_curl('http://feeds.delicious.com/v2/json/urlinfo/data?url='.$url), true );
 
 	return isset($json[0]['total_posts']) ? intval($json[0]['total_posts']) : 0;
+}
+// ello
+function _pat_article_social_get_ello($ello) {
+
+	$json = json_decode( @file_get_contents('https://ello.co/'.$ello.'.json') );
+
+	return isset($json->avatar_url) ? $json->avatar_url : '';
 }
 
 
