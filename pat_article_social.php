@@ -319,7 +319,7 @@ function pat_article_social($atts)
 
 
 			case 'delicious':
-				$link = '<a href="http://del.icio.us/post?url='.$url.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero, $unit) : '').'<strong>D</strong></a>';
+				$link = '<a href="http://del.icio.us/post?url='.$url.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="stumbleupon-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" enable-background="new 0 0 32 32" viewBox="0 0 32 32" xml:space="preserve"><g><rect fill="#ffffff" height="16" width="16"/><rect fill="#dddddd" height="16" width="16" x="16" y="16"/><rect height="16" width="16" y="16"/><rect fill="#3274d1" height="16" width="16" x="16"/></g><g/><g/><g/><g/><g/><g/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero, $unit) : '').'<strong>D</strong></a>';
 			break;
 
 
