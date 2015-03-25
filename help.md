@@ -624,8 +624,7 @@ Color palettes for social websites are available here: designpieces.com
 	.vimeo:hover,
 	.permalink:hover {
 		background: transparent;
-		text-decoration: none !important;
-		
+		text-decoration: none !important
     }
 
     .social-link svg {
@@ -635,7 +634,7 @@ Color palettes for social websites are available here: designpieces.com
 	width: 1em;
 	height: 1em
     }
-    
+
     .social-link svg.ello-icon{
 	top: 0px;
 	left: 0px;
@@ -661,7 +660,7 @@ Color palettes for social websites are available here: designpieces.com
 	.permalink path {
 		fill: #fff
     }
-    
+
     .social-link .ello-icon circle{fill:none}
     .social-link .ello-icon svg path{fill:none}
 
@@ -670,7 +669,7 @@ Color palettes for social websites are available here: designpieces.com
 	.google:hover path,
 	.pinterest:hover path,
 	.tumblr:hover path,
-	.instapaper: hover path,
+	.instapaper:hover path,
 	.buffer:hover path,
 	.pocket:hover path,
 	.linkedin:hover path,
@@ -682,7 +681,11 @@ Color palettes for social websites are available here: designpieces.com
 	.permalink:hover path{
 		fill: #333 !important
     }
-    
+
+    .pocket:hover path {fill: #000}
+
+    .pocket:hover path.inner {fill: #fff !important}
+
     .social-link:hover .ello-icon circle{fill:#000}
     .social-link:hover .ello-icon path{stroke:#fff}
 
