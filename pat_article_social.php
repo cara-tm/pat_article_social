@@ -217,7 +217,7 @@ function _pat_article_social_get_uri()
 function pat_article_social($atts)
 {
 
-	global $thisarticle, $real, $shot;
+	global $thisarticle, $real, $dribbble_data, $shot;
 
 	extract(lAtts(array(
 		'site'		 => 'permalink',
@@ -225,6 +225,7 @@ function pat_article_social($atts)
 		'input_tooltip'  => NULL,
 		'title'		 => NULL,
 		'via'		 => NULL,
+		'dribbble_data'  => 'followers',
 		'shot' 		 => NULL,
 		'page' 		 => NULL,
 		'content' 	 => 'excerpt',
@@ -465,16 +466,20 @@ function _pat_article_social_get_reddit($url, $unit = NULL)
 // Dribbble
 function _pat_article_social_get_dribbble($url, $unit = NULL)
 {
-	global $shot;
+	global $dribbble_data, $shot;
 
-	$followers = 0;
+	if( false === _pat_article_social_occurs($dribbble_data, array('followers', 'likes', 'comments', 'shots')) )
+		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'dribbble_data')), E_USER_WARNING);
+
+	$data = $dribbble_data.'_count';
+	$counter = 0;
 
 	$content = json_decode( @file_get_contents('http://api.dribbble.com/shots/'.$shot) );
 
 	if ($content) 
-		$followers = (int) $content->player->followers_count;
+		$counter = (int) $content->player->{$data};
 	
-	return $followers;
+	return $counter;
 }
 // Stumbleupon
 function _pat_article_social_get_tumbleupon($url, $unit = NULL)
