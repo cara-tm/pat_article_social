@@ -11,7 +11,7 @@ After installation, choose "Admin"->"Preferences" tab to access this plugin pref
 
 ##Usages
 
-Notice: All the following pat_article_social tags are intented to be used as single tags, not container ones. Previews of articles don't show the renderings of this plugin, voluntarily. Depending of the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the "asy_jpcache" plugin.
+Notice: All the following pat_article_social tags are intented to be used as single tags, not container ones. Previews of articles don't show the renderings of this plugin, voluntarily. Depending of the number of social links (each are individual TXP tags) and the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the "asy_jpcache" plugin.
 
 ##1.° In your doctype HTML document (before &lt;/head&gt;)
 
