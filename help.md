@@ -586,7 +586,7 @@ Color palettes for social websites are available here: designpieces.com
 
     .tumblr {background: #32506d; border: 1px solid #32506d}
 
-    .instapaper {background: #333; border: 1px solid #333}
+    .instapaper,.buffer {background: #333; border: 1px solid #333}
 
     .pocket {background: #ee4055; border: 1px solid #ee4055}
 
@@ -594,11 +594,15 @@ Color palettes for social websites are available here: designpieces.com
 
     .linkedin {background: #0e76a8; border: 1px solid #0e76a8}
 
-    .reddit, .delicious {background: #a2a2a2; border:1px solid #ccc}
-    
+    .reddit,.delicious {background: #c1c1c1; border:1px solid #c1c1c1}
+
     .dribbble {background: #ea4c89; border:1px solid #ea4c89}
 
     .stumbleupon {background: #eb4823; border: 1px solid #eb4823}
+
+    .instagram {background: #517fa4; border: 1px solid #517fa4}
+
+    .vimeo {background: #1ab7ea; border: 1px sild #1ab7ea}
 
     .permalink {background:#07e; border: 1px solid #07e}
 
@@ -607,12 +611,15 @@ Color palettes for social websites are available here: designpieces.com
 	.google:hover,
 	.pinterest:hover,
 	.tumblr:hover,
+	.instapaper:hover,
+	.buffer:hover,
 	.pocket:hover,
 	.linkedin:hover,
 	.reddit:hover,
 	.dribbble:hover,
 	.stumbleupon:hover,
 	.delicious:hover,
+	.vimeo:hover,
 	.permalink:hover {
 		background: transparent;
 		text-decoration: none !important;
@@ -641,12 +648,14 @@ Color palettes for social websites are available here: designpieces.com
 	.pinterest path,
 	.tumblr path,
 	.instapaper path,
+	.buffer path,
 	.pocket path,
 	.linkedin path,
 	.reddit path,
 	.dribbble path,
 	.stumbleupon path,
 	.delicious path,
+	.vimeo path,
 	.permalink path {
 		fill: #fff
     }
@@ -658,13 +667,16 @@ Color palettes for social websites are available here: designpieces.com
 	.facebook:hover path,
 	.google:hover path,
 	.pinterest:hover path,
-	.tumblr:hover path
+	.tumblr:hover path,
+	.instapaper: hover path,
+	.buffer:hover path,
 	.pocket:hover path,
 	.linkedin:hover path,
 	.reddit:hover path,
 	.dribbble:hover path,
 	.stumbleupon:hover path,
 	.delicious:hover path,
+	.vimeo:hover path,
 	.permalink:hover path{
 		fill: #333 !important
     }
