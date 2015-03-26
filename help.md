@@ -715,6 +715,7 @@ Color palettes for social websites are available here: designpieces.com
 
 ##Change log
 
+- 26th March 2015. v. 0.4.8. Social Networks added. Plugin documentation is external.
 - 20th February 2015. v 0.4.7. Support for all Twitter card. 
 - 18th February 2015. v 0.4.6. Lot of changes for attributes (see list). Lot of improvements & new features added.
 - 25th Decembre 2014. v 0.4.5. "plural" & "lang" attributes added for i18n support. Support for smd_short_url into permlinks if this plugin exists.
