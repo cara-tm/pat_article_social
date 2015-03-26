@@ -28,7 +28,7 @@ $twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product'
  * Generate meta tag for social websites
  *
  * @param  array  Tag attributes
- * @return string HTML meta tags
+ * @return string HTML meta or link tags
  */
 function pat_article_social_meta($atts)
 {
