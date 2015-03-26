@@ -14,8 +14,8 @@
 
 if (txpinterface == 'admin')
 {
-	register_callback('pat_article_social_prefs', 'prefs', '', 1);
-	register_callback('pat_article_social_cleanup', 'plugin_lifecycle.pat_article_social', 'deleted');
+	register_callback('_pat_article_social_prefs', 'prefs', '', 1);
+	register_callback('_pat_article_social_cleanup', 'plugin_lifecycle.pat_article_social', 'deleted');
 }
 
 global $refs, $twcards;
@@ -602,7 +602,7 @@ function _pat_format_count($number, $unit, $lang)
  *
  */
 
-function pat_article_social_prefs()
+function _pat_article_social_prefs()
 {
 	global $textarray;
 
@@ -619,7 +619,7 @@ function pat_article_social_prefs()
  * Delete cache dir in prefs & all files in it.
  *
  */
-function pat_article_social_cleanup()
+function _pat_article_social_cleanup()
 {
 	global $path_to_site, $pat_article_social_dir;
 
