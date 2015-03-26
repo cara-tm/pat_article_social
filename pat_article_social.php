@@ -367,7 +367,7 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 	$expire_time = (int)$delay * 60 * 60;
 
 	// Grab content file or create it.
-	if ( file_exists($file) && ($current_time - $expire_time < filemtime($file)) ) {
+	if ( file_exists($file) && ($current_time - $expire_time <= filemtime($file)) ) {
 		// Reading file.
 		$out = @file_get_contents($file);
 	} else {
