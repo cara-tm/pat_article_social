@@ -582,7 +582,7 @@ function _pat_article_social_occurs($el, $array)
 /**
  * Format count results
  *
- * @param  $number $unit
+ * @param  $number $unit $lang
  * @return String rounding up (e.g. 3K)
  */
 
