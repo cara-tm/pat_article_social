@@ -351,7 +351,7 @@ function pat_article_social($atts)
 /**
  * Read or create a file with content
  *
- * @param $file, $url, $type, $delay
+ * @param $file, $url, $type, $delay, $zero
  * @return String  File's content
  */
 function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zero)
