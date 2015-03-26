@@ -135,7 +135,6 @@ EOF;
 			break;
 
 			}
-
 		}
 
 	return $tags;
@@ -567,16 +566,16 @@ function pat_article_social_sum($atts)
 /**
  * Check values from a list
  *
- * @param  $array $base
+ * @param  $el $array	String	Array
  * @return boolean
  */
-function _pat_article_social_occurs($array, $base)
+function _pat_article_social_occurs($el, $array)
 {
 	// $refs is an array outside this func.
-	if($base === $refs)
-		global $base;
+	if($array === $refs)
+		global $array;
 
-	return in_array($array, $base);
+	return in_array($el, $array);
 }
 
 
