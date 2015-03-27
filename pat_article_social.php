@@ -256,7 +256,6 @@ function pat_article_social($atts)
 
 		switch( strtolower($site) ) {
 
-
 			case 'twitter':
 				$link = '<a title="'.$tooltip.'" href="https://twitter.com/share?url='.$url.'&amp;text='.$words.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="twitter-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 16 16" xml:space="preserve"><path d="M16 3c-0.6 0.3-1.2 0.4-1.9 0.5 0.7-0.4 1.2-1 1.4-1.8-0.6 0.4-1.3 0.7-2.1 0.8C12.9 1.9 12 1.5 11.1 1.5c-1.8 0-3.3 1.5-3.3 3.3 0 0.3 0 0.5 0.1 0.8C5.2 5.4 2.7 4.1 1.1 2.1 0.8 2.6 0.7 3.2 0.7 3.8c0 1.1 0.6 2.1 1.5 2.7C1.6 6.5 1.1 6.3 0.6 6.1v0c0 1.6 1.1 2.9 2.6 3.2C3 9.4 2.7 9.5 2.4 9.5c-0.2 0-0.4 0-0.6-0.1 0.4 1.3 1.6 2.3 3.1 2.3-1.1 0.9-2.5 1.4-4.1 1.4-0.3 0-0.5 0-0.8 0C1.5 14 3.2 14.5 5 14.5c6 0 9.3-5 9.3-9.3L14.4 4.7C15 4.3 15.6 3.7 16 3z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode( permlink(array()) ), '_pat_article_social_get_twitter', $delay, $zero ) : '').'<strong>T</strong></a>';
 			break;
@@ -338,7 +337,6 @@ function pat_article_social($atts)
 				$link = '<span class="link-container"><a href="'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" onclick="toggle(\'show-link\');return false"><strong>&#128279;</strong>'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="permalink-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 512 512"><path d="M482.3 210.8L346.5 346.5c-37.5 37.5-98.2 37.5-135.7 0l-45.2-45.2 45.3-45.2 45.3 45.3c12.5 12.5 32.8 12.5 45.3 0L437 165.5c12.5-12.5 12.5-32.8 0-45.3l-45.2-45.2c-12.5-12.5-32.8-12.5-45.2 0l-48.5 48.5c-22.5-13.2-48-18.9-73.3-17.2l76.5-76.5c37.5-37.5 98.3-37.5 135.8 0l45.3 45.3C519.8 112.5 519.8 173.3 482.3 210.8zM213.9 388.6L165.5 437c-12.5 12.5-32.8 12.5-45.2 0L75 391.8c-12.5-12.5-12.5-32.7 0-45.2l135.8-135.7c12.5-12.5 32.8-12.5 45.3 0l45.3 45.3 45.3-45.2 -45.2-45.2c-37.5-37.5-98.2-37.5-135.7 0L29.8 301.3c-37.5 37.5-37.5 98.3 0 135.8L75 482.3c37.5 37.5 98.3 37.5 135.8 0l76.5-76.5C262 407.4 236.5 401.8 213.9 388.6z"/></svg>' : '').'<b>'.$title.'</b></a>'.n.'<input type="text" value="'.$url.'" '.($input_tooltip ? 'title="'.$input_tooltip.'" ' : '').'id="show-link" onclick="select(this);return false" readonly></span>'.n.'<script>function toggle(e){var l=document.getElementById(e);l.style.display="block"==l.style.display?"none":"block"}</script>';
 			break;
 
-
 		}
 
 		return $link;
@@ -372,7 +370,7 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 		$out = @file_get_contents($file);
 	} else {
 		// Check what kind of datas.
-		if ( function_exists($type) )
+		if ( function_exists($type) || $delay == 0)
 			$out = $type($url);
 		else
 			$out = $type;
