@@ -55,16 +55,22 @@ function pat_article_social_meta($atts)
 		'g_publisher'	=> NULL,
 		'title' 	=> $prefs['sitename'],
 		'description' 	=> page_title(array()),
+		'lenght' 	=> 200,
 	), $atts));
 
 
 	if ( $type && !gps('txpreview') ) {
 
+		// Create an array of social services from list 
 		$type = explode(',', $type);
+		// Format lang code
 		$locale = preg_replace_callback( '(^([a-z]{2})(.*)?([a-z]{2}))i', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale );
+		// Get URI
 		$current = _pat_article_social_get_uri();
+		// Check image
 		$image ? $image : $image = _pat_article_social_image();
-		$description = txpspecialchars($description);
+		// Social Networks often limit description to 200 characters
+		$description = _pat_article_social_trim( txpspecialchars($description), $lenght );
 
 		foreach ($type as $service) {
 
@@ -165,8 +171,8 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
 /**
  * Display article image
  *
- * @param
- * @return URI  Full article image URI
+ * @param int $pic  image ID
+ * @return string URI  Full article image URI
  */
 function _pat_article_social_image($pic = NULL)
 {
@@ -204,6 +210,30 @@ function _pat_article_social_get_uri()
 	$uri .= $_SERVER["REQUEST_URI"];
 
 	return $uri;
+}
+
+
+/** Trims text to a space then adds ellipses
+  * @param string $input text to trim
+  * @param int $length in characters to trim to
+  * @param bool $strip_html strip html tags if present
+  * @return string
+  */
+function _pat_article_social_trim($input, $length, $strip_html = true)
+{
+	//strip tags, if desired
+	if ($strip_html)
+		$input = strip_tags($input);
+  
+	//no need to trim, already shorter than trim length
+	if ( strlen($input) <= $length )
+		return $input;
+  
+	//find last space within length
+	$space = strrpos( substr($input, 0, $length), ' ' );
+	$shrink = substr($input, 0, $space).'...';
+
+	return $shrink;
 }
 
 
