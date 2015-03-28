@@ -517,7 +517,7 @@ function _pat_article_social_get_dribbble($url)
 	return $counter;
 }
 // Stumbleupon
-function _pat_article_social_get_tumbleupon($url)
+function _pat_article_social_get_stumbleupon($url)
 {
 	$json = json_decode( @file_get_contents('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url), true );
 
