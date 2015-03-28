@@ -568,12 +568,13 @@ function pat_article_social_sum($atts)
 
 		$list = explode( ',', strtolower($site) );
 		$n = count($list);
-		$sum = 0;
 
 		foreach ( $list as $el ) {
 			if ( false === _pat_article_social_occurs($el, $refs) )
 				return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
 		}
+
+		$sum = 0;
 
 		for ($i = 0; $i < $n; ++$i)
 			if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
