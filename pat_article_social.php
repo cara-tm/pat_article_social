@@ -248,7 +248,7 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
 function pat_article_social($atts)
 {
 
-	global $thisarticle, $real, $dribbble_data, $shot;
+	global $thisarticle, $dribbble_data, $real, $shot;
 
 	extract(lAtts(array(
 		'site'		 => 'permalink',
@@ -354,7 +354,7 @@ function pat_article_social($atts)
 
 
 			case 'ello':
-				$link = '<a href="https://ello.co/'.$ello.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg preserveAspectRatio="xMinYMin" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60" class="ello-icon"><image width="60" height="60" xlink:href="http://'._pat_article_social_get_ello($ello).'" /><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 290 350" enable-background="new 0 0 0 0" xml:space="preserve"><g><g><circle cx="150" cy="140" r="100%" /><path stroke="#000000" stroke-width="17" stroke-linecap="round" stroke-linejoin="bevel" stroke-miterlimit="10" d="M72,171c20.766,83.064,136,81.5,158.5-1"/></g></g></svg></svg>' : '').'<strong>e</strong></a>';
+				$link = '<a href="https://ello.co/'.$ello.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="ello-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 60 60" class="ello-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 290 350" enable-background="new 0 0 0 0" xml:space="preserve"><g><g><circle cx="150" cy="140" r="100%" /><path stroke="#ffffff" stroke-width="17" stroke-linecap="round" stroke-linejoin="bevel" stroke-miterlimit="10" d="M72,171c20.766,83.064,136,81.5,158.5-1"/></g></g></svg></svg>' : '').'<strong>e</strong></a>';
 			break;
 
 
@@ -529,7 +529,7 @@ function _pat_article_social_get_delicious($url) {
 
 	return isset($json[0]['total_posts']) ? intval($json[0]['total_posts']) : 0;
 }
-// ello
+// ello: not in use
 function _pat_article_social_get_ello($ello) {
 
 	$json = json_decode( @file_get_contents('https://ello.co/'.$ello.'.json') );
