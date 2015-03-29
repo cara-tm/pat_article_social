@@ -1,5 +1,5 @@
 
-#pat_article_social v 0.4.8 (formerly pat_article_tweet)
+#pat_article_social v 0.4.9 (formerly pat_article_tweet)
 
 ##Purpose
 
@@ -17,7 +17,7 @@ Notice: All the following pat_article_social tags are intented to be used as sin
 
 ##Creates HTML meta tags for the social website:##
 
-    <txp:pat_article_social_meta type="" card="" image="" user="" creator="" label1="" data1="" label2="" data2="" locale="" fb_api="" fb_admins="" fb_type="" fb_author="" fb_publisher="" g_author="" g_publisher="" title="" description="" />
+    <txp:pat_article_social_meta type="" card="" image="" user="" creator="" label1="" data1="" label2="" data2="" locale="" fb_api="" fb_admins="" fb_type="" fb_author="" fb_publisher="" g_author="" g_publisher="" title="" description="" lenght="" />
 
 Important Note: facebook **use the first occurrence** of Open Graph meta tags in the HTML document (i.e.: Twitter Open Graph) even if specific ones exist. You are strongly encouraged to call facebook first and all other social networks after it (see: "type" attribute below).
 
@@ -63,17 +63,19 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 >    **title**: String (optional). Title (event sensitive: individual article title or site name in article list context). Default: preferences site name.
 > 
 >    **description**: String (optional). Short description of the page (200 characters maximum). Default: page title.
+> 
+>    **lenght**: Integer (optional). Limit lenght (in characters) for the "description" attribute. Don't cut words, add hyphens after the last word found just before a space in the characters limit. Default: 200.
 
 ##2.° In an article form (individual articles)
 
 ##Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:##
 
-    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" />
+    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" fallback="" />
 
 
 ###Attributes
 
->    **site**: String (required). The social website. Available choices: twitter, facebook, google, pinterest, tumblr, pocket instapaper & permalink. Default: permalink. Notice: "permalink" attribute creates a show/hide input bellow the icon with the current article's permalink.
+>    **site**: String (required). A comma separated list of social websites (facebook, twitter, google, pinterest, tumblr, instapaper, pocket, linkedin, buffer, reddit, dribbble, stumbleupon, delicious, ello). Default: permalink. Notice: "permalink" attribute creates a show/hide input bellow the icon with the current article's permalink.
 > 
 >    **tooltip**: String (optional). Tooltip of the link. Default: none (empty).
 > 
@@ -109,7 +111,9 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 > 
 >    **delay**: Integer (optional). Catching delay for article share counts results in hours. Default: 3 (hours).
 > 
->    **image**: String (optional). only in use for Pinterest links (Twitter & facebook use Open Graph meta tags instead). It can be a TXP form suitable for example with watermark solution. Default: the current article image. 
+>    **image**: String (optional). Only in use for Pinterest links (Twitter & facebook use Open Graph meta tags instead). It can be a TXP form suitable for example with watermark solution. Default: the current article image. 
+> 
+>    **fallback**: Boolean (optional). Choose to display the social website first letter as a fallback for browsers which do not support SVG format. Default: 1 (true), show firt letters. 
 
 Notice: Default color icons are black. See below how to change it. See below how to change it. For counting, you need to create a /cache directory into the root of your website.
 
