@@ -113,7 +113,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 > 
 >    **image**: String (optional). Only in use for Pinterest links (Twitter & facebook use Open Graph meta tags instead). It can be a TXP form suitable for example with watermark solution. Default: the current article image. 
 > 
->    **fallback**: Boolean (optional). Choose to display the social website first letter as a fallback for browsers which do not support SVG format. Default: 1 (true), show firt letters. 
+>    **fallback**: Boolean (optional). Choose to display the social website first letter as a fallback for browsers which do not support SVG format. Default: 1 (true), show first letters. 
 
 Notice: Default color icons are black. See below how to change it. See below how to change it. For counting, you need to create a /cache directory into the root of your website.
 
