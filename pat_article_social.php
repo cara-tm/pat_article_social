@@ -92,7 +92,7 @@ function pat_article_social_meta($atts)
 					$i = 0;
 					foreach($list as $pic) {
 						$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
-					++$i;
+						++$i;
 					}
 				} else {
 					$tags .= ($image ? '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n : '');
