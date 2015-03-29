@@ -21,7 +21,7 @@ Notice: All the following pat_article_social tags are intented to be used as sin
 
 Important Note: facebook **use the first occurrence** of Open Graph meta tags in the HTML document (i.e.: Twitter Open Graph) even if specific ones exist. You are strongly encouraged to call facebook first and all other social networks after it (see: "type" attribute below).
 
-##2.° Quick Start Example
+##Quick Start Example
 
     <!DOCTYPE html>
     <html lang="<txp:lang />" dir="<txp:text item="lang_dir" />">
@@ -82,9 +82,35 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 ##2.° In an article form (individual articles)
 
-##Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:##
+###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:##
 
     <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" fallback="" />
+
+###Quick Start Example
+
+    <txp:hide>
+    Display summ of shares. Set which social networks you want to add in the sum.
+    </txp:hide>
+    <txp:pat_article_social_sum site="twitter,facebook,google,pinterest,reddit" lang="en-us" showalways="0" text="Total of share" alternative="Share" count="1" zero="0" delay="24" unit="k" />
+    
+	<txp:hide>
+	Display social networks links. Note "delay" attribute can be different for each website.
+	</txp:hide>
+	<txp:pat_article_social site="twitter" user="@Pourtester" creator="@Pourtester" tooltip=" Tweet it " title="Twitter" content="body" via="@Pourtester" icon="1" class="twitter" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="facebook" tooltip=" Share it " title="facebook" content="body" icon="1" class="facebook" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="google" tooltip=" Share it " title="G+" content="body" icon="1" class="google" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="pinterest" tooltip=" Pin it " title="Pinterest" content="body" icon="1" class="pinterest" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="instagram" tooltip=" Share to Instagram " title="Instagram" content="body" icon="1" class="instagram" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="reddit" tooltip=" Share to Reddit " title="Reddit" content="body" icon="1" class="reddit" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="dribbble" tooltip=" See my Dribbble page " title="Dribbble" content="body" icon="1" class="dribbble" shot="1945713" dribbble_data="followers" page="simplebits" count="0" zero="0" delay="0" />
+    <txp:pat_article_social site="delicious" tooltip=" Share to Delicious " title="Delicious" content="body" icon="1" class="delicious" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="stumbleupon" tooltip=" Share to Stumbleupon " title="Stumbleupon" content="body" icon="1" class="stumbleupon" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="ello" tooltip=" See my ello " title="ello" content="body" icon="1" class="ello" ello="lowel" />
+    <txp:pat_article_social site="linkedin" tooltip=" Share to Linkedin " title="Linkedin" content="body" icon="1" class="linkedin" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="buffer" tooltip=" Save to Buffer " title="Buffer" content="body" icon="1" class="buffer" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="instapaper" tooltip=" Read later " title="Instapaper" content="body" icon="1" class="instapaper" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="pocket" tooltip=" Save to Pocket " title="Pocket" content="body" icon="1" class="pocket" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="permalink" class="permalink" tooltip=" Permalink " title="Permalink" icon="1" />
 
 
 ###Attributes
@@ -131,9 +157,13 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 Notice: Default color icons are black. See below how to change it. See below how to change it. For counting, you need to create a /cache directory into the root of your website.
 
-##Whatever place you want (individual or article lists)
+##3.° ##Creates a total shares count as shown in the Mashable.com website:##
 
-##Creates a total shares count as shown in the Mashable.com website:##
+###Whatever place you want (individual or article lists)
+
+    <txp:pat_article_social_sum site="" unit="" delay="" showalways="" text="" plural="" lang="" zero="" />
+
+###Quick Start Example
 
     <txp:pat_article_social_sum site="twitter,facebook,google,pinterest" unit="k" delay="3" showalways="1" text="" plural="" lang="" zero="1" />
 
