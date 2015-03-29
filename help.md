@@ -21,6 +21,20 @@ Notice: All the following pat_article_social tags are intented to be used as sin
 
 Important Note: facebook **use the first occurrence** of Open Graph meta tags in the HTML document (i.e.: Twitter Open Graph) even if specific ones exist. You are strongly encouraged to call facebook first and all other social networks after it (see: "type" attribute below).
 
+##2.° Quick Start Example
+
+    <!DOCTYPE html>
+    <html lang="<txp:lang />" dir="<txp:text item="lang_dir" />">
+
+    <head>
+    <meta charset="utf-8">
+    <title><txp:page_title /></title>
+    <meta name="generator" content="Textpattern CMS">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow, noodp, noydir">
+    <txp:pat_article_social_meta type="twitter,facebook,google" card="summary_large_image" fbpublisher="Mark-Zuckerberg" fbauthor="Mark-Zuckerberg" gpublisher="+PatrickLEFEVRE-lowel" gauthor="+PatrickLEFEVRE-lowel" description='<txp:if_individual_article><txp:body /></txp:if_individual_article>' user="@lowel" creator="@lowel" />
+
+
 ###Attributes
 
 >    **type**: String (required). Coma separated list of social network's name [1]. Default: none (empty).
