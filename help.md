@@ -763,6 +763,7 @@ Color palettes for social websites are available here: designpieces.com
 
 ##Change log
 
+- 29th March 2015. v 0.4.9. Correct error message for PHP < 5.0.3. Add "fallback" attribute to remove first letters as fallback for browsers which do not support SVG format. No counter for Instagram for the moment.
 - 26th March 2015. v. 0.4.8. Social Networks added. Plugin documentation is external.
 - 20th February 2015. v 0.4.7. Support for all Twitter card. 
 - 18th February 2015. v 0.4.6. Lot of changes for attributes (see list). Lot of improvements & new features added.
