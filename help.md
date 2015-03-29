@@ -82,7 +82,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 ##2.° In an article form (individual articles)
 
-###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:##
+###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:
 
     <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" fallback="" />
 
@@ -161,11 +161,11 @@ Notice: Default color icons are black. See below how to change it. See below how
 
 ###Whatever place you want (individual or article lists)
 
-    <txp:pat_article_social_sum site="" unit="" delay="" showalways="" text="" plural="" lang="" zero="" />
+    <txp:pat_article_social_sum site="" lang="" showalways="" text="" plural="" alternative="" count="" zero="" delay="" unit="" />
 
 ###Quick Start Example
 
-    <txp:pat_article_social_sum site="twitter,facebook,google,pinterest" unit="k" delay="3" showalways="1" text="" plural="" lang="" zero="1" />
+    <txp:pat_article_social_sum site="twitter,facebook,google,pinterest,reddit" lang="en-us" showalways="0" text="Total of share" plural="s" alternative="Share" count="1" zero="0" delay="24" unit="k" />
 
 ###Attributes
 
