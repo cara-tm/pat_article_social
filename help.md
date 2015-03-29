@@ -157,7 +157,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 Notice: Default color icons are black. See below how to change it. See below how to change it. For counting, you need to create a /cache directory into the root of your website.
 
-##3.° ##Creates a total shares count as shown in the Mashable.com website:##
+##3.° Creates a total shares count as shown in the Mashable.com website:
 
 ###Whatever place you want (individual or article lists)
 
