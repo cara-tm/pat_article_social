@@ -761,6 +761,175 @@ Color palettes for social websites are available here: designpieces.com
     	font-size: 0
     }
 
+###5°. Extremly Flat design for the TXP default layout
+
+    .social-link {
+	display: inline-block;
+	position: relative;
+	top:. 3em;
+	width: 2em;
+	height: 2em;
+	margin: 0 .5em 1em 0;
+	padding: 0;
+	text-decoration: none;
+	text-align: center;
+	vertical-align: middle;
+	outline: none;
+	color: #fff;
+	font: 300 1em 'HelveticaNeue-Light','Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;
+	cursor:pointer;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
+	-moz-box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,.15)
+    }
+
+    .social-link:hover {
+	-webkit-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
+	-moz-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
+	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
+    }
+
+    .twitter:hover,
+    .facebook:hover,
+    .google:hover,
+    .pinterest:hover,
+    .tumblr:hover,
+    .instapaper:hover,
+    .buffer:hover,
+    .pocket:hover,
+    .linkedin:hover,
+    .reddit:hover,
+    .stumbleupon:hover,
+    .delicious:hover,
+    .instagram:hover,
+    .vimeo:hover,
+    .permalink:hover {
+		background: transparent;
+		text-decoration: none !important;
+		
+    }
+
+    .pocket:hover path {fill: #000}
+
+    .pocket:hover path.inner {fill: #fff !important}
+
+    .social-link svg {
+	position:absolute;
+	top: 0.5em;
+	left: 0.5em;
+	width: 1em;
+	height: 1em
+    }
+
+    .twitter path,
+    .facebook path,
+    .google path,
+    .pinterest path,
+    .tumblr path,
+    .instapaper path,
+    .buffer path,
+    .pocket path,
+    .linkedin path,
+    .reddit path,
+    .dribbble path,
+    .stumbleupon path,
+    .delicious path,
+    .instagram path,
+    .vimeo path,
+    .permalink path {
+		fill: #fff
+    }
+
+    .twitter:hover path,
+	.facebook:hover path,
+	.google:hover path,
+	.pinterest:hover path,
+	.tumblr:hover path,
+	.instapaper:hover path,
+	.buffer:hover path,
+	.pocket:hover path,
+	.linkedin:hover path,
+	.reddit:hover path,
+	.dribbble:hover path,
+	.stumbleupon:hover path,
+	.delicious:hover path,
+	.instagram:hover path,
+	.vimeo:hover path,
+	.permalink:hover path{
+		fill: #333 !important
+    }
+
+    .social-link b{display:none}
+
+    .social-link strong{position:absolute;top:20%;left:30%;color:#fff;font-size:0}
+
+    .link-container{position:relative;display:inline-block;width:10em}
+
+    .permalink{display:inline-block}
+
+    #show-link{
+	display:none;
+	position:absolute;
+	top:3em;
+	left:0;
+	width:100%
+    }
+
+
+    .social-link span{
+	display: block;
+	position:absolute;
+	top: -3.5em;
+	left: 0;
+	min-width: 2.4em;
+	height: 25px;
+	padding: 0 .3em;
+	text-align: center;
+	color: #525b67;
+	font-size: 10px;
+	line-height: 25px;
+	font-weight: bold;
+	border: 1px solid #e6e6e6;
+	background: -moz-linear-gradient(center top , #fbfbfb 0%, #f6f6f6 100%) repeat scroll 0% 0% transparent;
+	background: linear-gradient(center top , #fbfbfb 0%, #f6f6f6 100%) repeat scroll 0% 0% transparent;
+	border-radius: 4px
+    }
+
+    .social-link span:before {
+	content: '';
+  	display: block;
+  	position: absolute;
+  	top: 25px;
+  	left: 50%;
+  	width: 0;
+  	height: 0;
+	margin-left:-.7em;
+
+  	border: 7px solid transparent;
+  	border-top-color: #ddd;
+  	border-right-color: transparent;
+  	border-bottom: none;
+  	border-left-color: transparent;
+  	
+  	-webkit-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
+	-moz-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
+	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
+    }
+
+    .twitter path{fill:#00aced}
+    .facebook path{fill:#3b5998}
+    .google path{fill:#dd4B39}
+    .pinterest path{fill:#cb2027}
+    .tumblr path{fill:#32506d}
+    .instapaper path,.buffer path{fill:#333}
+    .pocket path{fill:#ee4055}
+    .pocket .inner{fill:#fff}
+    .linkedin path{fill:#0e76a8}
+    .reddit path,.delicious path{fill:#c1c1c1}
+    .dribbble path{fill:#ea4c89}
+    .stumbleupon path{fill: #eb4823}
+    .instagram path{fill:#517fa4}
+
 ##Change log
 
 - 29th March 2015. v 0.4.9. Correct error message for PHP < 5.0.3. Add "fallback" attribute to remove first letters as fallback for browsers which do not support SVG format. No counter for Instagram for the moment.
