@@ -553,19 +553,21 @@ function pat_article_social_sum($atts)
 
 	extract(lAtts(array(
 		'site'		=> NULL,
+		'lang'		=> $prefs['language'],
+		'zero' 		=> false,
 		'unit'		=> 'k',
 		'delay'		=> 3,
 		'showalways' 	=> 0,
-		'text'		=> 'Total share',
+		'text'		=> false,
 		'plural'	=> 's',
 		'alternative' 	=> '',
-		'lang'		=> $prefs['language'],
-		'zero' 		=> false,
+		'class' 	=> '',
 	), $atts));
 
 	if ( $site && !gps('txpreview') ) {
 
 		($lang == 'fr-fr') ? $space = '&thinsp;' : '';
+		$class ? $class = ' class="'.$class.'"' : '';
 
 		$list = explode( ',', strtolower($site) );
 		$n = count($list);
@@ -585,7 +587,7 @@ function pat_article_social_sum($atts)
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
 
-	return ( $showalways || $sum > 0) ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : ( $zero ? tag('<b>'.$text.($sum > 1 ? $plural : '').$space.': </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : tag('<b>'.$alternative.$space.':</b>', 'span', ' class="shares"') );
+	return ( $showalways || $sum > 0) ? tag('<b'.$class.'>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : ( $zero ? tag('<b'.$class.'>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : tag('<b'.$class.'>'.$alternative.'</b>', 'span', ' class="shares"') );
 
 	} else {
 		return;
