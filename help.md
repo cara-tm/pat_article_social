@@ -32,7 +32,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
     <meta name="generator" content="Textpattern CMS">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow, noodp, noydir">
-    <txp:pat_article_social_meta type="twitter,facebook,google" card="summary_large_image" fbpublisher="Mark-Zuckerberg" fbauthor="Mark-Zuckerberg" gpublisher="+PatrickLEFEVRE-lowel" gauthor="+PatrickLEFEVRE-lowel" description='<txp:if_individual_article><txp:body /></txp:if_individual_article>' user="@lowel" creator="@lowel" />
+    <txp:pat_article_social_meta type="twitter,facebook,google" card="summary_large_image" fb_publisher="Mark-Zuckerberg" fb_author="Mark-Zuckerberg" g_publisher="+PatrickLEFEVRE-lowel" g_author="+PatrickLEFEVRE-lowel" description='<txp:if_individual_article><txp:body /></txp:if_individual_article>' user="@lowel" creator="@lowel" />
 
 
 ###Attributes
