@@ -744,12 +744,11 @@ Color palettes for social websites are available here: designpieces.com
     	position: absolute;
     	right: -.3em;
     	bottom: -.1em;
-    	min-width: 1.3em;
-    	height: 1.3em;
-    	padding: 0 .3em;
+    	padding: 0 .5em;
     	background: #555;
     	text-align: center;
     	font-size: 50%;
+    	line-height: 2em;
     	border-top-left-radius: 50%
     }
 
