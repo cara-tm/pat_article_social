@@ -112,6 +112,12 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
     <txp:pat_article_social site="pocket" tooltip=" Save to Pocket " title="Pocket" content="body" icon="1" class="pocket" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="permalink" class="permalink" tooltip=" Permalink " title="Permalink" icon="1" />
 
+If you don't want to display the default SVG icons, you can replace all one by a font. Best choose is fontAwesome.
+Add this line into your &lt;head&gt; document part:
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css">
+
+Then, set the "icon" attribute to 0 value and set the "class" attribute with the fontAwesome one.
 
 ###Attributes
 
