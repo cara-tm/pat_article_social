@@ -761,7 +761,7 @@ Color palettes for social websites are available here: designpieces.com
     	font-size: 0
     }
 
-###5°. Extremly Flat design for the TXP default layout
+###5°. Another example extremly Flat and squared design especially for the TXP default layout
 
     .social-link {
 	display: inline-block;
