@@ -84,7 +84,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 ###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:
 
-    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" zero="" unit="" delay="" image="" fallback="" />
+    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" instagram="" user="" token="" zero="" unit="" delay="" image="" fallback="" />
 
 ###Quick Start Example
 
@@ -100,12 +100,11 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
     <txp:pat_article_social site="facebook" tooltip=" Share it " title="facebook" content="body" icon="1" class="facebook" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="google" tooltip=" Share it " title="G+" content="body" icon="1" class="google" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="pinterest" tooltip=" Pin it " title="Pinterest" content="body" icon="1" class="pinterest" count="1" zero="0" delay="24" />
-    <txp:pat_article_social site="instagram" tooltip=" Share to Instagram " title="Instagram" content="body" icon="1" class="instagram" count="1" zero="0" delay="24" />
+    <txp:pat_article_social site="instagram" tooltip=" Share to Instagram " title="Instagram" content="body" icon="1" class="instagram" instagram="simplebits" user="123" token="123.abc.345" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="reddit" tooltip=" Share to Reddit " title="Reddit" content="body" icon="1" class="reddit" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="dribbble" tooltip=" See my Dribbble page " title="Dribbble" content="body" icon="1" class="dribbble" shot="1945713" dribbble_data="followers" page="simplebits" count="0" zero="0" delay="0" />
     <txp:pat_article_social site="delicious" tooltip=" Share to Delicious " title="Delicious" content="body" icon="1" class="delicious" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="stumbleupon" tooltip=" Share to Stumbleupon " title="Stumbleupon" content="body" icon="1" class="stumbleupon" count="1" zero="0" delay="24" />
-    <txp:pat_article_social site="ello" tooltip=" See my ello " title="ello" content="body" icon="1" class="ello" ello="lowel" />
     <txp:pat_article_social site="linkedin" tooltip=" Share to Linkedin " title="Linkedin" content="body" icon="1" class="linkedin" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="buffer" tooltip=" Save to Buffer " title="Buffer" content="body" icon="1" class="buffer" count="1" zero="0" delay="24" />
     <txp:pat_article_social site="instapaper" tooltip=" Read later " title="Instapaper" content="body" icon="1" class="instapaper" count="1" zero="0" delay="24" />
@@ -147,9 +146,17 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 > 
 >    **height**: Integer (optional). Height of the icon. Default: "16" (16px).
 > 
+>    **alternative*** String (optional). The text to display as a label when there are no count (i.e.: alternative="ShareNow:"). Default: empty.
+> 
 >    **count**: Boolean (0 or 1 - optional). Display article share count value 3. Default: "0" (no counts). No count for Tumblr, Pocket neither Instapaper. Notice: share count results are in a catch for 3 hours by default in order to preserve your website speed against external calls to social networks.
 > 
 >    **real**: Boolean (0 or 1 - optional). For Reddit only: choose to minus counts by "down" shares. Default: false (0 - retrieve full scores without "downs").
+> 
+>    **instagram**: String (required). Your Instagram page (i.e.: instagram="simplebits"). Default: empty.
+> 
+>    **user**: Integer (required). Your user ID.
+> 
+>    **token**: String (required). Your token. User ID & token can be find here: http://www.pinceladasdaweb.com.br/instagram/access-token 
 > 
 >    **zero**: Boolean (0 or 1 - optional). Choose to display 0 for empty counts. Default: false (no zero).
 > 
