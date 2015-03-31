@@ -248,7 +248,14 @@ Color palettes for social websites are available here: designpieces.com
     filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.7071067811865482, M12=0.7071067811865466, M21=-0.7071067811865466, M22=0.7071067811865482, SizingMethod='auto expand')
     }
 
-    .social-link a {text-decoration: none}
+    .social-link {text-decoration: none}
+
+    .social-link,.social-link:active,.social-link:focus{
+    	/* Remove dotted outline on links in Firefox, Chrome, IE8 and above */
+    	outline: none;
+    	/* Fix for IE7 */
+    	_noFocusLine: expression(this.hideFocus=true)
+    }
 
     /* SVG */
     .social-link svg {
@@ -437,7 +444,14 @@ Color palettes for social websites are available here: designpieces.com
 	    box-shadow: 0 1px 2px 0 rgba(0,0,0,.15)
     }
 
-    .social-link a {text-decoration: none}
+    .social-link{text-decoration: none}
+
+    .social-link,.social-link:active,.social-link:focus{
+    	/* Remove dotted outline on links in Firefox, Chrome, IE8 and above */
+    	outline: none;
+    	/* Fix for IE7 */
+    	_noFocusLine: expression(this.hideFocus=true)
+    }
 
     .link-container {display: block; position: relative}
 
@@ -632,6 +646,13 @@ Color palettes for social websites are available here: designpieces.com
 	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
     }
 
+    .social-link,.social-link:active,.social-link:focus{
+    	/* Remove dotted outline on links in Firefox, Chrome, IE8 and above */
+    	outline: none;
+    	/* Fix for IE7 */
+    	_noFocusLine: expression(this.hideFocus=true)
+    }
+
     .twitter {background: #00aced; border: 1px solid #00aced}
 
     .facebook {background: #3b5998; border: 1px solid #3b5998}
@@ -792,6 +813,13 @@ Color palettes for social websites are available here: designpieces.com
 	-webkit-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
 	-moz-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
 	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
+    }
+
+    .social-link,.social-link:active,.social-link:focus{
+    	/* Remove dotted outline on links in Firefox, Chrome, IE8 and above */
+    	outline: none;
+    	/* Fix for IE7 */
+    	_noFocusLine: expression(this.hideFocus=true)
     }
 
     .twitter:hover,
