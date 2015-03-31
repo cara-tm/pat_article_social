@@ -282,7 +282,9 @@ function pat_article_social($atts)
 			trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING );
 
 		$url = permlink( array() );
-		$text = $thisarticle['title'].' '.dumbDown( strip_tags( preg_replace("/\s+/", " ", $extract) ) );
+		// Sanitize
+		$text = preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
+		// Limit content lenght
 		$minus = strlen($via)+7;
 		// Twitter shorten urls: http://bit.ly/ILMn3F
 		$words = ($via ? 'via '._pat_article_social_validate_user($via).': ' : '').urlencode( substr($text, 0, 115-$minus) ).'...';
