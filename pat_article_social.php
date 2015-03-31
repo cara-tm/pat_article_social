@@ -163,6 +163,7 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
 
 	if (!$entry)
 		$out = ' ';
+	// Check if account is well formated
 	if ( preg_match("/\@[a-z0-9_]+/i", $entry) )
 		$out = ($attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : $entry);
 
@@ -181,6 +182,7 @@ function _pat_article_social_image($pic = NULL)
 
 	global $thisarticle;
 
+	// Individual image or not?
 	if (false == $pic)
 		$img = $thisarticle['article_image'];
 	else
@@ -223,15 +225,15 @@ function _pat_article_social_get_uri()
   */
 function _pat_article_social_trim($input, $length, $strip_html = true)
 {
-	//strip tags, if desired
+	// Strip tags, if desired
 	if ($strip_html)
 		$input = strip_tags($input);
   
-	//no need to trim, already shorter than trim length
+	// No need to trim, already shorter than trim length
 	if ( strlen($input) <= $length )
 		return $input;
   
-	//find last space within length
+	// Find last space within length
 	$space = strrpos( substr($input, 0, $length), ' ' );
 	$shrink = substr($input, 0, $space).'...';
 
@@ -248,7 +250,7 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
 function pat_article_social($atts)
 {
 
-	global $thisarticle, $dribbble_data, $real, $shot;
+	global $thisarticle, $dribbble_data, $real, $shot, $user, $token;
 
 	extract(lAtts(array(
 		'site'		 => 'permalink',
@@ -259,7 +261,9 @@ function pat_article_social($atts)
 		'dribbble_data'  => 'followers',
 		'shot' 		 => NULL,
 		'page' 		 => NULL,
-		'ello' 		 => NULL,
+		'instagram' 	 => NULL,
+		'user' 		 => NULL,
+		'token' 	 => NULL,
 		'content' 	 => 'excerpt',
 		'image' 	 => NULL,
 		'class'		 => NULL,
@@ -276,6 +280,7 @@ function pat_article_social($atts)
 
 	if ( $site && !gps('txpreview') ) {
 
+		// Check article's content
 		if( in_array($content, array('title', 'excerpt', 'body')) )
 			$extract = $thisarticle[$content];
 		else
@@ -356,8 +361,8 @@ function pat_article_social($atts)
 			break;
 
 
-			case 'ello':
-				$link = '<a href="https://ello.co/'.$ello.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="ello-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 60 60" class="ello-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 290 350" enable-background="new 0 0 0 0" xml:space="preserve"><g><g><circle cx="150" cy="140" r="100%" /><path stroke="#ffffff" stroke-width="17" stroke-linecap="round" stroke-linejoin="bevel" stroke-miterlimit="10" d="M72,171c20.766,83.064,136,81.5,158.5-1"/></g></g></svg></svg>' : '').($fallback ? '<strong>e</strong>' : '').'</a>';
+			case 'instagram':
+				$link = '<a href="https://instagram.com/'.$instagram.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_target">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="instagram-icon" x="0" y="0" width="'.$width.'" height="'.$height.'"  enable-background="new 0 0 30 30" viewBox="0 0 30 30" xml:space="preserve"><path d="M26 0C26 0 3.5 0 3.5 0 1.6 0 0 1.6 0 3.5L0 3.5c0 0 0 23 0 23C0 28.4 1.6 30 3.5 30c0 0 23 0 23 0 1.9-0.1 3.5-1.6 3.5-3.5 0 0 0-23 0-23C30 1.6 27.9 0.1 26 0zM15 9.5c3 0 5.5 2.5 5.5 5.5 0 3-2.5 5.5-5.5 5.5 -3 0-5.5-2.5-5.5-5.5C9.5 12 12 9.5 15 9.5zM26 24c0 1.1-0.9 2-2 2H6c-1.1 0-2-0.9-2-2V12.5h2.4C6.1 13.3 6 14.1 6 15c0 5 4 9 9 9 5 0 9-4 9-9 0-0.9-0.1-1.7-0.4-2.5H26l0 11.5C26 24 26 24 26 24zM26 5v3h0c0 0.5-0.4 1-1 1V9H22c-0.5 0-1-0.4-1-1H21V5h0C21 5 21 5 21 5c0-0.6 0.4-1 1-1h3v0C25.6 4 26 4.5 26 5c0 0 0 0 0 0H26z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_instagram', $delay, $zero ) : '').($fallback ? '<strong>I</strong>' : '').'</a>';
 			break;
 
 
@@ -532,12 +537,15 @@ function _pat_article_social_get_delicious($url) {
 
 	return isset($json[0]['total_posts']) ? intval($json[0]['total_posts']) : 0;
 }
-// ello: not in use
-function _pat_article_social_get_ello($ello) {
+// Instagram
+function _pat_article_social_get_instagram() {
 
-	$json = json_decode( @file_get_contents('https://ello.co/'.$ello.'.json') );
+	global $user, $token;
 
-	return isset($json->avatar_url) ? $json->avatar_url : '';
+	$json = json_decode( @file_get_contents('https://api.instagram.com/v1/users/'.$user.'/?access_token='.$token) );
+
+	return $json->data->counts->followed_by;
+
 }
 
 
@@ -563,13 +571,11 @@ function pat_article_social_sum($atts)
 		'text'		=> false,
 		'plural'	=> 's',
 		'alternative' 	=> '',
-		'class' 	=> '',
 	), $atts));
 
 	if ( $site && !gps('txpreview') ) {
 
 		($lang == 'fr-fr') ? $space = '&thinsp;' : '';
-		$class ? $class = ' class="'.$class.'"' : '';
 
 		$list = explode( ',', strtolower($site) );
 		$n = count($list);
@@ -589,7 +595,7 @@ function pat_article_social_sum($atts)
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
 
-	return ( $showalways || $sum > 0) ? tag('<b'.$class.'>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : ( $zero ? tag('<b'.$class.'>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : tag('<b'.$class.'>'.$alternative.'</b>', 'span', ' class="shares"') );
+	return ( $showalways || $sum > 0) ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : ( $zero ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : tag('<b>'.$alternative.'</b>', 'span', ' class="shares"') );
 
 	} else {
 		return;
