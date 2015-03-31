@@ -168,7 +168,7 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 > 
 >    **fallback**: Boolean (optional). Choose to display the social website first letter as a fallback for browsers which do not support SVG format. Default: 1 (true), show first letters. 
 
-Notice: Default color icons are black. See below how to change it. See below how to change it. For counting, you need to create a /cache directory into the root of your website.
+Notice: Default color icons are black. See below how to change it.
 
 ##3.° Creates a total shares count as shown in the Mashable.com website:
 
