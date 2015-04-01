@@ -288,7 +288,7 @@ function pat_article_social($atts)
 
 		$url = permlink( array() );
 		// Sanitize
-		$text = preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
+		$text = $thisarticle['title'].'. '.preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
 		// Limit content lenght
 		$minus = strlen($via)+7;
 		// Twitter shorten urls: http://bit.ly/ILMn3F
