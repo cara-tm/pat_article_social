@@ -137,7 +137,7 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 > 
 >    **via**: String (optional). For Twitter only, add a "via" link into the tweet. Default: none (empty).
 >
->    **shot**: Integer (optional). For Dribbble only, set the number of one of your shot (see your Dribbble URL content to find it). Default: none (empty).
+>    **shot**: Integer (optional). For Dribbble only, set the number of one of your shot (see your Dribbble URL content to find it, never mind which one you choose). Default: none (empty).
 > 
 >    **page**: String (optional). For Dribbble only, set your account user name (see your Dribbble URL content to find it). Default: none (empty).
 > 
@@ -158,9 +158,9 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 > 
 >    **instagram**: String (required). Your Instagram page (i.e.: instagram="simplebits"). Default: empty.
 > 
->    **user**: Integer (required). Your user ID.
+>    **user**: Integer (required). Your user ID (see below).
 > 
->    **token**: String (required). Your token. User ID & token can be find here: http://www.pinceladasdaweb.com.br/instagram/access-token 
+>    **token**: String (required). Your token. User ID & token can be founnd here: http://www.pinceladasdaweb.com.br/instagram/access-token 
 > 
 >    **zero**: Boolean (0 or 1 - optional). Choose to display 0 for empty counts. Default: false (no zero).
 > 
