@@ -82,7 +82,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 > 
 >    **description**: String (optional). Short description of the page (200 characters maximum). Default: page title.
 > 
->    **lenght**: Integer (optional). As recommanded by several Social Networks, limit the lenght (in characters) for the "description" attribute. Don't cut words, add hyphens after the last word found just before a space in the characters limit. Default: 200.
+>    **lenght**: Integer (optional). As recommanded by several Social Networks, limits the lenght (in characters) for the "description" attribute. Don't cut words, add hyphens after the last word found just before a space within the characters limit. Default: 200.
 
 ##2.° In an article form (individual articles)
 
