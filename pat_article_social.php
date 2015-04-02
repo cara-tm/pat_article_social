@@ -92,7 +92,7 @@ function pat_article_social_meta($atts)
 					$i = 0;
 					foreach($list as $pic) {
 						$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
-						$tags .= _pat_article_social_image_sizes($pic);
+						$tags .= _pat_article_social_image_sizes($pic, $card);
 						++$i;
 					}
 				} else {
@@ -209,14 +209,16 @@ function _pat_article_social_image($pic = NULL)
  * @param  integer $id   Image id
  * @return string HTML  tags
  */
-function _pat_article_social_image_sizes($id)
+function _pat_article_social_image_sizes($id, $type)
 {
 
-	if (intval($id)) {
+	if ( intval($id) && $type == 'photo' ) {
 		if ( $rs = safe_row('id, w, h', 'txp_image', 'id = "'.$id.'"') ) {
 			$out .= '<meta name="twitter:image:width" content="'.$rs['w'].'">'.n;
 			$out .= '<meta name="twitter:image:height" content="'.$rs['h'].'">'.n;
 		}
+	} else {
+		$out = '';
 	}
 
 	return $out;
