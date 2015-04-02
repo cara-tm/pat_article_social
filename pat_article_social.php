@@ -571,6 +571,7 @@ function pat_article_social_sum($atts)
 		'text'		=> false,
 		'plural'	=> 's',
 		'alternative' 	=> '',
+		'class' 	=> 'shares',
 	), $atts));
 
 	if ( $site && !gps('txpreview') ) {
@@ -595,7 +596,7 @@ function pat_article_social_sum($atts)
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
 
-	return ( $showalways || $sum > 0) ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : ( $zero ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="shares"') : tag('<b>'.$alternative.'</b>', 'span', ' class="shares"') );
+	return ( $showalways || $sum > 0) ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="'.$class.'"') : ( $zero ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="'.$class.'"') : tag('<b>'.$alternative.'</b>', 'span', ' class="'.$class.'"') );
 
 	} else {
 		return;
