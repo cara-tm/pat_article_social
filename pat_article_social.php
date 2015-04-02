@@ -92,6 +92,7 @@ function pat_article_social_meta($atts)
 					$i = 0;
 					foreach($list as $pic) {
 						$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
+						$tags .= _pat_article_social_image_sizes($pic);
 						++$i;
 					}
 				} else {
@@ -199,6 +200,26 @@ function _pat_article_social_image($pic = NULL)
 	}
 
 	return $img;
+}
+
+
+/**
+ * Display width and height of an image
+ *
+ * @param  integer $id   Image id
+ * @return string HTML  tags
+ */
+function _pat_article_social_image_sizes($id)
+{
+
+	if (intval($id)) {
+		if ( $rs = safe_row('id, w, h', 'txp_image', 'id = "'.$id.'"') ) {
+			$out .= '<meta name="twitter:image:width" content="'.$rs['w'].'">'.n;
+			$out .= '<meta name="twitter:image:height" content="'.$rs['h'].'">'.n;
+		}
+	}
+
+	return $out;
 }
 
 
