@@ -250,7 +250,7 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
 function pat_article_social($atts)
 {
 
-	global $thisarticle, $dribbble_data, $real, $shot, $user, $token;
+	global $thisarticle, $dribbble_data, $real, $shot, $user, $token, $instagram_type;
 
 	extract(lAtts(array(
 		'site'		 => 'permalink',
@@ -262,6 +262,7 @@ function pat_article_social($atts)
 		'shot' 		 => NULL,
 		'page' 		 => NULL,
 		'instagram' 	 => NULL,
+		'instagram_type' => 'followers',
 		'user' 		 => NULL,
 		'token' 	 => NULL,
 		'content' 	 => 'excerpt',
@@ -540,11 +541,11 @@ function _pat_article_social_get_delicious($url) {
 // Instagram
 function _pat_article_social_get_instagram() {
 
-	global $user, $token;
+	global $user, $token, $instagram_type;
 
 	$json = json_decode( @file_get_contents('https://api.instagram.com/v1/users/'.$user.'/?access_token='.$token) );
 
-	return $json->data->counts->followed_by;
+	return $json->data->counts->{($instagram_type == 'followers' ? 'followed_by' : 'media')};
 
 }
 
