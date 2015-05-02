@@ -960,6 +960,10 @@ Color palettes for social websites are available here: designpieces.com
     .stumbleupon path{fill: #eb4823}
     .instagram path{fill:#517fa4}
 
+###6°. Tips and advices
+
+You can choose to place your hidden social links on images and reveal its on mouse over.
+
 ##Change log
 
 - 29th March 2015. v 0.4.9. Correct error message for PHP < 5.0.3. Add "fallback" attribute to remove first letters as fallback for browsers which do not support SVG format. No counter for Instagram for the moment.
