@@ -721,14 +721,6 @@ Color palettes for social websites are available here: designpieces.com
 	height: 1em
     }
 
-    .social-link svg.ello-icon{
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-	border-radius: 50%
-    }
-
     .twitter path,
 	.facebook path,
 	.google path,
@@ -746,9 +738,6 @@ Color palettes for social websites are available here: designpieces.com
 	.permalink path {
 		fill: #fff
     }
-
-    .social-link .ello-icon circle{fill:none}
-    .social-link .ello-icon svg path{fill:none}
 
     .twitter:hover path,
 	.facebook:hover path,
@@ -772,17 +761,14 @@ Color palettes for social websites are available here: designpieces.com
 
     .pocket:hover path.inner {fill: #fff !important}
 
-    .social-link:hover .ello-icon circle{fill:#000}
-    .social-link:hover .ello-icon path{stroke:#fff}
-
     .social-link b {display: none}
 
     .social-link span{
     	display: block;
     	position: absolute;
     	right: -.3em;
-    	bottom: -.1em;
-    	padding: 0 .5em;
+    	bottom: -.18em;
+    	padding: .2em .1em 0;
     	background: #555;
     	text-align: center;
     	font-size: 50%;
