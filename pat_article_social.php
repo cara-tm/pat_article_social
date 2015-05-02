@@ -22,7 +22,7 @@ global $refs, $twcards;
 // List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'linkedin', 'buffer', 'reddit', 'dribbble');
 // List of Twitter Card types.
-$twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product');
+$twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product', 'app');
 
 /**
  * Generate meta tag for social websites
