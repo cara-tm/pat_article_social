@@ -1,12 +1,12 @@
 <?php
-/*
+/**
  * pat_article_social (formerly pat_article_tweet) Textpattern CMS plugin
  * @author:  © Patrick LEFEVRE, all rights reserved. <patrick[dot]lefevre[at]gmail[dot]com>
  * @link:    http://pat-article-social.cara-tm.com
  * @type:    Public
  * @prefs:   no
  * @order:   5
- * @version: 0.4.9
+ * @version: 0.5.0
  * @license: GPLv2
 */
 
@@ -155,8 +155,9 @@ EOF;
 /**
  * Validate Twitter accounts
  *
- * @param  $entry  $att
- * @return string  string  User account  Meta content attribute
+ * @param  string    $entry
+ * @param  string    $attribute
+ * @return string    Meta content attribute for user account
  */
 function _pat_article_social_validate_user($entry, $attribute = NULL)
 {
@@ -174,8 +175,8 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
 /**
  * Display article image
  *
- * @param int $pic  image ID
- * @return string URI  Full article image URI
+ * @param  int    $pic image ID
+ * @return string Full article image URI
  */
 function _pat_article_social_image($pic = NULL)
 {
@@ -206,7 +207,7 @@ function _pat_article_social_image($pic = NULL)
  * Display current URL
  *
  * @param
- * @return String  URI
+ * @return string  URI
  */
 function _pat_article_social_get_uri()
 {
@@ -244,7 +245,7 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
 /**
  * Generate links for social websites
  *
- * @param  array   Tag attributes
+ * @param  array   $atts Tag attributes
  * @return String  Link with encoded article body in arguments
  */
 function pat_article_social($atts)
@@ -391,8 +392,12 @@ function pat_article_social($atts)
 /**
  * Read or create a file with content
  *
- * @param $file, $url, $type, $delay, $zero
- * @return String  File's content
+ * @param  string  $file  A flat file name
+ * @param  string  $url   URI
+ * @param  string  $type  A function to call
+ * @param  integer $delay Caching time in minutes
+ * @param  boolean $zero  Choose to display zero count
+ * @return string File's content
  */
 function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zero)
 {
@@ -428,8 +433,8 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 /**
  * Get social counts.
  *
- * @param  String Integer URLs  Share counts
- * @return integer
+ * @param  string $url Social service URLs
+ * @return integer Share counts
  */
 
 // Twitter
@@ -554,8 +559,8 @@ function _pat_article_social_get_instagram() {
 /**
  * Sum of share counts
  *
- * @param  $atts array
- * @return String  HTML tag
+ * @param  array $atts Tag attributes
+ * @return string HTML tag
  */
 
 function pat_article_social_sum($atts)
@@ -590,17 +595,10 @@ function pat_article_social_sum($atts)
 
 		$sum = 0;
 
-		if( !file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-shares.txt') ) {
-			_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
-		}
-
 		for ($i = 0; $i < $n; ++$i)
 			if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
 				$sum += @file_get_contents( $path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
 			}
-
-		// Store results
-		_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
 
 		// Check to render a zero value
 		$zero ? '' : ($sum > 0 ? '' : $sum = false);
@@ -618,7 +616,8 @@ function pat_article_social_sum($atts)
 /**
  * Check values from a list
  *
- * @param  $el $array	String	Array
+ * @param string $el 
+ * @param $array Array
  * @return boolean
  */
 function _pat_article_social_occurs($el, $array)
@@ -634,7 +633,9 @@ function _pat_article_social_occurs($el, $array)
 /**
  * Format count results
  *
- * @param  $number $unit $lang
+ * @param integer $number 
+ * @param string  $unit 
+ * @param string  $lang
  * @return String rounding up (e.g. 3K)
  */
 
@@ -652,6 +653,8 @@ function _pat_format_count($number, $unit, $lang)
 /**
  * Plugin prefs: entry for cache dir.
  *
+ * @param
+ * @return 
  */
 
 function _pat_article_social_prefs()
@@ -669,7 +672,9 @@ function _pat_article_social_prefs()
 
 /**
  * Delete cache dir in prefs & all files in it.
- *
+ * 
+ * @param 
+ * @return 
  */
 function _pat_article_social_cleanup()
 {
