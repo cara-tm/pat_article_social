@@ -23,3 +23,7 @@ Online tools & documentation:
 [Twitter Open Graph Meta tags tester](https://coveloping.com/tools/open-graph-tag-tester)
 
 [Google + Open Graph Meta Tags](https://developers.google.com/+/web/snippet/)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cara-tm/pat_article_social/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
