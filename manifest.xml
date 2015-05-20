@@ -1,0 +1,17 @@
+<manifest>
+
+	<name>pat_article_social</name>
+	<description>Outputs simple metas and prevents double content</description>
+	
+	<version>4.9</version>
+	<type public="0" pub-admin="1" library="0" admin-only="0">0</type>
+	
+	<author>Patrick LEFEVRE</author>
+	<author_uri>http://cara-tm.com</author_uri>
+	
+	<order>5</order>
+	<flags>0</flags>
+	
+	<help file="./README.md" />
+
+</manifest>
