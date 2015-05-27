@@ -12,12 +12,31 @@
 
 // TO DO: MORE OPTIONS FOR FB OPEN GRAPH. BACK-OFFICE CHART VISUALISATION OF SHARES BY INDIVIDUAL ARTICLES.
 
+/**
+ * This plugin tags registry
+ *
+ */
+if (class_exists('Textpattern_Tag_Registry')) {
+	Txp::get('Textpattern_Tag_Registry')
+		->register('pat_article_social_meta')
+		->register('pat_article_social')
+		->register('pat_article_social_sum');
+}
+
+/**
+ * TXP admin side
+ *
+ */
 if (txpinterface == 'admin')
 {
 	register_callback('_pat_article_social_prefs', 'prefs', '', 1);
 	register_callback('_pat_article_social_cleanup', 'plugin_lifecycle.pat_article_social', 'deleted');
 }
 
+/**
+ * Plugin's Gloabals
+ *
+ */
 global $refs, $twcards;
 // List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'linkedin', 'buffer', 'reddit', 'dribbble');
