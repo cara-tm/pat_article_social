@@ -34,7 +34,7 @@ if (txpinterface == 'admin')
 }
 
 /**
- * Plugin's Gloabals
+ * Plugin's Globals
  *
  */
 global $refs, $twcards;
