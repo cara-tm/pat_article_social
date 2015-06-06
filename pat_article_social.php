@@ -19,6 +19,7 @@
 if (class_exists('Textpattern_Tag_Registry')) {
 	Txp::get('Textpattern_Tag_Registry')
 		->register('pat_article_social_meta')
+		->register('pat_article_social_twttr')
 		->register('pat_article_social')
 		->register('pat_article_social_sum');
 }
@@ -258,6 +259,29 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
 	$shrink = substr($input, 0, $space).'...';
 
 	return $shrink;
+}
+
+
+/**
+ * Display embedded tweets
+ *
+ * @param  array   Tag attributes
+ * @return iframe  Embeded Tweet
+ */
+function pat_article_social_twttr($atts)
+{
+
+ 	extract(lAtts(array(
+		'status' 	=> NULL,
+	), $atts));
+
+	$regex = '#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i';
+
+	if ( preg_match($regex, $status) && !gps('txpreview') ) 
+		return '<div class="pat-twttr"><iframe style="border:0;" src="http://twitframe.com/show?url='.urlencode($status).'" allowfullscreen></iframe></div>';
+	else
+		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
+
 }
 
 
