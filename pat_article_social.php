@@ -279,7 +279,7 @@ function twttr($atts)
 
 	$regex = '#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i';
 
-	if ( preg_match($regex, $status) && !gps('txpreview') ) 
+	if ( preg_match($regex, $status) && !gps('txpreview') ) {
 
 	switch ( strtolower($markup) ) {
 			case 'iframe':
