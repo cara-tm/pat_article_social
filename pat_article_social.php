@@ -19,7 +19,7 @@
 if (class_exists('Textpattern_Tag_Registry')) {
 	Txp::get('Textpattern_Tag_Registry')
 		->register('pat_article_social_meta')
-		->register('pat_article_social_twttr')
+		->register('twttr')
 		->register('pat_article_social')
 		->register('pat_article_social_sum');
 }
@@ -238,12 +238,13 @@ function _pat_article_social_get_uri()
 }
 
 
-/** Trims text to a space then adds ellipses
-  * @param string $input text to trim
-  * @param int $length in characters to trim to
-  * @param bool $strip_html strip html tags if present
-  * @return string
-  */
+/** 
+ * Trims text to a space then adds ellipses
+ * @param string $input text to trim
+ * @param int $length in characters to trim to
+ * @param bool $strip_html strip html tags if present
+ * @return string
+ */
 function _pat_article_social_trim($input, $length, $strip_html = true)
 {
 	// Strip tags, if desired
@@ -268,17 +269,28 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
  * @param  array   Tag attributes
  * @return iframe  Embeded Tweet
  */
-function pat_article_social_twttr($atts)
+function twttr($atts)
 {
 
  	extract(lAtts(array(
 		'status' 	=> NULL,
+		'markup' 	=> 'iframe',
 	), $atts));
 
 	$regex = '#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i';
 
 	if ( preg_match($regex, $status) && !gps('txpreview') ) 
-		return '<div class="pat-twttr"><iframe style="border:0;" src="http://twitframe.com/show?url='.urlencode($status).'" allowfullscreen></iframe></div>';
+
+	switch ( strtolower($markup) ) {
+			case 'iframe':
+				$out = '<iframe src="http://twitframe.com/show?url='.urlencode($status).'" allowfullscreen></iframe>';
+			break;
+
+			default:
+				$out = '<object data="http://twitframe.com/show?url='.urlencode($status).'"></object>';
+		}
+		return '<div class="pat-twttr">'.$out.'</div>';
+	}
 	else
 		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
 
