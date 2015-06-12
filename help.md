@@ -222,7 +222,7 @@ Just use this line into your article's body (Textile format mode):
 
 All embedded Tweets are wrapped into a div with a .pat-twttr class.
 
-The following CSS rules allow embedded Tweeets to be "Responsive" friendly:
+The following CSS rules allow embedded Tweets to be "Responsive" friendly:
 
     .pat-twttr {
     	overflow: hidden;
