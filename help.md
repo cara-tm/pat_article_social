@@ -202,6 +202,16 @@ Notice: Default color icons are black. See below how to change it.
 > 
 >    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
 
+##Insert a Tweet into your article's body
+
+Just use this line into your article's body (Textile format mode):
+
+    <txp:twttr status="" />
+
+###Atribute
+
+>    **status**: String (required). The link of the Tweet to embed. Dafault: none (empty).
+
 ###CSS layout
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
@@ -966,6 +976,7 @@ You can choose to place your hidden social links on images and reveal its on mou
 
 ##Change log
 
+- 5th June 2015. v 0.5.0. Support for embeded Tweets into article's body.
 - 29th March 2015. v 0.4.9. Correct error message for PHP < 5.0.3. Add "fallback" attribute to remove first letters as fallback for browsers which do not support SVG format. No counter for Instagram for the moment.
 - 26th March 2015. v. 0.4.8. Social Networks added. Plugin documentation is external.
 - 20th February 2015. v 0.4.7. Support for all Twitter card. 
