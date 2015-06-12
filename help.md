@@ -206,17 +206,42 @@ Notice: Default color icons are black. See below how to change it.
 
 Just use this line into your article's body (Textile format mode):
 
-    <txp:twttr status="" />
+    <txp:twttr status="" markup="" />
 
-###Atribute
+###Attribute
 
 >    **status**: String (required). The link of the Tweet to embed. Dafault: none (empty).
+>    **markup**: String (optional). Choose which kind of embedded markup to use (iframe or object). Default: object.
 
 ###Example
 
-    <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" />
+    <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" markup="iframe" />
 
 ###CSS layout
+
+All embedded Tweets are wrapped into a div with a .pat-twttr class.
+
+The following CSS rules allow embedded Tweeets to be "Responsive" friendly:
+
+    .pat-twttr {
+    	overflow: hidden;
+    	position: relative;
+    	width: 500px;
+    	max-width: 100%;
+    	min-width: 220px;
+    	height: 15em;
+    	margin: 7px auto
+    }
+
+    .pat-twttr iframe, .pat-twttr object{
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	width: 100%;
+    	height: 100%
+    }
+
+###CSS layout for social links
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
