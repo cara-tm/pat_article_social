@@ -212,6 +212,10 @@ Just use this line into your article's body (Textile format mode):
 
 >    **status**: String (required). The link of the Tweet to embed. Dafault: none (empty).
 
+###Example
+
+    <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" />
+
 ###CSS layout
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
