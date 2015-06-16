@@ -9,6 +9,8 @@
 
 After installation, choose "Admin"->"Preferences" tab to access this plugin prefs and to set the "cache" directory. Default: /root/cache.
 
+Note: you need to create this cache directory; this plugin don't.
+
 ##Uninstallation
 
 You can safely remove this plugin without changes in your database except all the content into the cache directory.
