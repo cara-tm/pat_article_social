@@ -242,7 +242,7 @@ The following CSS rules allow embedded Tweets to be "Responsive" friendly:
     	height: 100%
     }
 
-###CSS layout for social links
+#CSS layout for social links
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
@@ -1004,7 +1004,31 @@ Color palettes for social websites are available here: designpieces.com
 
 You can choose to place your hidden social links on images and reveal its on mouse over.
 
-##Change log
+Here is a markup example:
+
+    <div class="img-outer relative">
+	    <img src="" alt="" />
+	    <div class="social-outer absolute">
+		(...) pat-article-social tags come here (...)
+	    </div>
+    </div>
+
+And the corresponding CSS rules:
+
+    .relative{position:relative}
+    .absolute{position:absolute}
+
+    .social-outer {
+	z-index: -1;
+	top: 3%;
+	right: 2%;
+    }
+
+    .img-outer:hover .socials-outer {
+	z-index: 10
+    }
+
+##Changelog
 
 - 5th June 2015. v 0.5.0. Support for embeded Tweets into article's body.
 - 29th March 2015. v 0.4.9. Correct error message for PHP < 5.0.3. Add "fallback" attribute to remove first letters as fallback for browsers which do not support SVG format. No counter for Instagram for the moment.
