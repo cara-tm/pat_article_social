@@ -1073,6 +1073,8 @@ All embed plugin icons come from courtesy © flaticon.com.
 ##Notes
 
 [1]: There are no Open Graph metatags for Pinterst & Tumblr. For G+ don't forget to use a proper declaration into your html document tag (i.e. `<html itemscope itemtype="http://schema.org/Article" lang="fr-fr" dir="ltr">`). See more here: schema.org.
+
 [2]: The text you choose here is shrinked and followed by the article URL and all respects the 140 characters limit by Twitter.
+
 [3]: Count is rounding up above 999. (e.g. 1 250 will be displayed 1.3 k)
 
