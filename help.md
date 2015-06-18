@@ -13,7 +13,7 @@ Note: you need to create this cache directory; this plugin don't.
 
 ##Uninstallation
 
-You can safely remove this plugin without changes in your database except all the content into the cache directory.
+You can safely remove this plugin without changes in your database except all the content into the cache directory filed.
 
 ##Usages
 
