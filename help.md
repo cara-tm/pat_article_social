@@ -212,7 +212,7 @@ Just use this line into your article's body (Textile format mode):
 
 ###Attribute
 
->    **status**: String (required). The link of the Tweet to embed. Dafault: none (empty).
+>    **status**: String (required). The link of the Tweet to embed (given by Twitter). Default: none (empty).
 >
 >    **markup**: String (optional). Choose which kind of embedded markup to use (iframe or object). Default: object.
 
