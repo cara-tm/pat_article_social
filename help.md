@@ -249,12 +249,12 @@ The following CSS rules allow embedded Tweets to be "Responsive" friendly:
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
     .social-link: class attribute for the links.
-    .social-link.twitter, .social-link.facebook, .social-link.google, .social-link.pinterest, .social-link.tumblr, .social-link.instapaper, .social-link.buffer, .social-link.pocket, .social-link.linkedin, .social-link.reddit, .social-link.stumbleupon, .social-link.delicious, .social-link.ello, .social-link.instagram, .social-link.vimeo, .social-link.permalink: individual link class attributes.
+    .social-link.twitter, .social-link.facebook, .social-link.google, .social-link.pinterest, .social-link.tumblr, .social-link.instapaper, .social-link.buffer, .social-link.pocket, .social-link.linkedin, .social-link.reddit, .social-link.stumbleupon, .social-link.delicious, .social-link.ello, .social-link.instagram, .social-link.vimeo, .social-link.permalink: individual link class attribute.
     .social-link svg: class attribute for icons.
-    .twitter-icon path, .facebook-icon path, .gplus-icon path, .pinterest-icon path, .tumblr-icon path, .instapaper-icon path, .buffer path, .pocket-icon path, .pocket-icon path.inner, .linkedin-icon path, .reddit-icon path, .stumbleupon-icon path, .delicious-icon path, .instagram-icon path, .vimeo-icon path, .permalink-icon path: class attributes to colorize the logos.
+    .twitter-icon path, .facebook-icon path, .gplus-icon path, .pinterest-icon path, .tumblr-icon path, .instapaper-icon path, .buffer path, .pocket-icon path, .pocket-icon path.inner, .linkedin-icon path, .reddit-icon path, .stumbleupon-icon path, .delicious-icon path, .instagram-icon path, .vimeo-icon path, .permalink-icon path: class attribute to colorize the logos.
     .social-link span: class attribute for counters.
-    .social-link b: class attribut for the social network name.
-    .social-link strong: class attribut for the social network's first letter name (fallback for browsers which don't support SVG format).
+    .social-link b: class attribute for the social network name.
+    .social-link strong: class attribute for the social network's first letter name (fallback for browsers which don't support SVG format).
 
 ##CSS layout examples
 
