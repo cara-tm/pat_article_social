@@ -211,11 +211,10 @@ function _pat_article_social_image($pic = NULL)
 
 	if (intval($img)) {
 
-		if ( $rs = safe_row('*', 'txp_image', 'id = ' . intval($img)) ) {
+		if ( $rs = safe_row('*', 'txp_image', 'id = ' . intval($img)) )
 			$img = imagesrcurl($rs['id'], $rs['ext']);
-		} else {
+		else
 			$img = null;
-		}
 
 	}
 
