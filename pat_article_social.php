@@ -270,28 +270,40 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
  */
 function twttr($atts)
 {
-
  	extract(lAtts(array(
-		'status' 	=> NULL,
-		'markup' 	=> 'iframe',
+		'status'	  => NULL,
+		'markup'	  => 'object',
 	), $atts));
 
-	$regex = '#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i';
+	if ( !gps('txpreview') ) {
+	
+		switch ( strtolower($markup) ) {
 
-	if ( preg_match($regex, $status) && !gps('txpreview') ) {
-
-	switch ( strtolower($markup) ) {
 			case 'iframe':
-				$out = '<iframe src="http://twitframe.com/show?url='.urlencode($status).'" allowfullscreen></iframe>';
+				$atts = ' style="border:0;height:100% !important" src=';
 			break;
 
 			default:
-				$out = '<object data="http://twitframe.com/show?url='.urlencode($status).'"></object>';
+				$atts = ' data=';
+
 		}
-		return '<div class="pat-twttr">'.$out.'</div>';
+
+
+		if ( preg_match('#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i', $status) ) {
+			
+			return '<div class="pat-twttr"><'.$markup.$atts.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
+
+		} elseif ( preg_match('#^[^https?://twitter.com/].*/status(es)?/[0-9]+$#i', $status) ) {
+			
+			return '<div class="pat-twttr"><'.$markup.$atts.'"http://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2F'.urlencode($status).'"></'.$markup.'></div>';
+
+		} else {
+
+			return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
+
+		}
+
 	}
-	else
-		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
 
 }
 
