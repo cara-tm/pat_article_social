@@ -303,7 +303,7 @@ function twttr($atts)
 			return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
 		}
 		
-		return in_array(strtolower($markup), array('iframe', 'object') ) ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
+		return in_array(strtolower($markup), array('iframe', 'object') ) ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'markup')), E_USER_WARNING);
 	}
 
 }
