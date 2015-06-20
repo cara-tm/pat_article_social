@@ -288,21 +288,22 @@ function twttr($atts)
 
 		}
 
-
+		// Full URL of Twitter link given.
 		if ( preg_match('#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i', $status) ) {
 			
-			return '<div class="pat-twttr"><'.$markup.$atts.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
+			$out = '<div class="pat-twttr"><'.$markup.$atts.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
 
+		// Partial URL of Twitter link given.
 		} elseif ( preg_match('#^[^https?://twitter.com/].*/status(es)?/[0-9]+$#i', $status) ) {
 			
-			return '<div class="pat-twttr"><'.$markup.$atts.'"http://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2F'.urlencode($status).'"></'.$markup.'></div>';
+			$out = '<div class="pat-twttr"><'.$markup.$atts.'"http://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2F'.urlencode($status).'"></'.$markup.'></div>';
 
 		} else {
 
 			return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
-
 		}
-
+		
+		return in_array(strtolower($markup), array('iframe', 'object') ) ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
 	}
 
 }
