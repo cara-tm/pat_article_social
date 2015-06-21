@@ -204,7 +204,7 @@ Notice: Default color icons are black. See below how to change it.
 > 
 >    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
 
-##Insert a Tweet into your article's body
+##4.° Insert a Tweet into your article's body
 
 Just use this line into your article's body:
 
@@ -249,7 +249,7 @@ The following CSS rules allow embedded Tweets to be "Responsive" friendly:
     	height: 100%
     }
 
-#CSS layout for social links
+#5.° CSS layout for social links
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
