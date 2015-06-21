@@ -206,7 +206,7 @@ Notice: Default color icons are black. See below how to change it.
 
 ##Insert a Tweet into your article's body
 
-Just use this line into your article's body (Textile format mode):
+Just use this line into your article's body:
 
     <txp:twttr status="" markup="" />
 
