@@ -213,7 +213,7 @@ Just use this line into your article's body:
 ###Attribute
 
 >    **status**: String (required). The link of the Tweet to embed (given by Twitter). Default: none (empty).
->    Note: since v 0.5.1, this attribute can be set with full link URL or a short one (i.e.: status="txpfr/status/601628600098488320" without the Twitter domain name)
+>    Note: since v 0.5.1, this attribute can be set with full link URL or a short one (i.e.: status="txpfr/status/601628600098488320" without the Twitter protocol and domain name)
 >
 >    **markup**: String (optional). Choose which kind of embedded markup to use (iframe or object). Default: object.
 
