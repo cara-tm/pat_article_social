@@ -221,9 +221,9 @@ Just use this line into your article's body:
 
     <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" markup="iframe" />
 
-###Shorter Example
+###Shorter Example (with the first Tweet of the Internet history)
 
-    <txp:twttr status="txpfr/status/601628600098488320" />
+    <txp:twttr status="jack/status/20" />
 
 ###CSS layout
 
