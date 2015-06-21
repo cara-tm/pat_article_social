@@ -221,6 +221,10 @@ Just use this line into your article's body:
 
     <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" markup="iframe" />
 
+###Shorter Example
+
+    <txp:twttr status="txpfr/status/601628600098488320" />
+
 ###CSS layout
 
 All embedded Tweets are wrapped into a div with a .pat-twttr class.
