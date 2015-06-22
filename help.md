@@ -227,7 +227,7 @@ Just use this line into your article's body:
 
 ###CSS layout
 
-All embedded Tweets are wrapped into a div with a .pat-twttr class.
+All embedded Tweets are wrapped into a div with a class selector named "pat-twttr".
 
 The following CSS rules allow embedded Tweets to be "Responsive" friendly:
 
