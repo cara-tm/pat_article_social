@@ -274,7 +274,7 @@ function twttr($atts)
 
  	extract(lAtts(array(
 		'status'	 => NULL,
-		'markup'	 => 'object',
+		'markup'	 => 'blockquote',
 		'media' 	 => false,
 		'thread' 	 => false,
 		'related' 	 => false,
@@ -289,8 +289,11 @@ function twttr($atts)
 				$atts = ' style="border:0;height:100% !important" src=';
 			break;
 
-			default:
+			case 'object':
 				$atts = ' data=';
+
+			default:
+				$atts = ' ';
 
 		}
 
@@ -300,19 +303,19 @@ function twttr($atts)
 			$out = '<div class="pat-twttr"><'.$markup.$atts.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
 
 		// Partial URL of Twitter link given, only a number: returns native embedded Twitter tweets
-		} elseif ( preg_match('#^[0-9]+$#i', $status) ) {
+		} elseif ( preg_match('#^[0-9]+$#i', $status) && $markup == 'blockquote' ) {
 			
 			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$status.'&amp;align=center&amp;maxwidth=500&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
 			$datas = json_decode( @file_get_contents($json), true );
 			if ($datas)
-				$out = $data['html'];
+				$out = str_replace('<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>', '', $datas['html']);
 
 		} else {
 
 			return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
 		}
 		
-		return in_array(strtolower($markup), array('iframe', 'object') ) ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'markup')), E_USER_WARNING);
+		return in_array(strtolower($markup), array('blockquote', 'iframe', 'object') ) ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'markup')), E_USER_WARNING);
 	}
 
 }
