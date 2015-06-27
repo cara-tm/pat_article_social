@@ -309,8 +309,8 @@ function twttr($atts)
 			$datas = json_decode( @file_get_contents($json), true );
 			if ($datas)
 				$out = str_replace(
-					array(' align="center"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
-					array('', ''),
+					array(' align="center"', ' width="500"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+					array('', ' style="width:500px"', ''),
 					$datas['html']
 				);
 		} else {
