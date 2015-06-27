@@ -213,7 +213,7 @@ Just use this line into your article's body:
 
     <txp:twttr status="" markup="" />
 
-Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document (your page template) just before the last `</body>` tag:
+Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document (your page template) just before the last `</body>` tag into your page template:
 
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
