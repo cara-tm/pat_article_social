@@ -213,7 +213,7 @@ Just use this line into your article's body:
 
     <txp:twttr status="" markup="" />
 
-Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document (your page template) just before the last `</body>` tag into your page template:
+Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:
 
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -1055,6 +1055,7 @@ And the corresponding CSS rules:
 
 ##Changelog
 
+- 26th June 2015. v 0.5.1. Support Twitter json services to render embedded tweets.
 - 5th June 2015. v 0.5.0. Support for embeded Tweets into article's body.
 - 29th March 2015. v 0.4.9. Correct error message for PHP < 5.0.3. Add "fallback" attribute to remove first letters as fallback for browsers which do not support SVG format. No counter for Instagram for the moment.
 - 26th March 2015. v. 0.4.8. Social Networks added. Plugin documentation is external.
