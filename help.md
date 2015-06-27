@@ -1,5 +1,5 @@
 
-#pat_article_social v 0.5.0 (formerly pat_article_tweet)
+#pat_article_social v 0.5.1 (formerly pat_article_tweet)
 
 ##Purpose
 
@@ -85,6 +85,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 >    **description**: String (optional). Short description of the page (200 characters maximum). Default: page title.
 > 
 >    **lenght**: Integer (optional). As recommanded by several Social Networks, limits the lenght (in characters) for the "description" attribute. Don't cut words, add hyphens after the last word found just before a space within the characters limit. Default: 200.
+> 
 
 ##2.° In an article form (individual articles)
 
@@ -173,6 +174,7 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 >    **image**: String (optional). Only in use for Pinterest links (Twitter & facebook use Open Graph meta tags instead). It can be a TXP form suitable for example with watermark solution. Default: the current article image. 
 > 
 >    **fallback**: Boolean (optional). Choose to display the social website first letter as a fallback for browsers which do not support SVG format. Default: 1 (true), show first letters. 
+> 
 
 Notice: Default color icons are black. See below how to change it.
 
@@ -203,6 +205,7 @@ Notice: Default color icons are black. See below how to change it.
 >    **lang**: String (optional). i18n support for the space before colon (typographic rule). If set, overwrites prefs. Default: TXP language prefs. (i.e. "fr-fr").
 > 
 >    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
+> 
 
 ##4.° Insert a Tweet into your article's body
 
@@ -210,24 +213,35 @@ Just use this line into your article's body:
 
     <txp:twttr status="" markup="" />
 
+Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document (your page template) just before the last </body> tag:
+
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 ###Attribute
 
 >    **status**: String (required). The link of the Tweet to embed (given by Twitter). Default: none (empty).
->    Note: since v 0.5.1, this attribute can be set with full link URL or a short one (i.e.: status="txpfr/status/601628600098488320" without the Twitter protocol and domain name)
+>    Note: since v 0.5.1, this attribute can be set with full link URL or a short one (i.e.: status="601628600098488320" with only the tweet id)
 >
->    **markup**: String (optional). Choose which kind of embedded markup to use (iframe or object). Default: object.
+>    **markup**: String (optional). Choose which kind of embedded markup to use (blockquote, iframe or object). Default: "blockquote" or empty in order to render embbedded tweets from Twitter json services.
+>
+>    **media**: boolean (optional). Choose not to add medias support into embedded tweets. Default: 0 (medias are shown).
+>
+>    **related**: boolean (optional). Choose to not add related tweets into embedded tweets. Default: 0 (related are shown).
+>
+>    **locale**: string (optional). The code language (in 2 letters) to translate embbedded tweets. Default: prefs language (for the TXP administration interface).
+> 
 
 ###Example
 
     <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" markup="iframe" />
 
-###Shorter Example (with the first Tweet of the Internet history)
+###Shorter Form Example: embedded tweet from Twitter json services (with the first Tweet of the Internet history)
 
-    <txp:twttr status="jack/status/20" />
+    <txp:twttr status="20" />
 
 ###CSS layout
 
-All embedded Tweets are wrapped into a div with a class selector named "pat-twttr".
+All embedded Tweets except the short forms are wrapped into a div with a class selector named "pat-twttr".
 
 The following CSS rules allow embedded Tweets to be "Responsive" friendly:
 
@@ -248,6 +262,10 @@ The following CSS rules allow embedded Tweets to be "Responsive" friendly:
     	width: 100%;
     	height: 100%
     }
+
+When you use the short form which render embedded tweets from Twitter json services, the markup is sanitized from deprecated properties in order to keep valid HTML pages. Webdesigners can center all tweets by the use of this only and simple CSS rule:
+
+    .twitter-tweet-rendered {margin-right: auto !important;margin-left: auto !important}
 
 #5.° CSS layout for social links
 
