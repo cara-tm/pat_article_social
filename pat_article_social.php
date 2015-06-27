@@ -308,8 +308,11 @@ function twttr($atts)
 			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$status.'&amp;align=center&amp;maxwidth=500&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
 			$datas = json_decode( @file_get_contents($json), true );
 			if ($datas)
-				$out = str_replace('<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>', '', $datas['html']);
-
+				$out = str_replace(
+					array(' align="center"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+					array('', ''),
+					$datas['html']
+				);
 		} else {
 
 			return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
