@@ -372,11 +372,11 @@ function pat_article_social($atts)
 
 		$url = permlink( array() );
 		// Sanitize
-		$text = $thisarticle['title'].'. '.preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
+		$text = $thisarticle['title'].'. "'.preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
 		// Limit content lenght
 		$minus = strlen($via)+7;
 		// Twitter shorten urls: http://bit.ly/ILMn3F
-		$words = ($via ? 'via '._pat_article_social_validate_user($via).': ' : '').urlencode( substr($text, 0, 115-$minus) ).'...';
+		$words = ($via ? 'via '._pat_article_social_validate_user($via).': ' : '').urlencode( rtrim(substr($text, 0, 115-$minus)) ).'...%22';
 
 		switch( strtolower($site) ) {
 
