@@ -874,10 +874,14 @@ Color palettes for social websites are available here: designpieces.com
     .social-link:hover {
 	-webkit-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
 	-moz-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
-	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
+	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
+    /* Subtle effect 'on hover' applied on icons */
+	-webkit-animation:zoomit 300ms ease-out;
+	-moz-animation:zoomit 300ms ease-out;
+	animation:zoomit 300ms ease-out
     }
 
-    .social-link,.social-link:active,.social-link:focus{
+    .social-link, .social-link:active, .social-link:focus {
     	/* Remove dotted outline on links in Firefox, Chrome, IE8 and above */
     	outline: none;
     	/* Fix for IE7 */
@@ -950,30 +954,30 @@ Color palettes for social websites are available here: designpieces.com
 	.delicious:hover path,
 	.instagram:hover path,
 	.vimeo:hover path,
-	.permalink:hover path{
+	.permalink:hover path {
 		fill: #333 !important
     }
 
-    .social-link b{display:none}
+    .social-link b {display: none}
 
-    .social-link strong{position:absolute;top:20%;left:30%;color:#fff;font-size:0}
+    .social-link strong {position: absolute;top: 20%;left: 30%;color: #fff;font-size: 0}
 
-    .link-container{position:relative;display:inline-block;width:10em}
+    .link-container {position: relative;display: inline-block;width: 10em}
 
-    .permalink{display:inline-block}
+    .permalink {display: inline-block}
 
-    #show-link{
-	display:none;
-	position:absolute;
-	top:3em;
-	left:0;
-	width:100%
+    #show-link {
+	display: none;
+	position: absolute;
+	top: 3em;
+	left: 0;
+	width: 100%
     }
 
 
-    .social-link span{
+    .social-link span {
 	display: block;
-	position:absolute;
+	position: absolute;
 	top: -3.5em;
 	left: 0;
 	min-width: 2.4em;
@@ -999,31 +1003,53 @@ Color palettes for social websites are available here: designpieces.com
   	width: 0;
   	height: 0;
 	margin-left:-.7em;
-
   	border: 7px solid transparent;
   	border-top-color: #ddd;
   	border-right-color: transparent;
   	border-bottom: none;
   	border-left-color: transparent;
-  	
   	-webkit-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
 	-moz-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
 	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
     }
 
-    .twitter path{fill:#00aced}
-    .facebook path{fill:#3b5998}
-    .google path{fill:#dd4B39}
-    .pinterest path{fill:#cb2027}
-    .tumblr path{fill:#32506d}
-    .instapaper path,.buffer path{fill:#333}
-    .pocket path{fill:#ee4055}
-    .pocket .inner{fill:#fff}
-    .linkedin path{fill:#0e76a8}
-    .reddit path,.delicious path{fill:#c1c1c1}
-    .dribbble path{fill:#ea4c89}
-    .stumbleupon path{fill: #eb4823}
-    .instagram path{fill:#517fa4}
+    .twitter path {fill: #00aced}
+    .facebook path {fill: #3b5998}
+    .google path {fill: #dd4B39}
+    .pinterest path {fill: #cb2027}
+    .tumblr path {fill: #32506d}
+    .instapaper path, .buffer path {fill: #333}
+    .pocket path {fill: #ee4055}
+    .pocket .inner {fill: #fff}
+    .linkedin path {fill: #0e76a8}
+    .reddit path, .delicious path {fill: #c1c1c1}
+    .dribbble path {fill: #ea4c89}
+    .stumbleupon path {fill: #eb4823}
+    .instagram path {fill: #517fa4}
+
+    @-webkit-keyframes zoomit {
+	15%, 40%, 75%, 100% {-webkit-transform-origin: center center}
+	15% {-webkit-transform: scale(1.2, 1.1)}
+	40% {-webkit-transform: scale(0.95, 0.95)}
+	75% {-webkit-transform: scale(1.05, 1)}
+	100% {-webkit-transform:scale(1, 1)}
+    }
+
+    @-moz-keyframes zoomit {
+	15%, 40%, 75%, 100% {-moz-transform-origin: center center}
+	15% {-moz-transform: scale(1.2, 1.1)}
+	40% {-moz-transform: scale(0.95, 0.95)}
+	75% {-moz-transform: scale(1.05, 1)}
+	100% {-moz-transform: scale(1, 1)}
+    }
+
+    @keyframes zoomit {
+	15%, 40%, 75%, 100% {transform-origin: center center}
+	15% {transform: scale(1.2, 1.1)}
+	40% {transform: scale(0.95, 0.95)}
+	75% {transform: scale(1.05, 1)}
+	100% {transform: scale(1, 1)}
+    }
 
 ###6°. Tips and advices
 
