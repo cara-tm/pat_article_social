@@ -132,6 +132,7 @@ EOF;
 
 			case 'facebook':
 	$tags = <<<EOF
+<meta property="og:rich_attachment" content="true">
 <meta property="og:locale" content="$locale">
 <meta property="og:site_name" content="{$prefs['sitename']}">
 <meta property="og:title" content="{$title}">
@@ -139,6 +140,7 @@ EOF;
 <meta property="og:url" content="{$current()}">
 
 EOF;
+	$tags .= ($thisarticle['posted'] ? '<meta property="og:updated_time" content="'.date('Y-m-d', $thisarticle['posted']).'">'.n : '');
 	$tags .= ($image ? '<meta property="og:image" content="'.$image.'">'.n : '');
 	$tags .= ($pretext['id'] ? '<meta property="og:type" content="article">' : '<meta property="og:type" content="website">').n;
 	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
