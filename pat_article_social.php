@@ -90,7 +90,7 @@ function pat_article_social_meta($atts)
 		// Check image
 		$image ? $image : $image = _pat_article_social_image();
 		// Sanitize
-		$description = trim(preg_replace('/\s+/', ' ', $description));
+		$description = preg_replace('/\s+/', ' ', $description);
 		$description = preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($description) );
 		// Social Networks often limit description to 200 characters
 		$description = _pat_article_social_trim($description, $lenght);
