@@ -140,7 +140,7 @@ EOF;
 <meta property="og:url" content="{$current()}">
 
 EOF;
-	$tags .= ($thisarticle['posted'] ? '<meta property="og:updated_time" content="'.date('Y-m-d', $thisarticle['posted']).'">'.n : '');
+	$tags .= '<meta property="og:updated_time" content="'.($thisarticle['posted'] ? date('Y-m-d H:i:s', $thisarticle['posted']) : $prefs['lastmod']).'">'.n;
 	$tags .= ($image ? '<meta property="og:image" content="'.$image.'">'.n : '');
 	$tags .= ($pretext['id'] ? '<meta property="og:type" content="article">' : '<meta property="og:type" content="website">').n;
 	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
