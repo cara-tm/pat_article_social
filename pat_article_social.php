@@ -154,7 +154,6 @@ EOF;
 			case 'google':
 	$tags = <<<EOF
 <meta itemprop="name" content="{$prefs['sitename']}">
-<meta itemprop="title" content="{$title}">
 <meta itemprop="description" content="$description">
 <meta itemprop="url" content="{$current()}">
 
