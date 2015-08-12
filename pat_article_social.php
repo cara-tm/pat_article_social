@@ -335,7 +335,7 @@ function twttr($atts)
 function pat_article_social($atts)
 {
 
-	global $thisarticle, $dribbble_data, $real, $shot, $user, $token, $instagram_type;
+	global $prefs, $thisarticle, $dribbble_data, $real, $shot, $user, $token, $instagram_type;
 
 	extract(lAtts(array(
 		'site'		 => 'permalink',
@@ -452,6 +452,9 @@ function pat_article_social($atts)
 				$link = '<a href="https://instagram.com/'.$instagram.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="instagram-icon" x="0" y="0" width="'.$width.'" height="'.$height.'"  enable-background="new 0 0 30 30" viewBox="0 0 30 30" xml:space="preserve"><path d="M26 0C26 0 3.5 0 3.5 0 1.6 0 0 1.6 0 3.5L0 3.5c0 0 0 23 0 23C0 28.4 1.6 30 3.5 30c0 0 23 0 23 0 1.9-0.1 3.5-1.6 3.5-3.5 0 0 0-23 0-23C30 1.6 27.9 0.1 26 0zM15 9.5c3 0 5.5 2.5 5.5 5.5 0 3-2.5 5.5-5.5 5.5 -3 0-5.5-2.5-5.5-5.5C9.5 12 12 9.5 15 9.5zM26 24c0 1.1-0.9 2-2 2H6c-1.1 0-2-0.9-2-2V12.5h2.4C6.1 13.3 6 14.1 6 15c0 5 4 9 9 9 5 0 9-4 9-9 0-0.9-0.1-1.7-0.4-2.5H26l0 11.5C26 24 26 24 26 24zM26 5v3h0c0 0.5-0.4 1-1 1V9H22c-0.5 0-1-0.4-1-1H21V5h0C21 5 21 5 21 5c0-0.6 0.4-1 1-1h3v0C25.6 4 26 4.5 26 5c0 0 0 0 0 0H26z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_instagram', $delay, $zero ) : '').($fallback ? '<strong>I</strong>' : '').'</a>';
 			break;
 
+			case 'email':
+				$link = '<a href="mailto:?subject='.$prefs['sitename'].'&amp;body='.$text.'%0A%0A'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 485.4 485.4" xml:space="preserve"><path d="M0 81.8v321.8h485.4V81.8H0zM242.7 280.5L43.6 105.7h398.2L242.7 280.5zM163.4 242.6L23.9 365.2V120.1L163.4 242.6zM181.5 258.5l61.2 53.8 61.2-53.8L441.9 379.7H43.5L181.5 258.5zM322 242.7l139.5-122.5v245.1L322 242.7z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';'
+			break;
 
 			case 'permalink':
 				global $pretext, $plugins;
