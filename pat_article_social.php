@@ -20,6 +20,7 @@ if (class_exists('Textpattern_Tag_Registry')) {
 	Txp::get('Textpattern_Tag_Registry')
 		->register('pat_article_social_meta')
 		->register('twttr')
+		->register('fb')
 		->register('pat_article_social')
 		->register('pat_article_social_sum');
 }
@@ -345,7 +346,7 @@ function twttr($atts)
  * Display fb embedded post
  *
  * @param  array   Tag attributes
- * @return iframe  Embeded Tweet
+ * @return iframe  Embeded fb post
  */
 function fb($atts)
 {
