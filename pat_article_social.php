@@ -84,7 +84,7 @@ function pat_article_social_meta($atts)
 		// Create an array of social services from list 
 		$type = explode(',', $type);
 		// Format lang code
-		phpversion() >= '5.3.0' ? $locale = preg_replace_callback( '(^([a-z]{2})(.*)?([a-z]{2}))i', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale ) : '';
+		$locale = _pat_locale($locale);
 		// Get URI
 		$current = _pat_article_social_get_uri();
 		// Check image
@@ -261,6 +261,21 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
 	$shrink = substr($input, 0, $space).'...';
 
 	return $shrink;
+}
+
+
+/**
+ * Convert into proper local code
+ *
+ * @param  string $locale
+ * @return string ISO code
+ */
+function _pat_locale($locale)
+{
+	if( phpversion() >= '5.3.0')
+		return preg_replace_callback('(([a-z]{2})(.*)?([a-z]{2}))', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale);
+	else
+		return $locale;
 }
 
 
