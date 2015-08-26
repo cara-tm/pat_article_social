@@ -359,11 +359,11 @@ function fb($atts)
 
 	if ( !gps('txpreview') ) {
 
-		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*$#i', $url) ) 
+		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*$#i', $url) ) {
 			return '<div id="fb-root"></div><script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script><div class="fb-post" data-href="'.$url.'"></div>';
+		}
 
-		else
-			return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'url')), E_USER_WARNING);
+		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'url')), E_USER_WARNING);
 	}
 
 }
