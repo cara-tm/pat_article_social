@@ -117,7 +117,7 @@ function pat_article_social_meta($atts)
 						++$i;
 					}
 				} else {
-					$tags .= ($image ? '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n : '');
+					$tags .= ($image ? '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n._pat_article_social_image_size($thisarticle['article_image'], 'twitter') : '');
 				}
 				$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 				$tags .= ($label1 ? '<meta name="twitter:label1" content="'.$label1.'">'.n : '');
@@ -143,7 +143,7 @@ EOF;
 
 EOF;
 	$tags .= '<meta property="og:updated_time" content="'.($thisarticle['posted'] ? date('Y-m-d H:i:s', $thisarticle['posted']) : $prefs['lastmod']).'">'.n;
-	$tags .= ($image ? '<meta property="og:image" content="'.$image.'">'.n : '');
+	$tags .= ($image ? '<meta property="og:image" content="'.$image.'">'.n._pat_article_social_image_size($thisarticle['thisid'], 'facebook') : '');
 	$tags .= ($pretext['id'] ? '<meta property="og:type" content="article">' : '<meta property="og:type" content="website">').n;
 	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
 	$tags .= ($fb_admins ? '<meta property="fb:admins" content="'.$fb_admins.'">'.n : '');
@@ -222,6 +222,39 @@ function _pat_article_social_image($pic = NULL)
 	}
 
 	return $img;
+}
+
+
+/**
+ * Display width and height of an image
+ *
+ * @param  integer $id   Image id
+ * @return string  $out  HTML tags
+ */
+function _pat_article_social_image_size($id, $type)
+{
+
+	$out = '';
+
+	if ( intval($id) ) {
+
+		if ( $rs = safe_row('id, w, h', 'txp_image', 'id = "'.$id.'"') )
+
+			switch ($type) {
+
+				case 'facebook':
+					$out .= '<meta property="og:image:width" content="'.$rs['w'].'">'.n.'<meta property="og:image:height" content="'.$rs['h'].'">'.n;
+				break;
+
+				case 'twitter':
+					$out .= '<meta name="twitter:image:width" content="'.$rs['w'].'">'.n.'<meta name="twitter:image:height" content="'.$rs['h'].'">'.n;
+				break;
+			}
+
+	}
+
+
+	return $out;
 }
 
 
