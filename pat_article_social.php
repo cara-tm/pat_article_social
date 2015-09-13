@@ -6,7 +6,7 @@
  * @type:    Public
  * @prefs:   no
  * @order:   5
- * @version: 0.5.2
+ * @version: 0.5.3
  * @license: GPLv2
 */
 
