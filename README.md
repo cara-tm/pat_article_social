@@ -3,7 +3,7 @@ pat_article_social
 
 Textpattern CMS plugin.
 
-Create social links and share counters for articles with meta Open Graph.
+Create social links and share counters for articles with Open Graph meta tags.
 Support for major services: Twitter ®, facebook ®, G+ ®, Pinterest ® Tumblr ®, Instapaper ®, Pocket ®, Linkedin ®, Buffer ®, Reddit ®, Dribbble ®, Stumbleupon ® & Delicious ®. Allow embedded Tweets and facebook status into article's bodies.
 
 [Dedicated website and €1 donation](http://pat-article-social.cara-tm.com/ "Go")
