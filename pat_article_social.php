@@ -189,7 +189,7 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
 		$out = ' ';
 	// Check if account is well formated
 	if ( preg_match("/\@[a-z0-9_]+/i", $entry) )
-		$out = ($attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : $entry);
+		$out = ( $attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : urlencode($entry) );
 
 	return $out ? $out : trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING );
 }
@@ -454,7 +454,7 @@ function pat_article_social($atts)
 		// Limit content lenght
 		$minus = strlen($via)+7;
 		// Twitter shorten urls: http://bit.ly/ILMn3F
-		$words = ($via ? 'via '._pat_article_social_validate_user($via).': ' : '').urlencode( rtrim(substr($text, 0, 115-$minus)) ).'...%22';
+		$words = ($via ? 'via%20'._pat_article_social_validate_user($via).':%20' : '').urlencode( rtrim(substr($text, 0, 115-$minus)) ).'...%22';
 
 		switch( strtolower($site) ) {
 
@@ -529,7 +529,7 @@ function pat_article_social($atts)
 			break;
 
 			case 'email':
-				$link = '<a href="mailto:?subject='.$prefs['sitename'].'&amp;body='.$text.'%0A%0A'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 485.4 485.4" xml:space="preserve"><path d="M0 81.8v321.8h485.4V81.8H0zM242.7 280.5L43.6 105.7h398.2L242.7 280.5zM163.4 242.6L23.9 365.2V120.1L163.4 242.6zM181.5 258.5l61.2 53.8 61.2-53.8L441.9 379.7H43.5L181.5 258.5zM322 242.7l139.5-122.5v245.1L322 242.7z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';'
+				$link = '<a href="mailto:?subject='.$prefs['sitename'].'&amp;body='.urlencode($text).'%0A%0A'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 485.4 485.4" xml:space="preserve"><path d="M0 81.8v321.8h485.4V81.8H0zM242.7 280.5L43.6 105.7h398.2L242.7 280.5zM163.4 242.6L23.9 365.2V120.1L163.4 242.6zM181.5 258.5l61.2 53.8 61.2-53.8L441.9 379.7H43.5L181.5 258.5zM322 242.7l139.5-122.5v245.1L322 242.7z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';'
 			break;
 
 			case 'permalink':
