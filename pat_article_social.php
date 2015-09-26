@@ -440,7 +440,6 @@ function instagram($atts)
 
 	extract(lAtts(array(
 		'url'		 => NULL,
-		'locale'	 => $prefs['language'],
 	 ), $atts));
 
 
