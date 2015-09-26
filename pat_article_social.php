@@ -306,10 +306,7 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
  */
 function _pat_locale($locale)
 {
-	if( phpversion() >= '5.3.0')
-		return preg_replace_callback('(([a-z]{2})(.*)?([a-z]{2}))', function($m){return "$m[1]_".strtoupper($m[3]);}, $locale);
-	else
-		return $locale;
+	return substr($locale, 0, 2);
 }
 
 
