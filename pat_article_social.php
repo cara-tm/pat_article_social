@@ -569,6 +569,8 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 
 	// Times.
 	$current_time = time();
+	if($delay <= 0)
+		$delay = 1;
 	$expire_time = (int)$delay * 60 * 60;
 
 	// Grab content file or create it.
