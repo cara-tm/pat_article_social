@@ -22,6 +22,7 @@ if (class_exists('Textpattern_Tag_Registry')) {
 		->register('twttr')
 		->register('fb')
 		->register('gplus')
+		->register('instagram')
 		->register('pat_article_social')
 		->register('pat_article_social_sum');
 }
@@ -424,6 +425,31 @@ function gplus($atts)
 
 		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'url')), E_USER_WARNING);
 	}
+
+}
+
+
+/**
+ * Display Instagram embedded post
+ *
+ * @param  array   Tag attributes
+ * @return HTLM    Embedded post
+ */
+function instagram($atts)
+{
+
+	extract(lAtts(array(
+		'url'		 => NULL,
+		'locale'	 => $prefs['language'],
+	 ), $atts));
+
+
+	$url = preg_replace('/\?.*/', '', $url);
+
+	$json = 'http://api.instagram.com/publicapi/oembed/?url='.$url;
+	$datas = json_decode( @file_get_contents($json), true );
+
+	return $datas['html'];
 
 }
 
