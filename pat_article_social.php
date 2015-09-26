@@ -304,9 +304,12 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
  * @param  string $locale
  * @return string ISO code
  */
-function _pat_locale($locale)
+function _pat_locale($locale, $striped = NULL)
 {
-	return substr($locale, 0, 2);
+	if (true != $striped)
+		return str_replace('-', '_', $locale);
+	else
+		return substr($locale, 0, 2);
 }
 
 
