@@ -388,8 +388,8 @@ function fb($atts)
  	global $prefs;
 
  	extract(lAtts(array(
-		'url'		 => NULL,
-		'locale'	 => $prefs['language'],
+		'url'	 => NULL,
+		'locale' => $prefs['language'],
 	 ), $atts));
 
 	if ( !gps('txpreview') ) {
@@ -398,7 +398,7 @@ function fb($atts)
 			return '<div id="fb-root"></div><script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script><div class="fb-post" data-href="'.$url.'"></div>';
 		}
 
-		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'url')), E_USER_WARNING);
+		return '';
 	}
 
 }
@@ -414,7 +414,7 @@ function gplus($atts)
 {
 
  	extract(lAtts(array(
-		'url'		 => NULL,
+		'url'	=> NULL,
 	 ), $atts));
 
 	if ( !gps('txpreview') ) {
@@ -423,7 +423,7 @@ function gplus($atts)
 			return '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-post" data-href="'.$url.'"></div>';
 		}
 
-		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'url')), E_USER_WARNING);
+		return '';
 	}
 
 }
@@ -439,7 +439,7 @@ function instagram($atts)
 {
 
 	extract(lAtts(array(
-		'url'		 => NULL,
+		'url'	=> NULL,
 	 ), $atts));
 
 
@@ -448,7 +448,7 @@ function instagram($atts)
 	$json = 'http://api.instagram.com/publicapi/oembed/?url='.$url;
 	$datas = json_decode( @file_get_contents($json), true );
 
-	return $datas['html'];
+	return $datas ? $datas['html'] : '';
 
 }
 
