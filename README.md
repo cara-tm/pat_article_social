@@ -22,6 +22,8 @@ Online tools & documentation:
 
 [Twitter Open Graph Meta tags tester](https://coveloping.com/tools/open-graph-tag-tester)
 
+[Twitter Cards Validator](https://cards-dev.twitter.com/validator)
+
 [Google + Open Graph Meta Tags](https://developers.google.com/+/web/snippet/)
 
 
