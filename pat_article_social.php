@@ -356,7 +356,7 @@ function twttr($atts)
 			$out = '<div class="pat-twttr"><'.$markup.$att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
 
 		// Partial URL of Twitter link given, only a number: returns native embedded Twitter tweets
-		} elseif ( preg_match('#^[0-9]+$#i', $status) && $markup == 'blockquote' ) {
+		} elseif ( preg_match('#^[0-9]+$#i', $status) || $markup == 'blockquote' ) {
 			
 			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$status.'&amp;align=center&amp;maxwidth=500&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
 			$datas = json_decode( @file_get_contents($json), true );
