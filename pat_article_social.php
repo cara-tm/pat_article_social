@@ -328,6 +328,8 @@ function twttr($atts)
  	extract(lAtts(array(
 		'status'	 => NULL,
 		'markup'	 => 'blockquote',
+		'align' 	 => 'center',
+		'max_width' 	 => '500',
 		'media' 	 => false,
 		'thread' 	 => false,
 		'related' 	 => false,
@@ -351,14 +353,14 @@ function twttr($atts)
 		}
 
 		// Full URL of Twitter link given.
-		if ( preg_match('#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i', $status) ) {
+		if ( preg_match('#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i', $status) && $markup == 'iframe' ) {
 			
 			$out = '<div class="pat-twttr"><'.$markup.$att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
 
 		// Partial URL of Twitter link given, only a number: returns native embedded Twitter tweets
 		} elseif ( preg_match('#^[0-9]+$#i', $status) || $markup == 'blockquote' ) {
 			
-			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$status.'&amp;align=center&amp;maxwidth=500&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
+			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$status.'&amp;align='.$align.'&amp;maxwidth='.$max_width.'&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
 			$datas = json_decode( @file_get_contents($json), true );
 			if ($datas)
 				$out = str_replace(
