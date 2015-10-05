@@ -25,6 +25,7 @@ if (class_exists('Textpattern_Tag_Registry')) {
 		->register('fb')
 		->register('gplus')
 		->register('instagram')
+		->register('gist')
 		->register('pat_article_social')
 		->register('pat_article_social_sum');
 }
@@ -453,6 +454,25 @@ function instagram($atts)
 	$datas = json_decode( @file_get_contents($json), true );
 
 	return $datas ? $datas['html'] : '';
+
+}
+
+
+/**
+ * Display embedded gist
+ *
+ * @param  array   Tag attribute
+ * @return string  Github script link
+ */
+function gist($atts)
+{
+
+ 	extract(lAtts(array(
+		'url'		 => NULL,
+	 ), $atts));
+
+ 	if ( preg_match('#^https:\/\/gist.github.com\/[a-z-0-9-]+\/[a-z-0-9]+$#i', $url) )
+ 	 	return '<script src="'.$url.'.js"></script>';
 
 }
 
