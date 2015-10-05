@@ -1,5 +1,5 @@
 
-#pat_article_social v 0.5.1 (formerly pat_article_tweet)
+#pat_article_social v 0.5.3 (formerly pat_article_tweet)
 
 ##Purpose
 
@@ -209,9 +209,9 @@ Notice: Default color icons are black. See below how to change it.
 
 ##4.° Insert a Tweet into your article's body
 
-Just use this line into your article's body:
+Just use this line into your article's body (Textile rendering):
 
-    <txp:twttr status="" markup="" />
+    <txp:twttr status="" markup=""  media="" related"" locale="" />
 
 Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:
 
@@ -231,13 +231,18 @@ Note: Because this plugin remove multiple widgets.js files integration within th
 >    **locale**: string (optional). The code language (in 2 letters) to translate embbedded tweets. Default: prefs language (for the TXP administration interface).
 > 
 
+
 ###Example
 
-    <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" markup="iframe" />
+    <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" />
 
 ###Shorter Form Example: embedded tweet from Twitter json services (with the first Tweet of the Internet history)
 
     <txp:twttr status="20" />
+
+This tag supports long URLs link, partial and short. Both works exactly the same, `<txp:twttr status="https://twitter.com/CNBC/status/593087360243490816?ref_src=twsrc^tfw" />` and `<txp:twttr status="593087360243490816" />` even `<txp:twttr status="https://twitter.com/CNBC/status/593087360243490816" />`
+
+
 
 ###CSS layout
 
@@ -267,7 +272,77 @@ When you use the short form which render embedded tweets from Twitter json servi
 
     .twitter-tweet-rendered {margin-right: auto !important;margin-left: auto !important}
 
-#5.° CSS layout for social links
+##5.° Insert an embedded facebook status into your article's body
+
+Just insert this line into your article's body (Textile rendering):
+
+    <txp:fb url="" />
+
+###Attribute
+
+> 
+>    `url`string (required). The link URL of a __public__ facebook status. Default: none (empty).
+> 
+
+###Example
+
+    <txp:fb url="https://www.facebook.com/zuck/posts/10102329188394581" />
+
+
+
+##6.° Insert an embedded G+ post into your article's body
+
+Just insert this line into the article's body (Textile rendering):
+
+    <txp:gplus url="" />
+
+###Attribute
+
+> 
+>    `url` string (required). The link URL of a G+ post. Default: none (empty).
+> 
+
+###Example
+
+    <txp:gplus url="https://plus.google.com/+google/posts/eTmjj1arLBq" />
+
+
+##7.° Insert an embedded Instagram image into your article's body
+
+Just insert this line into your articl's body (Textile rendering):
+
+    <txp:instagram url="https://instagram.com/p/1vpa3Sh-1G/?taken-by=rodinature" />
+
+###Attribute
+
+> 
+>    `url` string (required). The URL link to the Instagram image (present into the address bar). Default: none (empty).
+> 
+
+###Example
+
+    <txp:instagram url="https://instagram.com/p/1vpa3Sh-1G/?taken-by=rodinature" />
+
+
+
+##8.° Insert an embedded Gist code into your article's body
+
+Just insert this line into your article's body (Textile rendering):
+
+    <txp:gist url="" />
+
+###Attribute
+
+> 
+>    `url` string (required). The URL link to a Gist from GitHub (present into the address bar). Default: none (empty).
+> 
+
+###Example
+
+    <txp:gist url="https://gist.github.com/cara-tm/15589a11130949510e25" />
+
+
+#9.° CSS layout for social links
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
@@ -1051,7 +1126,7 @@ Color palettes for social websites are available here: designpieces.com
 	100% {transform: scale(1, 1)}
     }
 
-###6°. Tips and advices
+###10°. Tips and advices
 
 You can choose to place your hidden social links on images and reveal its on mouse over.
 
@@ -1081,6 +1156,8 @@ And the corresponding CSS rules:
 
 ##Changelog
 
+- 6th October 2015. v 0.5.3. Support embedded Instagram & Gist from link URLs. Long, partial & short links support for the status attribute of the <txp:twttr /> tag.
+- 13th September 2015. v 0.5.2. Support embedded fb status into article's body. 
 - 26th June 2015. v 0.5.1. Support Twitter json services to render embedded tweets.
 - 5th June 2015. v 0.5.0. Support for embeded Tweets into article's body.
 - 29th March 2015. v 0.4.9. Correct error message for PHP < 5.0.3. Add "fallback" attribute to remove first letters as fallback for browsers which do not support SVG format. No counter for Instagram for the moment.
