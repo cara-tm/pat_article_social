@@ -311,7 +311,7 @@ Just insert this line into the article's body (Textile rendering):
 
 Just insert this line into your articl's body (Textile rendering):
 
-    <txp:instagram url="https://instagram.com/p/1vpa3Sh-1G/?taken-by=rodinature" />
+    <txp:instagram url="" />
 
 ###Attribute
 
