@@ -6,7 +6,7 @@
  * @type:    Public
  * @prefs:   no
  * @order:   5
- * @version: 0.5.3
+ * @version: 0.5.4
  * @license: GPLv2
 */
 
@@ -621,9 +621,16 @@ function pat_article_social($atts)
 		}
 
 		return $link;
+
+	} elseif ( empty($site) ) {
+
+		return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING );
+	
+	} else {
+
+		return '';
 	}
 
-	return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING );
 }
 
 
