@@ -95,11 +95,12 @@ function pat_article_social_meta($atts)
 		$current = _pat_article_social_get_uri();
 		// Check image
 		$image ? $image : $image = _pat_article_social_image();
-		// Sanitize
-		$description = strip_tags($description);
-		$description = preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($description) );
+		// Sanitize line breaks
+		$description = str_replace(array('\r\n', '\r'), '\n', $description);
 		// Social Networks often limit description to 200 characters
-		$description = _pat_article_social_trim($description, $lenght);
+		$description = strip_tags(_pat_article_social_trim($description, $lenght));
+		// Remove some URLs into text content
+		$description = preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', $description);
 
 		foreach ($type as $service) {
 
