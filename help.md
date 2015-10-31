@@ -1051,7 +1051,7 @@ Color palettes for social websites are available here: designpieces.com
 
 
     .social-link span {
-	display: block;
+	display: none;
 	position: absolute;
 	top: -3.5em;
 	left: 0;
@@ -1087,6 +1087,8 @@ Color palettes for social websites are available here: designpieces.com
 	-moz-box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15);
 	box-shadow: inset 0 0 6px 0 rgba(0,0,0,.15)
     }
+
+    .social-link:hover span {display: block}
 
     .twitter path {fill: #00aced}
     .facebook path {fill: #3b5998}
