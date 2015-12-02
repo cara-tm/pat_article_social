@@ -345,21 +345,21 @@ function twttr($atts)
 		switch ( strtolower($markup) ) {
 
 			case 'iframe':
-				$att = ' style="border:0;height:100% !important" src=';
+				$_att = ' style="border:0;height:100% !important" src=';
 			break;
 
 			case 'object':
-				$att = ' data=';
+				$_att = ' data=';
 
 			default:
-				$att = ' ';
+				$_att = ' ';
 
 		}
 
 		// Full URL of Twitter link given.
-		if ( preg_match('#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i', $status) && $markup == 'iframe' ) {
+		if ( preg_match('#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i', $status) && ($markup == 'iframe' || $markup == 'object') ) {
 			
-			$out = '<div class="pat-twttr"><'.$markup.$att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
+			$out = '<div class="pat-twttr"><'.$markup.$_att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
 
 		// Partial URL of Twitter link given, only a number: returns native embedded Twitter tweets
 		} elseif ( preg_match('#^[0-9]+$#i', $status) || $markup == 'blockquote' ) {
