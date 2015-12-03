@@ -19,7 +19,7 @@
  *
  */
 if (class_exists('\Textpattern\Tag\Registry')) {
-	Txp::get('Textpattern\Tag\Registry')
+	Txp::get('\Textpattern\Tag\Registry')
 		->register('pat_article_social_meta')
 		->register('twttr')
 		->register('fb')
