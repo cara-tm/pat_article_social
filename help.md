@@ -5,6 +5,8 @@
 
 **Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist.**
 
+Note: no more Twitter share counts since v 0.5.4 [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform).
+
 ##Plugin Preferences
 
 After installation, choose "Admin"->"Preferences" tab to access this plugin prefs and to set the "cache" directory. Default: /root/cache.
