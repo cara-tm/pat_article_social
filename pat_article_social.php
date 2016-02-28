@@ -293,7 +293,7 @@ function _pat_article_social_trim($input, $length, $strip_html = true)
 		$input = strip_tags($input);
   
 	// No need to trim, already shorter than trim length
-	if ( strlen($input) <= $length )
+	if ( mb_strlen($input) <= $length )
 		return $input;
   
 	// Find last space within length
@@ -531,7 +531,7 @@ function pat_article_social($atts)
 		// Limit content lenght
 		$minus = strlen($via)+7;
 		// Twitter shorten urls: http://bit.ly/ILMn3F
-		$words = ($via ? 'via%20'._pat_article_social_validate_user($via).':%20' : '').urlencode( rtrim(substr($text, 0, 115-$minus)) ).'...%22';
+		$words = ($via ? 'via%20'._pat_article_social_validate_user($via).':%20' : '').urlencode( _pat_article_social_trim($words, 114 - $minus) ).'...%22';
 
 		switch( strtolower($site) ) {
 
