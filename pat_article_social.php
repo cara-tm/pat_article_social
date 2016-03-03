@@ -123,16 +123,16 @@ function pat_article_social_meta($atts)
 						++$i;
 					}
 				} else {
-					$tags .= ($image ? '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n._pat_article_social_image_size($thisarticle['article_image'], 'twitter') : '');
+					$tags .= ($image ? '<meta name="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n._pat_article_social_image_size($thisarticle['article_image'], 'twitter') : '');
 				}
-				$tags .= '<meta property="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
+				$tags .= '<meta name="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 				$tags .= ($label1 ? '<meta name="twitter:label1" content="'.$label1.'">'.n : '');
 				$tags .= ($data1 ? '<meta name="twitter:data1" content="'.$data1.'">'.n : '');
 				$tags .= ($label2 ? '<meta name="twitter:label2" content="'.$label2.'">'.n : '');
 				$tags .= ($data2 ? '<meta name="twitter:data2" content="'.$data2.'">'.n : '');
 				$tags .= <<<EOF
-<meta property="twitter:url" content="{$current()}">
-<meta property="twitter:title" content="{$title}">
+<meta name="twitter:url" content="{$current()}">
+<meta name="twitter:title" content="{$title}">
 <meta name="twitter:description" content="$description">
 EOF;
 			break;
