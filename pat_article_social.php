@@ -417,22 +417,21 @@ function fb($atts)
 
 
 /**
- * Inject once fb script
+ * Inject fb script once.
  *
  * @param  locale  Locale country code
  * @return script  fb script link
  */
 function _injectfb($locale) {
 
-	static $result;
+	static $cache = null;
 
-	// Function has already run
-	if ( $result !== null )
-		return $result;
-
-	// Assign $result
-	$result = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
-
+	// Function has never run.
+	if ( $cache === null ) {
+		// Assign variable.
+		$cache = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
+		return $cache;
+	}
 }
 
 
