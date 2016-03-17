@@ -394,18 +394,36 @@ function fb($atts)
  	global $prefs;
 
  	extract(lAtts(array(
-		'url'	 => NULL,
+		'status' => NULL,
 		'locale' => $prefs['language'],
 	 ), $atts));
 
 	if ( !gps('txpreview') ) {
 
-		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*$#i', $url) ) {
-			return '<div id="fb-root"></div><script>(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)) return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/'._pat_locale($locale).'/sdk.js#xfbml=1&version=v2.4&appId=373162966153650";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script><div class="fb-post" data-href="'.$url.'"></div>';
+		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*(.*)?$#i', $status) ) {
+			return '<div id="fb-root"></div>'._injectfb($locale).'<div class="fb-post" data-href="'.$status.'"></div>';
 		}
 
-		return '';
+		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
 	}
+
+}
+
+
+/**
+ * Inject once fb script
+ *
+ * @param  locale  Locale country code
+ * @return script  fb script link
+ */
+function _injectfb($locale)
+{
+	static $counter;
+	if( !isset( $counter ) )
+		$counter = 0;
+
+	if($counter == 0)
+		return '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
 
 }
 
