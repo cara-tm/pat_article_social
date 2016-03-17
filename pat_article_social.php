@@ -438,16 +438,16 @@ function gplus($atts)
 {
 
  	extract(lAtts(array(
-		'url'	=> NULL,
+		'status'	=> NULL,
 	 ), $atts));
 
 	if ( !gps('txpreview') ) {
 
-		if( preg_match('#^https:\/\/plus\.google\.com\/[a-z-A-Z-0-9+]*\/posts\/[a-z-A-Z-0-9]*$#i', $url) ) {
-			return '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-post" data-href="'.$url.'"></div>';
+		if( preg_match('#^https:\/\/plus\.google\.com\/[a-z-A-Z-0-9+]*\/posts\/[a-z-A-Z-0-9]*$#i', $status) ) {
+			return '<script src="https://apis.google.com/js/platform.js" async defer></script><div class="g-post" data-href="'.$status.'"></div>';
 		}
 
-		return '';
+		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
 	}
 
 }
@@ -463,13 +463,13 @@ function instagram($atts)
 {
 
 	extract(lAtts(array(
-		'url'	=> NULL,
+		'status'	=> NULL,
 	 ), $atts));
 
 
-	$url = preg_replace('/\?.*/', '', $url);
+	$url = preg_replace('/\?.*/', '', $status);
 
-	$json = 'http://api.instagram.com/publicapi/oembed/?url='.$url;
+	$json = 'http://api.instagram.com/publicapi/oembed/?url='.$status;
 	$datas = json_decode( @file_get_contents($json), true );
 
 	return $datas ? $datas['html'] : '';
