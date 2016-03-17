@@ -1,5 +1,5 @@
 
-#pat_article_social v 0.5.3 (formerly pat_article_tweet)
+#pat_article_social v 0.5.6 (formerly pat_article_tweet)
 
 ##Purpose
 
