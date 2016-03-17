@@ -422,14 +422,16 @@ function fb($atts)
  * @param  locale  Locale country code
  * @return script  fb script link
  */
-function _injectfb($locale)
-{
-	static $counter;
-	if( !isset( $counter ) )
-		$counter = 0;
+function _injectfb($locale) {
 
-	if($counter == 0)
-		return '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
+	static $result;
+
+	// Function has already run
+	if ( $result !== null )
+		return $result;
+
+	// Assign $result
+	$result = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
 
 }
 
