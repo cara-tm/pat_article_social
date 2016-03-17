@@ -5,13 +5,13 @@
 
 **Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist.**
 
-Note: no more Twitter share counts since v 0.5.4 [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform).
+Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform)).
 
 ##Plugin Preferences
 
 After installation, choose "Admin"->"Preferences" tab to access this plugin prefs and to set the "cache" directory. Default: /root/cache.
 
-Note: you need to create this cache directory; this plugin don't.
+Note: you need to create this cache directory; this plugin doesn't.
 
 ##Uninstallation
 
@@ -278,17 +278,17 @@ When you use the short form which render embedded tweets from Twitter json servi
 
 Just insert this line into your article's body (Textile rendering):
 
-    <txp:fb url="" />
+    <txp:fb status="" />
 
 ###Attribute
 
 > 
->    `url`string (required). The link URL of a __public__ facebook status. Default: none (empty).
+>    `status`string (required). The link URL of a __public__ facebook status. Default: none (empty).
 > 
 
 ###Example
 
-    <txp:fb url="https://www.facebook.com/zuck/posts/10102329188394581" />
+    <txp:fb status="https://www.facebook.com/zuck/posts/10102329188394581" />
 
 
 
@@ -296,34 +296,34 @@ Just insert this line into your article's body (Textile rendering):
 
 Just insert this line into the article's body (Textile rendering):
 
-    <txp:gplus url="" />
+    <txp:gplus status="" />
 
 ###Attribute
 
 > 
->    `url` string (required). The link URL of a G+ post. Default: none (empty).
+>    `status` string (required). The link URL of a G+ post. Default: none (empty).
 > 
 
 ###Example
 
-    <txp:gplus url="https://plus.google.com/+google/posts/eTmjj1arLBq" />
+    <txp:gplus status="https://plus.google.com/+google/posts/eTmjj1arLBq" />
 
 
 ##7.° Insert an embedded Instagram image into your article's body
 
 Just insert this line into your articl's body (Textile rendering):
 
-    <txp:instagram url="" />
+    <txp:instagram status="" />
 
 ###Attribute
 
 > 
->    `url` string (required). The URL link to the Instagram image (present into the address bar). Default: none (empty).
+>    `status` string (required). The URL link to the Instagram image (present into the address bar). Default: none (empty).
 > 
 
 ###Example
 
-    <txp:instagram url="https://instagram.com/p/1vpa3Sh-1G/?taken-by=rodinature" />
+    <txp:instagram status="https://instagram.com/p/1vpa3Sh-1G/?taken-by=rodinature" />
 
 
 
