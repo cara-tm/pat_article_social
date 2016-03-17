@@ -357,27 +357,33 @@ function twttr($atts)
 		}
 
 		// Full URL of Twitter link given.
-		if ( preg_match('#^https?://twitter\.com/(?:\#!/)?(\w+)/status(es)?/(\d+)$#i', $status) && ($markup == 'iframe' || $markup == 'object') ) {
-			
-			$out = '<div class="pat-twttr"><'.$markup.$_att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
+		if ( preg_match('#http(s|):\/\/twitter\.com(\/\#\!\/|\/)([a-zA-Z0-9_]{1,20})\/status(es)*\/(\d+)#i', $status) {
 
-		// Partial URL of Twitter link given, only a number: returns native embedded Twitter tweets
-		} elseif ( preg_match('#^[0-9]+$#i', $status) || $markup == 'blockquote' ) {
-			
-			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$status.'&amp;align='.$align.'&amp;maxwidth='.$max_width.'&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
-			$datas = json_decode( @file_get_contents($json), true );
-			if ($datas)
-				$out = str_replace(
-					array(' align="center"', ' width="500"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
-					array('', ' style="width:500px"', ''),
-					$datas['html']
-				);
-		} else {
+			if ($markup == 'iframe' || $markup == 'object') {
+
+				$out = '<div class="pat-twttr"><'.$markup.$_att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
+
+				// Partial URL of Twitter link given, only a number: returns native embedded Twitter tweets
+			} elseif ( $markup == 'blockquote' ) {
+
+				$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.basename($status).'&amp;align='.$align.'&amp;maxwidth='.$max_width.'&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
+				$datas = json_decode( @file_get_contents($json), true );
+				if ($datas)
+					$out = str_replace(
+						array(' align="center"', ' width="500"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+						array('', ' style="width:500px"', ''),
+						$datas['html']
+					);
+
+			} else {
 
 			return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
-		}
-		
+
+			}
+
 		return in_array(strtolower($markup), array('blockquote', 'iframe', 'object') ) ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'markup')), E_USER_WARNING);
+
+		}
 	}
 
 }
