@@ -331,7 +331,7 @@ function twttr($atts)
 
  	extract(lAtts(array(
 		'status'	 => NULL,
-		'markup'	 => 'blockquote',
+		'markup'	 => ($prefs['pat_article_social_twttr'] == 1 ? 'blockquote' : 'iframe'),
 		'align' 	 => 'center',
 		'max_width' 	 => '500',
 		'media' 	 => false,
@@ -917,9 +917,13 @@ function _pat_article_social_prefs()
 	global $textarray;
 
 	$textarray['pat_article_social_dir'] = 'Cache directory';
+	$textarray['pat_article_social_twttr'] = 'Default blockquote markup for twttr short tag';
 
 	if ( !safe_field ('name', 'txp_prefs', "name='pat_article_social_dir'") )
 		safe_insert('txp_prefs', "prefs_id=1, name='pat_article_social_dir', val='cache', type=1, event='admin', html='text_input', position=21");
+	
+	if (!safe_field ('name', 'txp_prefs', "name='pat_article_social_twttr'"))
+		safe_insert('txp_prefs', "prefs_id=1, name='pat_article_social_twttr', val='1', type=1, event='admin', html='yesnoradio', position=22");
 
 	safe_repair('txp_plugin');
 }
@@ -933,8 +937,9 @@ function _pat_article_social_prefs()
  */
 function _pat_article_social_cleanup()
 {
-	global $path_to_site, $pat_article_social_dir;
+	global $path_to_site, $pat_article_social_dir, $pat_article_social_twttr;
 
 	array_map( 'unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt") );
 	safe_delete('txp_prefs', "name='pat_article_social_dir'");
+	safe_delete('txp_prefs', "name='pat_article_social_twttr'");
 }
