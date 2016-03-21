@@ -36,8 +36,17 @@ if (class_exists('\Textpattern\Tag\Registry')) {
  */
 if (txpinterface == 'admin')
 {
-	register_callback('_pat_article_social_prefs', 'prefs', '', 1);
-	register_callback('_pat_article_social_cleanup', 'plugin_lifecycle.pat_article_social', 'deleted');
+	global $pat_article_social_gTxt;
+
+	register_callback('pat_article_social_prefs', 'prefs', '', 1);
+	register_callback('pat_article_social_cleanup', 'plugin_lifecycle.pat_article_social', 'deleted');
+
+	// Default plugin Textpack.
+	$pat_article_social_gTxt = array(
+		'pat_article_social_dir' => 'Cache directory',
+		'pat_article_social_twttr' => 'Default blockquote markup for twttr short tag',
+		'pat_article_social_delay' => 'Caching delay for the social counting values',
+	);
 }
 
 /**
@@ -911,41 +920,57 @@ function _pat_format_count($number, $unit, $lang)
 }
 
 
-/**
- * Plugin prefs: entry for cache dir.
- *
- * @param
- * @return 
- */
 
-function _pat_article_social_prefs()
+/**
+ * Plugin prefs.
+ *
+ * @param  $event, $step
+ * @return Insert this plugin prefs into 'txp_prefs' table.
+ */
+function pat_article_social_prefs()
 {
+
 	global $textarray;
 
-	$textarray['pat_article_social_dir'] = 'Cache directory';
-	$textarray['pat_article_social_twttr'] = 'Default blockquote markup for twttr short tag';
+	$textarray['pat_article_social_dir'] = gTxt('pat_article_social_dir');
+	$textarray['pat_article_social_twttr'] = gTxt('pat_article_social_twttr');
+	$textarray['pat_article_social_delay'] = gTxt('pat_article_social_delay');
 
-	if ( !safe_field ('name', 'txp_prefs', "name='pat_article_social_dir'") )
+	if (!safe_field ('name', 'txp_prefs', "name='pat_article_social_dir'"))
 		safe_insert('txp_prefs', "prefs_id=1, name='pat_article_social_dir', val='cache', type=1, event='admin', html='text_input', position=21");
-	
+
 	if (!safe_field ('name', 'txp_prefs', "name='pat_article_social_twttr'"))
 		safe_insert('txp_prefs', "prefs_id=1, name='pat_article_social_twttr', val='1', type=1, event='admin', html='yesnoradio', position=22");
 
+	if (!safe_field ('name', 'txp_prefs', "name='pat_article_social_delay'"))
+		safe_insert('txp_prefs', "prefs_id=1, name='pat_article_social_delay', val='24', type=1, event='admin', html='text_input', position=23");
+
 	safe_repair('txp_plugin');
+
 }
 
 
 /**
  * Delete cache dir in prefs & all files in it.
- * 
- * @param 
- * @return 
+ *
+ * @param
+ * @return Delete this plugin prefs.
  */
-function _pat_article_social_cleanup()
+function pat_article_social_cleanup()
 {
-	global $path_to_site, $pat_article_social_dir, $pat_article_social_twttr;
+	global $path_to_site, $message, $pat_article_social_dir;
 
-	array_map( 'unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt") );
-	safe_delete('txp_prefs', "name='pat_article_social_dir'");
-	safe_delete('txp_prefs', "name='pat_article_social_twttr'");
+	// Array of tables & rows to be removed
+	$els = array('txp_prefs' => 'pat_article_social', 'txp_lang' => 'pat_article_social');
+
+	// Process actions
+	foreach ($els as $table => $row) {
+		safe_delete($table, "name LIKE '".str_replace('_', '\_', $row)."\_%'");
+		safe_repair($table);
+	}
+
+	echo graf('The "cache" directory and all its files will be removed. '.gTxt('are_you_sure'));
+
+	array_map('unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt"));
+
 }
