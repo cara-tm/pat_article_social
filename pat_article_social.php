@@ -545,7 +545,7 @@ function pat_article_social($atts)
 		'real' 		 => false,
 		'zero' 		 => false,
 		'unit' 		 => 'k',
-		'delay' 	 => 3,
+		'delay' 	 => (empty($prefs['pat_article_social_delay']) ? '3' : $prefs['pat_article_social_delay']),
 		'fallback' 	 => true,
 		'campaign' 	 => NULL,
 	), $atts));
