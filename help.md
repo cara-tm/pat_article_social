@@ -5,7 +5,7 @@
 
 **Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist.**
 
-Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform)).
+~~Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform))~~. No more with v 0.5.7: a third part service is in use to display the Twitter share counts (see below).
 
 ##Plugin Preferences
 
@@ -88,6 +88,8 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 > 
 >    **lenght**: Integer (optional). As recommanded by several Social Networks, limits the lenght (in characters) for the "description" attribute. Don't cut words, add hyphens after the last word found just before a space within the characters limit. Default: 200.
 > 
+
+Note: to display the Twitter share counts, you need to add the Opensharecount service in you Twitter account. See more here: [http://opensharecount.com](http://opensharecount.com).
 
 ##2.° In an article form (individual articles)
 
