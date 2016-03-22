@@ -1,5 +1,5 @@
 
-#pat_article_social v 0.5.6 (formerly pat_article_tweet)
+#pat_article_social v 0.5.7 (formerly pat_article_tweet)
 
 ##Purpose
 
@@ -1181,6 +1181,10 @@ And the corresponding CSS rules:
 
 ##Changelog
 
+- March 2016. v 0.5.7. Corrects errors with Twitter embedded statuses. All the plugin preferences had been added. Twitter share counting restored. No need to add javascript dependencies into page templates (the plugin does only once). Textpack support. Plugin installation and deletion added.
+- 17th March 2016. v 0.5.6
+- 2nd December 2015. v 0.5.5
+- 30th November 2015. v 0.5.4
 - 6th October 2015. v 0.5.3. Support embedded Instagram & Gist from link URLs. Long, partial & short links support for the status attribute of the <txp:twttr /> tag.
 - 13th September 2015. v 0.5.2. Support embedded fb status into article's body. 
 - 26th June 2015. v 0.5.1. Support Twitter json services to render embedded tweets.
