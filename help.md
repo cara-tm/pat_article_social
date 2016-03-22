@@ -1181,7 +1181,7 @@ And the corresponding CSS rules:
 
 ##Changelog
 
-- March 2016. v 0.5.7. Corrects errors with Twitter embedded statuses. All the plugin preferences had been added. Twitter share counting restored. No need to add javascript dependencies into page templates (the plugin does only once). Textpack support. Plugin installation and deletion added.
+- 22nd March 2016. v 0.5.7. Corrects errors with Twitter embedded statuses. All the plugin preferences had been added. Twitter share counting restored. No need to add javascript dependencies into page templates (the plugin does only once). Textpack support. Plugin installation and deletion added.
 - 17th March 2016. v 0.5.6
 - 2nd December 2015. v 0.5.5
 - 30th November 2015. v 0.5.4
