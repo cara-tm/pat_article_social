@@ -209,7 +209,7 @@ Notice: Default color icons are black. See below how to change it.
 >    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
 > 
 
-#Embedded statuses in article'bodies
+#Embedded statuses in article's bodies
 
 Note: Starting with version 0.5.7, this plugin stores the default delay time (in hours) to cache the share counts into the Preferences panel. Set it for all the social networks you use. If you want to restore individually the "delay" attribute in your tags, set this preference with a blank value. 
 In order to center your embedded statuses (best visual display), add these CSS rules into your stylesheets:
@@ -236,7 +236,7 @@ Just use this line into your article's body (Textile rendering):
 
 ~~Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:~~ Not more needed sinceh v 0.5.7
 
-    ~~<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>~~
+~~<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>~~
 
 ###Attribute
 
