@@ -9,9 +9,9 @@ Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announc
 
 ##Plugin Preferences
 
-After installation, choose "Admin"->"Preferences" tab to access this plugin prefs and to set the "cache" directory. Default: /root/cache.
+After installation, choose "Admin"->"Preferences" tab to access this plugin prefs and to set the "cache" directory. Default: /root/cache; the default markup for the short txp:twttr tag; the default delay to cache the share counts. 
 
-Note: you need to create this cache directory; this plugin doesn't.
+Note: you need to create the cache directory; this plugin doesn't.
 
 ##Uninstallation
 
@@ -209,15 +209,34 @@ Notice: Default color icons are black. See below how to change it.
 >    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
 > 
 
+#Embedded statuses in article'bodies
+
+Note: Starting with version 0.5.7, this plugin stores the default delay time (in hours) to cache the share counts into the Preferences panel. Set it for all the social networks you use. If you want to restore individually the "delay" attribute in your tags, set this preference with a blank value. 
+In order to center your embedded statuses (best visual display), add these CSS rules into your stylesheets:
+
+    .twitter-tweet,
+       .fb_iframe_widget {
+		display: block!important;
+		overflow-y: hidden;
+		max-width: 500px;
+		margin: 0 auto;
+	}
+	
+	.fb_iframe_widget {
+		max-width: 552px;
+	}
+
+All embedded statuses are "Responsive": but not on window resize events, only when a page is loaded.
+
 ##4.° Insert a Tweet into your article's body
 
 Just use this line into your article's body (Textile rendering):
 
     <txp:twttr status="" markup=""  media="" related"" locale="" />
 
-Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:
+~~Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:~~ Not more needed sinceh v 0.5.7
 
-    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    ~~<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>~~
 
 ###Attribute
 
@@ -246,7 +265,7 @@ This tag supports long URLs link, partial and short. Both works exactly the same
 
 
 
-###CSS layout
+###CSS layout (for "iframe" and "object" markup only. See "markup" attribute above)
 
 All embedded Tweets except the short forms are wrapped into a div with a class selector named "pat-twttr".
 
@@ -272,7 +291,7 @@ The following CSS rules allow embedded Tweets to be "Responsive" friendly:
 
 When you use the short form which render embedded tweets from Twitter json services, the markup is sanitized from deprecated properties in order to keep valid HTML pages. Webdesigners can center all tweets by the use of this only and simple CSS rule:
 
-    .twitter-tweet-rendered {margin-right: auto !important;margin-left: auto !important}
+    .twitter-tweet-rendered { margin-right: auto !important; margin-left: auto !important; }
 
 ##5.° Insert an embedded facebook status into your article's body
 
