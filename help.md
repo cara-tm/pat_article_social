@@ -211,7 +211,7 @@ Notice: Default color icons are black. See below how to change it.
 >    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
 > 
 
-![pat-article-social sneak peek](http://postimg.org/image/fn8alxwj5/)
+![pat-article-social sneak peek](http://postimg.org/image/fn8alxwj5/)!
 
 #Embedded statuses in article's bodies
 
