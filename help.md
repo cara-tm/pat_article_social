@@ -19,7 +19,7 @@ You can safely remove this plugin without changes in your database except all th
 
 ##Usages
 
-Notice: All the following pat_article_social tags are intented to be used as single tags, not container ones. Previews of articles don't show the renderings of this plugin, voluntarily. Depending of the number of social links (each are individual TXP tags) and the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the [asy_jpcache](https://github.com/netcarver/asy_jpcache) plugin.
+Notice: All the following pat_article_social tags are intented to be used as single tags, not container ones. Previews of articles don't show the renderings of this plugin, voluntarily. Depending of the number of social links (each are individual TXP tags) and the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the [asy_jpcache](https://github.com/netcarver/asy_jpcache) plugin or [mas_cache](http://makss.uaho.net/plugins/aks_cache).
 
 ##1.° In your doctype HTML document (before &lt;/head&gt;)
 
@@ -236,7 +236,7 @@ Just use this line into your article's body (Textile rendering):
 
 ~~Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:~~ Not more needed sinceh v 0.5.7
 
-~~<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>~~
+~~&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;~~
 
 ###Attribute
 
