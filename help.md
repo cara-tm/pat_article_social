@@ -211,6 +211,8 @@ Notice: Default color icons are black. See below how to change it.
 >    **zero**: Boolean (optional). Render or not zero value. Default: 0 (0 = no; 1 = yes).
 > 
 
+![pat-article-social sneak peek](http://postimg.org/image/fn8alxwj5/)
+
 #Embedded statuses in article's bodies
 
 Note: Starting with version 0.5.7, this plugin stores the default delay time (in hours) to cache the share counts into the Preferences panel. Set it for all the social networks you use. If you want to restore individually the "delay" attribute in your tags, set this preference with a blank value. 
