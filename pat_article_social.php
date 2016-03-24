@@ -384,7 +384,11 @@ function twttr($atts)
 			$datas = json_decode( file_get_contents($json), true );
 			// Display json result.
 			if ($datas)
-				$out = $datas['html'];
+				$out = str_replace(
+					array(' align="center"', ' width="500"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+					array('', ' style="width:500px"', ''),
+					$datas['html']
+					)._injectjs(1);
 
 		} else {
 
@@ -415,7 +419,7 @@ function fb($atts)
 	if ( !gps('txpreview') ) {
 
 		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*(.*)?$#i', $status) ) {
-			return '<div id="fb-root"></div>'._injectfb($locale).'<div class="fb-post" data-href="'.$status.'"></div>';
+			return '<div id="fb-root"></div>'._injectjs(2, $locale).'<div class="fb-post" data-href="'.$status.'"></div>';
 		}
 
 		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
@@ -425,21 +429,23 @@ function fb($atts)
 
 
 /**
- * Inject fb script once.
+ * Inject js script only once.
  *
+ * @type   integer 1: Twitter or 2: facebook
  * @param  locale  Locale country code
- * @return script  fb script link
+ * @return script  The proper social network script link
  */
-function _injectfb($locale) {
+function _injectjs($type, $locale = NULL) {
 
-	static $cache = null;
+	static $cache = array();;
 
 	// Function has never run.
-	if ( $cache === null ) {
+	if ( empty($cache[$type]) ) {
 		// Assign variable.
-		$cache = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
-		return $cache;
+		$cache[$type] = ($type == 1 ? '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>' : '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>');
+		return $cache[$type];
 	}
+
 }
 
 
