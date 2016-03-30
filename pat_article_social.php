@@ -560,6 +560,7 @@ function pat_article_social($atts)
 		'user' 		 => NULL,
 		'token' 	 => NULL,
 		'content' 	 => 'excerpt',
+		'itemprop' 	 => true,
 		'image' 	 => NULL,
 		'class'		 => NULL,
 		'icon' 		 => false,
@@ -679,7 +680,7 @@ function pat_article_social($atts)
 
 		}
 
-		return $link;
+		return ($itemprop ? '<span itemprop="sharedContent" itemscope itemtype="http://schema.org/WebPage" class="pat-social"><span itemprop="headline" class="txt-indent">'.$thisarticle['title'].'</span> <meta itemprop="datePublished" content="'.posted(array('format'=>'%Y-%m-%d')).'" /> '.$link.'</span>' : $link);
 
 	} elseif ( empty($site) ) {
 
