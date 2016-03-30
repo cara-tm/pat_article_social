@@ -163,7 +163,10 @@ EOF;
 	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
 	$tags .= ($fb_admins ? '<meta property="fb:admins" content="'.$fb_admins.'">'.n : '');
 	$tags .= ($fb_author ? '<meta property="article:author" content="https://www.facebook.com/'.$fb_author.'">'.n : '');
-	$tags .= ($fb_publisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fb_publisher.'">' : ''); 
+	$tags .= ($fb_publisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fb_publisher.'">' : '');
+	$tags .= '<meta property="article:section" content="'.section(array('title'=>1)).'">'.n;
+	$tags .= '<meta property="article:published_time" content="'.posted(array('format'=>'iso8601')).'">'.n;
+	$tags .= (modified(array()) ? '<meta property="article:modified_time" content="'.modified(array('format'=>'iso8601')).'">' : '').n;
 			break;
 
 
