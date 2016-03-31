@@ -184,6 +184,21 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 
 Notice: Default color icons are black. See below how to change it.
 
+###Removing the fallback social network names to keep only icons
+
+CSS rules:
+
+    .social-link b,
+  .social-link strong {
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	border: none;
+	clip: rect(1px 1px 1px 1px);
+}
+
 ##3.° Creates a total shares count as shown in the Mashable.com website:
 
 ###Whatever place you want (individual or article lists)
@@ -240,7 +255,7 @@ Just use this line into your article's body (Textile rendering):
 
     <txp:twttr status="" markup=""  media="" related"" locale="" />
 
-~~Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:~~ Not more needed sinceh v 0.5.7
+~~Note: Because this plugin remove multiple widgets.js files integration within the embedded tweets, you need to add this script into your HTML document just before the last `</body>` tag into your page template:~~ Not more needed since v 0.5.7
 
 ~~&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;~~
 
