@@ -189,15 +189,15 @@ Notice: Default color icons are black. See below how to change it.
 CSS rules:
 
     .social-link b,
-  .social-link strong {
-	overflow: hidden;
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	border: none;
-	clip: rect(1px 1px 1px 1px);
-}
+      .social-link strong {
+    	overflow: hidden;
+    	position: absolute;
+    	width: 1px;
+    	height: 1px;
+    	padding: 0;
+    	border: none;
+    	clip: rect(1px 1px 1px 1px);
+    }
 
 ##3.° Creates a total shares count as shown in the Mashable.com website:
 
