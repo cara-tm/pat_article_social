@@ -47,7 +47,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 >    **type**: String (required). Coma separated list of social network's name [1]. Default: none (empty).
 > 
->    **card**: String (optional). Twitter card type among: "summary", "summary_large_image", "photo", "gallery", "product". Default: summary.
+>    **card**: String (optional). Twitter card type among: "summary", "summary_large_image", "photo", "gallery", "product". Default: summary. Note "gallery" had been removing on July 3, 2015 https://dev.twitter.com/cards/types/gallery
     Notice: If there are more than one image associated with the current article, the value of the card attribute changes accordingly.
 > 
 >    **image**: URL (optional). Full path to a custom image for replacement. Default: article image.
