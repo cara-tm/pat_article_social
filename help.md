@@ -1,11 +1,11 @@
 
-#pat_article_social v 0.5.7 (formerly pat_article_tweet)
+#pat_article_social v 0.5.8 (formerly pat_article_tweet)
 
 ##Purpose
 
 **Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist.**
 
-~~Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform))~~. No more with v 0.5.7: a third part service is in use to display the Twitter share counts (see below).
+~~Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform))~~. No more with v 0.5.7: a third part service is used to display the Twitter share counts (see below).
 
 ##Plugin Preferences
 
@@ -95,14 +95,14 @@ Note: to display the Twitter share counts, you need to add the Opensharecount se
 
 ###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:
 
-    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" content="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" instagram="" user="" token="" zero="" unit="" delay="" image="" fallback="" />
+    <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" text="" content="" itemprop="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" instagram="" user="" token="" zero="" unit="" delay="" image="" fallback="" />
 
 ###Quick Start Example
 
     <txp:hide>
     Display summ of shares. Set which social networks you want to add in the sum.
     </txp:hide>
-    <txp:pat_article_social_sum site="twitter,facebook,google,pinterest,reddit" lang="en-us" showalways="0" text="Total of share" alternative="Share" count="1" zero="0" delay="24" unit="k" />
+    <txp:pat_article_social_sum site="twitter,facebook,google,pinterest,reddit" lang="en-us" showalways="0" text='<txp:body />' title"Total of share" itemprop="1" alternative="Share" count="1" zero="0" delay="24" unit="k" />
     
 	<txp:hide>
 	Display social networks links. Note "delay" attribute can be different for each website.
@@ -141,6 +141,8 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 >    **title**: String (optional). Title of the link. Default: none (empty).
 > 
 >    **content**: String (optional). body or excerpt. Choose what to add as a short text2 (only for Twitter). Default: excerpt.
+>
+>    **itemprop**: boolean (optional). Injects 'itemprop' attributes into the HTML result for share links. Default: 1 (true). Note; validate your pages with the Google official online tool: https://developers.google.com/structured-data/testing-tool/
 > 
 >    **via**: String (optional). For Twitter only, add a "via" link into the tweet. Default: none (empty).
 >
