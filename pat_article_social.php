@@ -441,7 +441,7 @@ function gplus($atts)
 {
 
  	extract(lAtts(array(
-		'status'	=> NULL,
+		'status' => NULL,
 	 ), $atts));
 
 	if ( !gps('txpreview') ) {
@@ -470,18 +470,18 @@ function _injectjs($type, $locale = NULL) {
 	// Function has never run.
 	if ( empty($cache[$type]) ) {
 		// Assign variable.
-		switch ( $cache[$type] ) {
+		switch ( $type ) {
 
 			case '1':
 				$cache[$type] = '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
 			break;
 
 			case '2':
-				$cache['type'] = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
+				$cache[$type] = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
 			break;
 
 			case '3':
-				$cache['type'] = '<script src="https://apis.google.com/js/platform.js" async defer></script>';
+				$cache[$type] = '<script src="https://apis.google.com/js/platform.js" async defer></script>';
 			break;
 
 		}
