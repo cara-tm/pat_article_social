@@ -57,7 +57,7 @@ global $refs, $twcards;
 // List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'linkedin', 'buffer', 'reddit', 'dribbble');
 // List of Twitter Card types.
-$twcards = array('summary', 'summary_large_image', 'photo', 'gallery', 'product', 'app');
+$twcards = array('summary', 'summary_large_image', product');
 
 /**
  * Generate meta tag for social websites
@@ -120,20 +120,10 @@ function pat_article_social_meta($atts)
 					return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'card')), E_USER_WARNING);
 
 				$img = $thisarticle['article_image'];
-				$list = explode(',', $img);
-				count($list) > 1 ? $card = 'gallery' : '';
+				$img ? $card = 'summary_large_image' : '';
 				$tags = '<meta name="twitter:card" content="'.$card.'">'.n;
 				$tags .= _pat_article_social_validate_user($user, 'site');
 				$tags .= _pat_article_social_validate_user($creator, 'creator');
-				if (count($list) > 0 && $card == 'gallery') {
-					$i = 0;
-					foreach($list as $pic) {
-						$tags .= '<meta name="twitter:image'.$i.'" content="'._pat_article_social_image($pic).'">'.n;
-						++$i;
-					}
-				} else {
-					$tags .= ($image ? '<meta name="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n._pat_article_social_image_size($thisarticle['article_image'], 'twitter') : '');
-				}
 				$tags .= '<meta name="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
 				$tags .= ($label1 ? '<meta name="twitter:label1" content="'.$label1.'">'.n : '');
 				$tags .= ($data1 ? '<meta name="twitter:data1" content="'.$data1.'">'.n : '');
