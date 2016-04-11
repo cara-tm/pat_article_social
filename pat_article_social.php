@@ -19,15 +19,16 @@
  *
  */
 if (class_exists('\Textpattern\Tag\Registry')) {
-	Txp::get('\Textpattern\Tag\Registry')
+		Txp::get('\Textpattern\Tag\Registry')
 		->register('pat_article_social_meta')
+		->register('pat_article_social')
+		->register('pat_article_social_sum')
 		->register('twttr')
 		->register('fb')
-		->register('gplus')
 		->register('instagram')
+		->register('gplus')
 		->register('gist')
-		->register('pat_article_social')
-		->register('pat_article_social_sum');
+		->register('bq');
 }
 
 /**
@@ -322,6 +323,27 @@ function _pat_locale($locale, $striped = NULL)
 
 
 /**
+ * Display a blockquote with social links
+ *
+ * @param  array        Tag attributes
+ * @return HTML markup  Embeded Tweet
+ */
+function bq($atts)
+{
+
+ 	extract(lAtts(array(
+		'text'	 => NULL,
+	), $atts));
+
+ 	if ($text) {
+ 	 	return '<blockquote><p>'._pat_article_social_trim($text, 200).'</p></blockquote>'.pat_article_social(array('site'=>'facebook','content'=>$text,'icon'=>1,'count'=>0,'class'=>'facebook')).pat_article_social(array('site'=>'google','content'=>$text,'icon'=>1,'count'=>0,'class'=>'google')).pat_article_social(array('site'=>'twitter','content'=>$text,'icon'=>1,'count'=>0,'class'=>'twitter'));
+
+ 	}
+
+}
+
+
+/**
  * Display embedded tweets
  *
  * @param  array   Tag attributes
@@ -568,8 +590,10 @@ function pat_article_social($atts)
 	if ( $site && !gps('txpreview') ) {
 
 		// Check article's content
-		if( in_array($content, array('title', 'excerpt', 'body')) )
+		if( in_array($content, array('excerpt', 'body')) )
 			$extract = $thisarticle[$content];
+		elseif( !empty($content) )
+			$extract = $content;
 		else
 			trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING );
 
