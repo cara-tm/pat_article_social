@@ -291,15 +291,18 @@ function _pat_article_social_get_uri()
  */
 function _pat_article_social_trim($input, $length, $strip_html = true)
 {
-	// Strip tags, if desired
+	// Strip tags, if desired.
 	if ($strip_html)
 		$input = strip_tags($input);
-  
-	// No need to trim, already shorter than trim length
+
+	// No need to trim, already shorter than trim length.
 	if ( mb_strlen($input) <= $length )
 		return $input;
-  
-	// Find last space within length
+
+	// Sanitize and remove last dot if present.
+	$input = trim( rtrim($input), '.' );
+
+	// Find last space within length.
 	$space = strrpos( substr($input, 0, $length), ' ' );
 	$shrink = substr($input, 0, $space).'...';
 
