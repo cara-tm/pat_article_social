@@ -275,10 +275,7 @@ function _pat_article_social_image_size($id, $type)
  */
 function _pat_article_social_get_uri()
 {
-	$uri= @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
-	$uri .= $_SERVER["REQUEST_URI"];
-
-	return $uri;
+	return PROTOCOL.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
 }
 
 
