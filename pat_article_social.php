@@ -10,16 +10,12 @@
  * @license: GPLv2
 */
 
-// TO DO: 
-// MORE OPTIONS FOR FB OPEN GRAPH IN PREFS OPTION. POSSIBLE WITH A LOT OF CODE INTO A HUGE PLUGIN...
-// BACK-OFFICE CHART VISUALISATION OF SHARES BY INDIVIDUAL ARTICLES IN A NEW COMPAGNON PLUGIN.
-
 /**
  * This plugin tags registry
  *
  */
 if (class_exists('\Textpattern\Tag\Registry')) {
-		Txp::get('\Textpattern\Tag\Registry')
+	Txp::get('\Textpattern\Tag\Registry')
 		->register('pat_article_social_meta')
 		->register('pat_article_social')
 		->register('pat_article_social_sum')
@@ -31,12 +27,14 @@ if (class_exists('\Textpattern\Tag\Registry')) {
 		->register('bq');
 }
 
+
 /**
- * TXP admin side
+ * TXP admin side callbacks
  *
  */
 if (txpinterface == 'admin')
 {
+
 	global $pat_article_social_gTxt;
 
 	register_callback('pat_article_social_prefs', 'prefs', '', 1);
@@ -55,16 +53,17 @@ if (txpinterface == 'admin')
  *
  */
 global $refs, $twcards;
+
 // List of social networks that support share count.
-$refs = array('facebook', 'twitter', 'google', 'pinterest', 'linkedin', 'buffer', 'reddit', 'dribbble');
-// List of Twitter Card types.
-$twcards = array('summary', 'summary_large_image', product');
+$refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer', 'reddit', 'dribbble', 'stumbleupon', 'delicious', 'instagram');
+// List of Twitter Cards type.
+$twcards = array('summary', 'summary_large_image', 'product');
 
 /**
  * Generate meta tag for social websites
  *
  * @param  array  Tag attributes
- * @return string HTML meta or link tags
+ * @return string HTML meta tags
  */
 function pat_article_social_meta($atts)
 {
@@ -81,13 +80,13 @@ function pat_article_social_meta($atts)
 		'data1' 	=> NULL,
 		'label2' 	=> NULL,
 		'data2' 	=> NULL,
-		'fb_type' 	=> 'website',
+		'locale' 	=> $prefs['language'],
 		'fb_api' 	=> NULL,
 		'fb_admins' 	=> NULL,
-		'locale' 	=> $prefs['language'],
+		'fb_type' 	=> 'website',
 		'fb_author' 	=> NULL,
-		'fb_publisher'	=> NULL,
 		'g_author' 	=> NULL,
+		'fb_publisher'	=> NULL,
 		'g_publisher'	=> NULL,
 		'title' 	=> $prefs['sitename'],
 		'description' 	=> page_title(array()),
@@ -97,50 +96,54 @@ function pat_article_social_meta($atts)
 
 	if ( $type && !gps('txpreview') ) {
 
-		// Create an array of social services from list 
+		// Create an array of social services from list
 		$type = explode(',', $type);
-		// Format lang code
+		// Format the lang code
 		$locale = _pat_locale($locale);
 		// Get URI
-		$current = _pat_article_social_get_uri();
-		// Check image
+		$current = _pat_article_social_get_uri;
+		// Check image.
 		$image ? $image : $image = _pat_article_social_image();
-		// Sanitize line breaks
+		// Sanitize
 		$description = str_replace(array('\r\n', '\r'), '\n', $description);
 		// Social Networks often limit description to 200 characters
 		$description = strip_tags(_pat_article_social_trim($description, $lenght));
 		// Remove some URLs into text content
 		$description = preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', $description);
 
+
+
 		foreach ($type as $service) {
 
 			switch( strtolower($service) ) {
 
 			case 'twitter':
-				if( false === _pat_article_social_occurs($card, $twcards) )
+
+				if( false == _pat_article_social_occurs($card, $twcards) )
 					return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'card')), E_USER_WARNING);
 
 				$img = $thisarticle['article_image'];
 				$img ? $card = 'summary_large_image' : '';
-				$tags = '<meta name="twitter:card" content="'.$card.'">'.n;
+				$tags .= '<meta name="twitter:card" content="'.$card.'">'.n;
 				$tags .= _pat_article_social_validate_user($user, 'site');
 				$tags .= _pat_article_social_validate_user($creator, 'creator');
 				$tags .= '<meta name="twitter:image'.($card == 'summary_large_image' ? ':src' : '').'" content="'._pat_article_social_image($image).'">'.n;
+				$tags .= <<<EOF
+<meta name="twitter:url" content="{$current()}">
+<meta name="twitter:title" content="{$title}">
+<meta name="twitter:description" content="{$description}">
+
+EOF;
+
 				$tags .= ($label1 ? '<meta name="twitter:label1" content="'.$label1.'">'.n : '');
 				$tags .= ($data1 ? '<meta name="twitter:data1" content="'.$data1.'">'.n : '');
 				$tags .= ($label2 ? '<meta name="twitter:label2" content="'.$label2.'">'.n : '');
 				$tags .= ($data2 ? '<meta name="twitter:data2" content="'.$data2.'">'.n : '');
-				$tags .= <<<EOF
-<meta name="twitter:url" content="{$current()}">
-<meta name="twitter:title" content="{$title}">
-<meta name="twitter:description" content="$description">
-EOF;
 			break;
 
 
 			case 'facebook':
-	$tags = <<<EOF
-<meta property="og:rich_attachment" content="true">
+	$tags .= <<<EOF
 <meta property="og:locale" content="$locale">
 <meta property="og:site_name" content="{$prefs['sitename']}">
 <meta property="og:title" content="{$title}">
@@ -154,7 +157,7 @@ EOF;
 	$tags .= ($fb_api ? '<meta property="fb:app_id" content="'.$fb_api.'">'.n : '');
 	$tags .= ($fb_admins ? '<meta property="fb:admins" content="'.$fb_admins.'">'.n : '');
 	$tags .= ($fb_author ? '<meta property="article:author" content="https://www.facebook.com/'.$fb_author.'">'.n : '');
-	$tags .= ($fb_publisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fb_publisher.'">' : '');
+	$tags .= ($fb_publisher ? '<meta property="article:publisher" content="https://www.facebook.com/'.$fb_publisher.'">'.n : '');
 	$tags .= '<meta property="article:section" content="'.section(array('title'=>1)).'">'.n;
 	$tags .= '<meta property="article:published_time" content="'.posted(array('format'=>'iso8601')).'">'.n;
 	$tags .= (modified(array()) ? '<meta property="article:modified_time" content="'.modified(array('format'=>'iso8601')).'">' : '').n;
@@ -162,22 +165,24 @@ EOF;
 
 
 			case 'google':
-	$tags = <<<EOF
+	$tags .= <<<EOF
 <meta itemprop="name" content="{$prefs['sitename']}">
 <meta itemprop="description" content="$description">
 <meta itemprop="url" content="{$current()}">
 
 EOF;
-	
+
 	$tags .= ($image ? '<meta itemprop="image" content="'.$image.'">'.n : '');
 	$tags .= ($g_author ? '<link rel="author" href="https://plus.google.com/'.$g_author.'">'.n : '');
 	$tags .= ($g_publisher ? '<link rel="publisher" href="https://plus.google.com/'.$g_publisher.'">'.n : '');
 			break;
 
 			}
+
 		}
 
-	return $tags;
+	return '<!-- Open Graph Meta tags - pat-article-social -->'.n.$tags;
+
 	}
 
 	return '';
@@ -187,35 +192,32 @@ EOF;
 /**
  * Validate Twitter accounts
  *
- * @param  string    $entry
- * @param  string    $attribute
- * @return string    Meta content attribute for user account
+ * @param  $entry  $att
+ * @return string  string  User account  Meta content attribute
  */
 function _pat_article_social_validate_user($entry, $attribute = NULL)
 {
 
 	if (!$entry)
 		$out = ' ';
-	// Check if account is well formated
 	if ( preg_match("/\@[a-z0-9_]+/i", $entry) )
-		$out = ( $attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : urlencode($entry) );
+		$out = ( $attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : str_replace('@', '', $entry) );
 
-	return $out ? $out : trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING );
+	return $out ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING);
 }
 
 
 /**
  * Display article image
  *
- * @param  int    $pic image ID
- * @return string Full article image URI
+ * @param  int $pic  image ID
+ * @return string  Full article image URI
  */
 function _pat_article_social_image($pic = NULL)
 {
 
 	global $thisarticle;
 
-	// Individual image or not?
 	if (false == $pic)
 		$img = $thisarticle['article_image'];
 	else
@@ -223,7 +225,7 @@ function _pat_article_social_image($pic = NULL)
 
 	if (intval($img)) {
 
-		if ( $rs = safe_row('*', 'txp_image', 'id = ' . intval($img)) )
+		if ($rs = safe_row('*', 'txp_image', 'id = ' . intval($img)))
 			$img = imagesrcurl($rs['id'], $rs['ext']);
 		else
 			$img = null;
@@ -271,7 +273,7 @@ function _pat_article_social_image_size($id, $type)
  * Display current URL
  *
  * @param
- * @return string  URI
+ * @return String  URI
  */
 function _pat_article_social_get_uri()
 {
@@ -280,7 +282,7 @@ function _pat_article_social_get_uri()
 
 
 /** 
- * Trims text to a space then adds ellipses
+ * Trims text to a space then adds ellips
  * @param string $input      text to trim
  * @param int    $length     in characters to trim to
  * @param bool   $strip_html strip html tags if present
@@ -296,9 +298,13 @@ function _pat_article_social_trim($input, $length, $strip_html = true, $no_dot =
 	if ($strip_html)
 		$input = strip_tags($input);
 
+	// Remove last dot removed, if needed.
+	if ($no_dot)
+		$input = trim( $input, '.' );
+
 	// Trim if longer than trim length with last dot removed, if needed.
 	if ( strlen($input) > $length )
-		return ( $no_dot ? substr(trim( $input, '.' ), 0, $length) : substr($input, 0, $length) ).'...';
+		return substr($input, 0, $length).'...';
 	else
 		// No need to trim, already shorter than trim length.
 		return $input;
@@ -308,8 +314,9 @@ function _pat_article_social_trim($input, $length, $strip_html = true, $no_dot =
 /**
  * Convert into proper local code
  *
- * @param  string $locale
- * @return string ISO code
+ * @param string  $locale   ISO code
+ * @param boolean $stripped 
+ * @return string           formatted ISO code
  */
 function _pat_locale($locale, $striped = NULL)
 {
@@ -328,17 +335,20 @@ function _pat_locale($locale, $striped = NULL)
  */
 function bq($atts)
 {
-	global $prefs;
 
-	include_once txpath.'/lib/classTextile.php';
- 	$textile = new Textile($prefs['doctype']);
+ 	global $prefs, $thisaticle;
 
  	extract(lAtts(array(
-		'text'	 => NULL,
+		'text'		 => NULL,
+		'tooltip'	 => NULL,
 	), $atts));
 
+ 	include_once txpath.'/lib/classTextile.php';
+ 	$textile = new Textile($prefs['doctype']);
+
  	if ($text)
- 	 	return '<blockquote class="pat-bq">'.$textile->TextileThis($text).'<p>'.pat_article_social(array('site'=>'facebook','content'=>_pat_article_social_trim($text, 200),'icon'=>1,'count'=>0,'class'=>'facebook')).pat_article_social(array('site'=>'google','content'=>_pat_article_social_trim($text, 200),'icon'=>1,'count'=>0,'class'=>'google')).pat_article_social(array('site'=>'twitter','content'=>_pat_article_social_trim( $text, 120),'icon'=>1,'count'=>0,'class'=>'twitter')).'</p></blockquote>';
+ 	 	return '<blockquote class="pat-bq">'.$textile->TextileThis($text).'<p>'.pat_article_social(array('site'=>'facebook','tooltip'=>$tooltip,'content'=>$text,'icon'=>1,'count'=>0,'class'=>'facebook','with_title'=>0)).pat_article_social(array('site'=>'google','tooltip'=>$tooltip,'content'=>$text,'icon'=>1,'count'=>0,'class'=>'google','with_title'=>0)).pat_article_social(array('site'=>'twitter','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 117, true, false),'icon'=>1,'count'=>0,'class'=>'twitter','with_title'=>0)).'</p></blockquote>';
+
  	else
  	 	trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'text')), E_USER_WARNING);
 
@@ -348,21 +358,22 @@ function bq($atts)
 /**
  * Display embedded tweets
  *
- * @param  array   Tag attributes
- * @return iframe  Embeded Tweet
+ * @param  array        Tag attributes
+ * @return HTML markup  Embeded Tweet
  */
 function twttr($atts)
 {
+
 	global $prefs;
 
  	extract(lAtts(array(
 		'status'	 => NULL,
 		'markup'	 => ($prefs['pat_article_social_twttr'] == 1 ? 'blockquote' : 'iframe'),
 		'align' 	 => 'center',
-		'max_width' 	 => '500',
-		'media' 	 => false,
-		'thread' 	 => false,
-		'related' 	 => false,
+		'max_width' 	 => 500,
+		'media' 	 => 'false',
+		'thread' 	 => 'false',
+		'related' 	 => 'false',
 		'locale'	 => $prefs['language'],
 	), $atts));
 
@@ -376,30 +387,29 @@ function twttr($atts)
 
 			case 'object':
 				$_att = ' data=';
+			break;
 
 			default:
 				$_att = ' ';
 
 		}
 
-		// Full URL of a Twitter link given.
+
 		if ( preg_match('#http(s|):\/\/twitter\.com(\/\#\!\/|\/)([a-zA-Z0-9_]{1,20})\/status(es)*\/(\d+)#i', $status) ) {
 
 			if ($markup == 'iframe' || $markup == 'object')
 			
 				$out = '<!-- Embedded Tweet - pat-article-social --> <div class="pat-twttr"><'.$markup.$_att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
-	
-			// Blockquote markup.
+
 			else
 				$id = basename($status);
 
-		// Short URL of a Twitter link given.
 		} elseif ( preg_match('#^[0-9]+$#i', $status) )
 				$id = $status;
 
 			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$id.'&amp;align='.$align.'&amp;maxwidth='.$max_width.'&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
-			$datas = json_decode( file_get_contents($json), true );
-			// Display json result.
+			$datas = json_decode( @file_get_contents($json), true );
+
 			if ($datas)
 				$out = '<!-- Embedded Tweet - pat-article-social --> ' . str_replace(
 					array(' align="center"', ' width="500"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
@@ -415,6 +425,7 @@ function twttr($atts)
 
 	return in_array(strtolower($markup), array('iframe', 'object', 'blockquote') ) ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'markup')), E_USER_WARNING);
 
+
 }
 
 
@@ -422,21 +433,24 @@ function twttr($atts)
  * Display fb embedded post
  *
  * @param  array   Tag attributes
- * @return iframe  Embeded fb post
+ * @return iframe  Embedded post
  */
 function fb($atts)
 {
  	global $prefs;
 
  	extract(lAtts(array(
-		'status' => NULL,
-		'locale' => $prefs['language'],
+		'status'	 => NULL,
+		'locale'	 => $prefs['language'],
 	 ), $atts));
 
 	if ( !gps('txpreview') ) {
 
+
 		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*(.*)?$#i', $status) ) {
-			return '<!-- Embedded facebook status - pat-article-social --> <div id="fb-root"></div>'._injectjs(2, $locale).'<div class="fb-post" data-href="'.$status.'"></div>';
+
+			return '<!-- Embedded fb status - pat-article-social --> <div id="fb-root"></div>'._injectjs(2, $locale).'<div class="fb-post" data-href="'.$status.'"></div>';
+
 		}
 
 		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
@@ -469,13 +483,13 @@ function gplus($atts)
 
 }
 
-
+// TO DO: better function
 /**
  * Inject js script only once.
  *
- * @type   integer 1: Twitter, 2: facebook, 3: Google
+ * @type   integer 1: Twitter, 2: facebook, 3: G+
  * @param  locale  Locale country code
- * @return script  The proper social network script link
+ * @return script  social network script link
  */
 function _injectjs($type, $locale = NULL) {
 
@@ -484,18 +498,18 @@ function _injectjs($type, $locale = NULL) {
 	// Function has never run.
 	if ( empty($cache[$type]) ) {
 		// Assign variable.
-		switch ( $type ) {
+		switch ( $cache[$type] ) {
 
 			case '1':
 				$cache[$type] = '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
 			break;
 
 			case '2':
-				$cache[$type] = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
+				$cache['type'] = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
 			break;
 
 			case '3':
-				$cache[$type] = '<script src="https://apis.google.com/js/platform.js" async defer></script>';
+				$cache['type'] = '<script src="https://apis.google.com/js/platform.js" async defer></script>';
 			break;
 
 		}
@@ -516,11 +530,13 @@ function instagram($atts)
 {
 
 	extract(lAtts(array(
-		'status'	=> NULL,
+		'status' => NULL,
+		'size'	 => 'm',
 	 ), $atts));
 
 
 	$url = preg_replace('/\?.*/', '', $status);
+	$dim = array('t', 'm', 'l');
 
 	$json = 'http://api.instagram.com/publicapi/oembed/?url='.$status;
 	$datas = json_decode( @file_get_contents($json), true );
@@ -540,7 +556,7 @@ function gist($atts)
 {
 
  	extract(lAtts(array(
-		'url'		 => NULL,
+		'url'	=> NULL,
 	 ), $atts));
 
  	if ( preg_match('#^https:\/\/gist.github.com\/[a-z-0-9-]+\/[a-z-0-9]+$#i', $url) )
@@ -552,141 +568,143 @@ function gist($atts)
 /**
  * Generate links for social websites
  *
- * @param  array   $atts Tag attributes
+ * @param  array   Tag attributes
  * @return String  Link with encoded article body in arguments
  */
 function pat_article_social($atts)
 {
 
-	global $prefs, $thisarticle, $dribbble_data, $real, $shot, $user, $token, $instagram_type;
+	global $prefs, $thisarticle, $real, $dribbble_data, $shot, $user, $token, $instagram_type;
 
 	extract(lAtts(array(
-		'site'		 => 'permalink',
-		'tooltip' 	 => NULL,
-		'input_tooltip'  => NULL,
-		'title'		 => NULL,
-		'via'		 => NULL,
-		'dribbble_data'  => 'followers',
-		'shot' 		 => NULL,
-		'page' 		 => NULL,
-		'instagram' 	 => NULL,
-		'instagram_type' => 'followers',
-		'user' 		 => NULL,
-		'token' 	 => NULL,
-		'content' 	 => 'excerpt',
-		'itemprop' 	 => true,
-		'image' 	 => NULL,
-		'class'		 => NULL,
-		'icon' 		 => false,
-		'width' 	 => '16',
-		'height' 	 => '16',
-		'count' 	 => false,
-		'real' 		 => false,
-		'zero' 		 => false,
-		'unit' 		 => 'k',
-		'delay' 	 => (empty($prefs['pat_article_social_delay']) ? '3' : $prefs['pat_article_social_delay']),
-		'fallback' 	 => true,
-		'campaign' 	 => NULL,
+		'site' 			 => 'permalink',
+		'tooltip' 		 => NULL,
+		'input_tooltip' 	 => NULL,
+		'title' 		 => NULL,
+		'via' 			 => NULL,
+		'shot' 			 => NULL,
+		'dribbble_data' 	 => 'followers',
+		'page' 			 => NULL,
+		'instagram' 		 => NULL,
+		'instagram_type' 	 => 'followers',
+		'user' 			 => NULL,
+		'token' 		 => NULL,
+		'content' 		 => 'excerpt',
+		'itemprop' 		 => true,
+		'image' 		 => NULL,
+		'class' 		 => NULL,
+		'icon' 			 => false,
+		'width' 		 => '16',
+		'height' 		 => '16',
+		'count' 		 => false,
+		'real' 			 => false,
+		'zero' 			 => false,
+		'unit' 			 => 'k',
+		'delay' 		 => (empty($prefs['pat_article_social_delay']) ? '3' : $prefs['pat_article_social_delay']),
+		'fallback' 		 => true,
+		'campaign' 		 => NULL,
+		'with_title' 		 => true,
 	), $atts));
 
 	if ( $site && !gps('txpreview') ) {
 
-		// Check article's content
 		if( in_array($content, array('excerpt', 'body')) )
 			$extract = $thisarticle[$content];
 		elseif( !empty($content) )
 			$extract = $content;
 		else
-			trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING );
+			trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING);
 
-		$url = permlink( array() );
+		$url = permlink(array());
 		// Sanitize
-		$text = $thisarticle['title'].'. "'.preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
-		// Limit content lenght
+		$text = ($with_title ? $thisarticle['title'].'.' : '').preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
+		// Limit content
 		$minus = strlen($via)+7;
 		// Twitter shorten urls: http://bit.ly/ILMn3F
-		$words = ($via ? 'via%20'._pat_article_social_validate_user($via).':%20' : '').urlencode( _pat_article_social_trim($words, 114 - $minus) ).'...%22';
+		$words = urlencode( _pat_article_social_trim($text, 122-$minus, true, false) );
 
-		switch( strtolower($site) ) {
+
+		switch ( strtolower($site) ) {
 
 			case 'twitter':
-				$link = '<a href="https://twitter.com/intent/tweet?via='._pat_article_social_validate_user($via).'&amp;text='.$words.'&amp;url='.$url.($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="twitter-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 16 16" xml:space="preserve"><path d="M16 3c-0.6 0.3-1.2 0.4-1.9 0.5 0.7-0.4 1.2-1 1.4-1.8-0.6 0.4-1.3 0.7-2.1 0.8C12.9 1.9 12 1.5 11.1 1.5c-1.8 0-3.3 1.5-3.3 3.3 0 0.3 0 0.5 0.1 0.8C5.2 5.4 2.7 4.1 1.1 2.1 0.8 2.6 0.7 3.2 0.7 3.8c0 1.1 0.6 2.1 1.5 2.7C1.6 6.5 1.1 6.3 0.6 6.1v0c0 1.6 1.1 2.9 2.6 3.2C3 9.4 2.7 9.5 2.4 9.5c-0.2 0-0.4 0-0.6-0.1 0.4 1.3 1.6 2.3 3.1 2.3-1.1 0.9-2.5 1.4-4.1 1.4-0.3 0-0.5 0-0.8 0C1.5 14 3.2 14.5 5 14.5c6 0 9.3-5 9.3-9.3L14.4 4.7C15 4.3 15.6 3.7 16 3z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode( permlink(array()) ), '_pat_article_social_get_twitter', $delay, $zero ) : '').($fallback ? '<strong>T</strong>' : '').'</a>';
+				$link = '<a'.($itemprop ? ' itemprop="url"' : '').' href="https://twitter.com/intent/tweet?'.($via ? 'via='._pat_article_social_validate_user($via).'&amp;' : '').'text='.$words.'&amp;url='.$url.($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="twitter-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 16 16" xml:space="preserve"><path d="M16 3c-0.6 0.3-1.2 0.4-1.9 0.5 0.7-0.4 1.2-1 1.4-1.8-0.6 0.4-1.3 0.7-2.1 0.8C12.9 1.9 12 1.5 11.1 1.5c-1.8 0-3.3 1.5-3.3 3.3 0 0.3 0 0.5 0.1 0.8C5.2 5.4 2.7 4.1 1.1 2.1 0.8 2.6 0.7 3.2 0.7 3.8c0 1.1 0.6 2.1 1.5 2.7C1.6 6.5 1.1 6.3 0.6 6.1v0c0 1.6 1.1 2.9 2.6 3.2C3 9.4 2.7 9.5 2.4 9.5c-0.2 0-0.4 0-0.6-0.1 0.4 1.3 1.6 2.3 3.1 2.3-1.1 0.9-2.5 1.4-4.1 1.4-0.3 0-0.5 0-0.8 0C1.5 14 3.2 14.5 5 14.5c6 0 9.3-5 9.3-9.3L14.4 4.7C15 4.3 15.6 3.7 16 3z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode( permlink(array()) ), '_pat_article_social_get_twitter', $delay, $zero ) : '').($fallback ? '<strong>T</strong>' : '').'</a>';
 			break;
 
 
 			case 'facebook':
-				$link = '<a href="http://www.facebook.com/sharer/sharer.php?u='.$url.'&amp;t='.urlencode( title(array()) ).($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="facebook-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 11.861 23.303"><path d="M11.861,8.323H7.594V6.243c0,0-0.239-1.978,1.144-1.978c1.563,0,2.811,0,2.811,0V0H6.763c0,0-4.005-0.017-4.005,4.005c0,0.864-0.004,2.437-0.01,4.318H0v3.434h2.741c-0.016,5.46-0.035,11.545-0.035,11.545h4.888V11.757h3.226L11.861,8.323z"/></svg>' : '').'<b>'.$title.'</b>'.($count && $zero ? '  <span>'._pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode( permlink(array()) ), '_pat_article_social_get_facebook', $delay, $zero ).'</span>' : '').($fallback ? '<strong>F</strong>' : '').'</a>';
+				$link = '<a itemprop="url" href="http://www.facebook.com/sharer/sharer.php?u='.$url.'&amp;t='.urlencode( title(array()) ).($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="facebook-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M15.117 0H.883C.395 0 0 .395 0 .883v14.234c0 .488.395.883.883.883h7.663V9.804H6.46V7.39h2.086V5.607c0-2.066 1.262-3.19 3.106-3.19.883 0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.476-1.195 1.176v1.54h2.39l-.31 2.416h-2.08V16h4.077c.488 0 .883-.395.883-.883V.883C16 .395 15.605 0 15.117 0" fill-rule="nonzero"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode( permlink(array()) ), '_pat_article_social_get_facebook', $delay, $zero ) : '').($fallback ? '<strong>F</strong>' : '').'</a>';
 			break;
 
 
 			case 'google':
-				$link = '<a href="https://plus.google.com/share?url='.$url.($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="gplus-icon" width="'.$width.'" height="'.$height.'" viewBox="0 0 88 88"><path d="M23 26.1C30.2 22.4 39.4 23.7 45.5 29.1 43.6 30.9 41.8 32.8 39.9 34.6 35 30.5 27.1 30.9 23 36 17.9 41.5 19.6 51.3 26.3 54.7 32.5 58.5 41.6 55.2 43.2 47.9 39.5 47.8 35.7 47.8 32 47.8 32 45.3 32 42.8 32 40.4 38.3 40.4 44.6 40.4 50.9 40.4 51.7 46.2 50.9 52.5 47.1 57.1 41.6 64.2 30.9 65.9 23.1 61.9 16.8 58.8 12.3 52.1 12.1 45.1 11.5 37.3 16.1 29.6 23 26.1ZM64 32C66 32 68 32 70 32 70 34.7 70 37.3 70 40 72.7 40 75.3 40 78 40 78 42 78 44 78 46 75.3 46 72.7 46 70 46 70 48.7 70 51.3 70 54 68 54 66 54 64 54 64 51.3 64 48.7 64 46 61.3 46 58.7 46 56 46 56 44 56 42 56 40 58.7 40 61.3 40 64 40 64 37.3 64 34.7 64 32Z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, permlink(array()), '_pat_article_social_get_google', $delay, $zero ) : '').($fallback ? '<strong>G+</strong>' : '').'</a>';
+				$link = '<a itemprop="url" href="https://plus.google.com/share?url='.$url.($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="gplus-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><g><path d="M5.09 7.273v1.745H7.98c-.116.75-.873 2.197-2.887 2.197-1.737 0-3.155-1.44-3.155-3.215S3.353 4.785 5.09 4.785c.99 0 1.652.422 2.03.786l1.382-1.33c-.887-.83-2.037-1.33-3.41-1.33C2.275 2.91 0 5.184 0 8s2.276 5.09 5.09 5.09c2.94 0 4.888-2.065 4.888-4.974 0-.334-.036-.59-.08-.843H5.09zM16 7.273h-1.455V5.818H13.09v1.455h-1.454v1.454h1.455v1.455h1.455V8.727H16"/></g></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, permlink(array()), '_pat_article_social_get_google', $delay, $zero ) : '').($fallback ? '<strong>G</strong>' : '').'</a>';
 			break;
 
 
 			case 'pinterest':
-				if ( true == _pat_article_social_image() )
-					$link = '<a href="http://pinterest.com/pin/create/button/?url='.$url.'&amp;description='.$words.'&amp;media='._pat_article_social_image($image).'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="pinterest-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 16.53 21.25"><path d="M6.796,14.03c-0.558,2.926-1.24,5.73-3.258,7.195c-0.623-4.422,0.915-7.743,1.629-11.269C3.949,7.907,5.313,3.781,7.882,4.798c3.159,1.25-2.737,7.622,1.222,8.418c4.135,0.83,5.82-7.173,3.258-9.776c-3.703-3.758-10.78-0.085-9.91,5.295c0.211,1.315,1.57,1.714,0.543,3.531C0.624,11.739-0.083,9.87,0.008,7.377c0.146-4.079,3.666-6.936,7.195-7.331c4.463-0.5,8.652,1.639,9.23,5.837c0.652,4.739-2.014,9.873-6.787,9.504C8.353,15.287,7.81,14.646,6.796,14.03z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_pinterest', $delay, $zero ) : '').($fallback ? '<strong>P</strong>' : '').'</a>';
+				if( true == _pat_article_social_image() )
+					$link = '<a itemprop="url" href="http://pinterest.com/pin/create/button/?url='.$url.'&amp;description='.$words.'&amp;media='._pat_article_social_image($image).($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="pinterest-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.582 0 0 3.582 0 8c0 3.39 2.108 6.285 5.084 7.45-.07-.633-.133-1.604.028-2.295.146-.625.938-3.977.938-3.977s-.24-.48-.24-1.188c0-1.11.646-1.943 1.448-1.943.683 0 1.012.513 1.012 1.127 0 .687-.436 1.713-.662 2.664-.19.797.4 1.445 1.185 1.445 1.42 0 2.514-1.498 2.514-3.662 0-1.915-1.376-3.254-3.342-3.254-2.276 0-3.61 1.707-3.61 3.472 0 .687.263 1.424.593 1.825.066.08.075.15.057.23-.06.252-.196.796-.223.907-.035.146-.115.178-.268.107-.998-.465-1.624-1.926-1.624-3.1 0-2.524 1.834-4.84 5.287-4.84 2.774 0 4.932 1.977 4.932 4.62 0 2.757-1.74 4.977-4.153 4.977-.81 0-1.572-.422-1.833-.92l-.5 1.902c-.18.695-.667 1.566-.994 2.097.75.232 1.545.357 2.37.357 4.417 0 8-3.582 8-8s-3.583-8-8-8z" fill-rule="nonzero"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_pinterest', $delay, $zero ) : '').($fallback ? '<strong>P</strong>' : '').'</a>';
 			break;
 
 
 			case 'tumblr':
-				$link = '<a href="http://www.tumblr.com/share/quote?quote='.$words.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="tumblr-icon" x="0px" y="0px" width="'.$width.'" height="'.$height.'" viewBox="0 0 56 92"><path d="M56,86.982c-3.885,1.852-7.402,3.152-10.547,3.898C42.303,91.625,38.895,92,35.236,92c-4.154,0-7.828-0.535-11.023-1.594c-3.191-1.066-5.912-2.58-8.172-4.54c-2.256-1.969-3.82-4.061-4.689-6.274c-0.871-2.215-1.305-5.425-1.305-9.629v-32.27H0V24.678c3.568-1.176,6.631-2.855,9.176-5.051c2.547-2.189,4.59-4.826,6.131-7.9c1.541-3.07,2.6-6.979,3.182-11.727h12.926v23.256h21.574v14.438H31.414v23.594c0,5.333,0.279,8.756,0.842,10.273c0.555,1.512,1.596,2.722,3.109,3.626c2.018,1.22,4.314,1.83,6.902,1.83c4.604,0,9.18-1.517,13.732-4.544V86.982z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>T</strong>' : '').'</a>';
+				$link = '<a href="http://www.tumblr.com/share/quote?quote='.$words.($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="tumblr-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M9.708 16c-3.396 0-4.687-2.504-4.687-4.274V6.498H3.403V4.432C5.83 3.557 6.412 1.368 6.55.12c.01-.086.077-.12.115-.12H9.01v4.076h3.2v2.422H8.997v4.98c.01.667.25 1.58 1.472 1.58h.067c.424-.012.994-.136 1.29-.278l.77 2.283c-.288.424-1.594.916-2.77.936h-.12z" fill-rule="nonzero"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>T</strong>' : '').'</a>';
 			break;
 
 
 			case 'pocket':
-				$link = '<a href="http://getpocket.com/edit?url='.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="pocket-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 96 96"><path d="M8.4 10.5c2.7-1 5.7-0.9 8.6-1 21 0.1 42 0.1 63 0 3.7 0 7.8 0.2 10.5 3 3.1 3 3.1 7.5 3.1 11.5 -0.1 8.6 0.2 17.2-0.2 25.8 -0.6 11.4-6 22.5-14.7 29.9 -16.2 13.8-42.1 14.7-59 1.7C9.9 74 4.1 62.2 2.9 50.2 2 40.8 2.6 31.4 2.4 22 2.2 17.4 3.8 12.2 8.4 10.5zM21.4 40.6c3.1 5.4 8.3 9.1 12.4 13.7 4.1 3.9 7.5 8.9 12.7 11.4 4.3 1.5 7.6-2.4 10.2-5.1 4.9-5.4 10.2-10.4 15.3-15.7 2.2-2.3 4.7-5.5 3.2-8.8 -1.2-3.9-6.6-5.2-9.6-2.5 -6.4 4.9-10.9 11.9-17.4 16.7 -6.6-5.1-11.2-12.5-18.1-17.2C25.4 29.9 18.8 35.5 21.4 40.6z"/><path class="inner" d="M21.4 40.6c-2.6-5 4-10.6 8.6-7.6 6.9 4.7 11.5 12.1 18.1 17.2 6.5-4.8 11.1-11.7 17.4-16.7 3.1-2.7 8.4-1.4 9.6 2.5 1.5 3.3-1 6.5-3.2 8.8 -5.1 5.2-10.4 10.3-15.3 15.7 -2.6 2.7-5.9 6.6-10.2 5.1 -5.2-2.5-8.5-7.5-12.7-11.4C29.7 49.7 24.4 46 21.4 40.6z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>P</strong>' : '').'</a>';
+				$link = '<a href="http://getpocket.com/edit?url='.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="pocket-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M12.533 6.84L8.77 10.45c-.213.204-.486.306-.76.306-.273 0-.547-.102-.76-.306L3.488 6.84c-.437-.418-.45-1.113-.032-1.55.42-.438 1.114-.452 1.55-.033l3.005 2.88 3.005-2.88c.436-.42 1.13-.405 1.55.032.42.437.405 1.13-.032 1.55zm3.388-5.028c-.207-.572-.755-.956-1.363-.956H1.45c-.6 0-1.144.376-1.357.936-.063.166-.095.34-.095.515v4.828l.055.96c.232 2.184 1.365 4.092 3.12 5.423.03.024.063.047.095.07l.02.015c.94.687 1.992 1.152 3.128 1.382.524.105 1.06.16 1.592.16.492 0 .986-.046 1.472-.136.058-.013.116-.023.175-.037.016-.002.033-.01.05-.018 1.088-.237 2.098-.69 3.004-1.352l.02-.014.096-.072c1.754-1.33 2.887-3.24 3.12-5.423l.054-.96V2.307c0-.167-.02-.333-.08-.495z" fill-rule="nonzero"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>P</strong>' : '').'</a>';
 			break;
 
 
 			case 'instapaper':
-				$link = '<a href="http://www.instapaper.com/hello2?url='.$url.'&amp;title='.urlencode( title(array()) ).'&amp;description='.$words.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="instapaper-icon" x="0px" y="0px" width="'.$width.'" height="'.$height.'" viewBox="0 0 199.22 359.29"><path d="M133.221,52.92c0.01,84.05,0,168.1,0,252.15c-0.07,3.949,0.85,8.08,3.59,11.07c5,5.729,12.42,8.56,19.6,10.42c12.21,3.43,24.939,4.43,37.57,4.85c2.6-0.11,5.299,1.84,5.289,4.59c0.26,6,0.19,12.02,0.051,18.01c0.16,3.35-3.23,5.34-6.25,4.99c-61.021,0.029-122.05-0.05-183.07,0.029c-2.8-0.17-6.21,0.561-8.37-1.68c-1.62-1.67-1.22-4.199-1.35-6.3c0.11-4.97-0.14-9.94,0.13-14.899c-0.02-2.92,2.85-4.961,5.61-4.75c14.34-0.16,28.84-1.471,42.54-5.94c5.9-2.069,11.9-5.03,15.59-10.28c3.09-4.43,2.62-10.07,2.64-15.189c-0.03-82.34-0.01-164.69-0.01-247.04c-0.05-1.81-0.16-3.8-1.44-5.21c-3.39-3.89-8.16-6.14-12.79-8.18c-14.19-5.84-29.28-8.99-44.36-11.55c-2.83-0.6-6.98-0.85-7.64-4.37c-0.56-5.2-0.09-10.46-0.27-15.69c-0.05-2.78-0.11-6.48,3-7.69C6.45-0.51,9.76-0.13,13-0.21C70.34-0.18,127.67-0.2,185.01-0.2c3.86,0.14,7.84-0.45,11.631,0.52c2.969,1.29,2.799,4.97,2.819,7.68c-0.181,5.29,0.34,10.62-0.33,15.89c-0.729,3.18-4.45,3.56-7.11,3.99c-13.02,1.83-26.02,4.28-38.47,8.6c-5.22,1.81-10.399,3.94-15.01,7.02C135.41,45.59,132.82,48.96,133.221,52.92z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';
+				$link = '<a href="http://www.instapaper.com/hello2?url='.$url.'&amp;title='.urlencode( title(array()) ).'&amp;description='.$words.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="instapaper-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 199.2 359.3"><path d="M133.2 52.9c0 84.1 0 168.1 0 252.2 -0.1 3.9 0.9 8.1 3.6 11.1 5 5.7 12.4 8.6 19.6 10.4 12.2 3.4 24.9 4.4 37.6 4.9 2.6-0.1 5.3 1.8 5.3 4.6 0.3 6 0.2 12 0.1 18 0.2 3.4-3.2 5.3-6.2 5 -61 0-122 0-183.1 0 -2.8-0.2-6.2 0.6-8.4-1.7 -1.6-1.7-1.2-4.2-1.3-6.3 0.1-5-0.1-9.9 0.1-14.9 0-2.9 2.9-5 5.6-4.7 14.3-0.2 28.8-1.5 42.5-5.9 5.9-2.1 11.9-5 15.6-10.3 3.1-4.4 2.6-10.1 2.6-15.2 0-82.3 0-164.7 0-247 0-1.8-0.2-3.8-1.4-5.2 -3.4-3.9-8.2-6.1-12.8-8.2 -14.2-5.8-29.3-9-44.4-11.5 -2.8-0.6-7-0.8-7.6-4.4 -0.6-5.2-0.1-10.5-0.3-15.7 0-2.8-0.1-6.5 3-7.7C6.5-0.5 9.8-0.1 13-0.2 70.3-0.2 127.7-0.2 185-0.2c3.9 0.1 7.8-0.4 11.6 0.5 3 1.3 2.8 5 2.8 7.7 -0.2 5.3 0.3 10.6-0.3 15.9 -0.7 3.2-4.4 3.6-7.1 4 -13 1.8-26 4.3-38.5 8.6 -5.2 1.8-10.4 3.9-15 7C135.4 45.6 132.8 49 133.2 52.9z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';
 			break;
 
 
 			case 'linkedin':
-				$link = '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$url.'&amp;title='.urlencode( title(array()) ).'&amp;source='.urlencode( site_slogan(array()) ).'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="linkedin-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 90 88.7"><path d="M20.4 9.6c0 5.3-3.9 9.6-10.4 9.6C3.9 19.2 0 14.9 0 9.6 0 4.2 4.1 0 10.3 0 16.5 0 20.3 4.2 20.4 9.6zM0.5 88.7V26.8h19.2v61.9H0.5zM31.3 46.6c0-7.7-0.3-14.2-0.5-19.7h16.7l0.9 8.6h0.4c2.5-4.1 8.7-10 19.1-10C80.5 25.4 90 33.9 90 52.2v36.6H70.8V54.4c0-8-2.8-13.4-9.7-13.4 -5.3 0-8.5 3.7-9.9 7.2 -0.5 1.3-0.6 3-0.6 4.8v35.7H31.3V46.6z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode( permlink(array()) ), '_pat_article_social_get_linkedin', $delay, $zero ) : '').($fallback ? '<strong>L</strong>' : '').'</a>';
+				$link = '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.$url.'&amp;title='.urlencode( title(array()) ).'&amp;source='.urlencode( site_slogan(array()) ).'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="linkedin-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M13.632 13.635h-2.37V9.922c0-.886-.018-2.025-1.234-2.025-1.235 0-1.424.964-1.424 1.96v3.778h-2.37V6H8.51V7.04h.03c.318-.6 1.092-1.233 2.247-1.233 2.4 0 2.845 1.58 2.845 3.637v4.188zM3.558 4.955c-.762 0-1.376-.617-1.376-1.377 0-.758.614-1.375 1.376-1.375.76 0 1.376.617 1.376 1.375 0 .76-.617 1.377-1.376 1.377zm1.188 8.68H2.37V6h2.376v7.635zM14.816 0H1.18C.528 0 0 .516 0 1.153v13.694C0 15.484.528 16 1.18 16h13.635c.652 0 1.185-.516 1.185-1.153V1.153C16 .516 15.467 0 14.815 0z" fill-rule="nonzero"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_linkedin', $delay, $zero ) : '').($fallback ? '<strong>L</strong>' : '').'</a>';
 			break;
 
 
 			case 'buffer':
-				$link = '<a href="http://bufferapp.com/add?id=fd854fd5d145df9c&amp;url='.$url.'&amp;text='.urlencode( site_slogan(array()) ).'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="buffer-icon" x="0px" y="0px" width="'.$width.'" height="'.$height.'" viewBox="0 0 979 1000" preserveAspectRatio="xMinYMin meet"><path d="M0 762q11-15 31.5-25.5t49-20 40.5-15.5q19 0 33.5 4.5t33.5 15 25 12.5q47 21 260 119 19 4 35.5 0t39.5-17.5 24-14.5q20-9 76.5-34.5t87.5-39.5q4-2 41.5-21t60.5-24q13-2 27.5 1t23.5 7.5 23 13 18 10.5 15.5 6 18.5 8 11 11q3 4 4 14-10 13-31 24t-51 22-40 16q-43 20-128.5 61.5t-128.5 61.5q-7 3-21 11.5t-23.5 13-25.5 11-27.5 7-29.5-1.5l-264-123q-6-3-32-14t-51.5-22-53.5-24-46.5-23.5-21.5-16.5q-4-4-4-13zm0-268q11-15 31.5-25t50-20 41.5-15q19 0 34 4.5t34.5 15 25.5 13.5q42 19 126.5 58t127.5 59q19 5 37 0.5t39-17 25-14.5q68-32 160-72 11-5 31.5-16.5t38.5-19.5 36-11q16-3 31.5 1t37.5 17 23 13q5 3 15.5 6.5t18 8 11.5 10.5q3 5 4 14-10 14-31.5 25.5t-52.5 22.5-41 16q-48 23-135.5 65t-122.5 59q-7 3-26 14t-29 15-32.5 10-35.5 0q-214-101-260-122-6-3-44-19t-69.5-30-61.5-29.5-34-22.5q-4-4-4-14zm0-267q10-15 31.5-26.5t52.5-22.5 41-16l348-162q30 0 53.5 7t56.5 26 40 22q39 18 117 54.5t117 54.5q4 2 36.5 15t54.5 24 27 20q3 4 4 13-9 13-26 22.5t-43.5 19-34.5 13.5q-47 22-140 66.5t-139 66.5q-6 3-20 11t-23 12.5-25 10.5-27 6-28-1q-245-114-256-119-4-2-63-27.5t-102-46.5-48-30q-4-4-4-13z"/></svg>' : '').'<b>'.$title.'</b>'.($count  ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_linkedin', $delay, $zero ) : '').($fallback ? '<strong>B</strong>' : '').'</a>';
+				$link = '<a href="http://bufferapp.com/add?id=fd854fd5d145df9c&amp;url='.$url.'&amp;text='.urlencode( site_slogan(array()) ).'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1" class="buffer-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 979 1000" preserveAspectRatio="xMinYMin meet"><path d="M0 762q11-15 31.5-25.5t49-20 40.5-15.5q19 0 33.5 4.5t33.5 15 25 12.5q47 21 260 119 19 4 35.5 0t39.5-17.5 24-14.5q20-9 76.5-34.5t87.5-39.5q4-2 41.5-21t60.5-24q13-2 27.5 1t23.5 7.5 23 13 18 10.5 15.5 6 18.5 8 11 11q3 4 4 14-10 13-31 24t-51 22-40 16q-43 20-128.5 61.5t-128.5 61.5q-7 3-21 11.5t-23.5 13-25.5 11-27.5 7-29.5-1.5l-264-123q-6-3-32-14t-51.5-22-53.5-24-46.5-23.5-21.5-16.5q-4-4-4-13zm0-268q11-15 31.5-25t50-20 41.5-15q19 0 34 4.5t34.5 15 25.5 13.5q42 19 126.5 58t127.5 59q19 5 37 0.5t39-17 25-14.5q68-32 160-72 11-5 31.5-16.5t38.5-19.5 36-11q16-3 31.5 1t37.5 17 23 13q5 3 15.5 6.5t18 8 11.5 10.5q3 5 4 14-10 14-31.5 25.5t-52.5 22.5-41 16q-48 23-135.5 65t-122.5 59q-7 3-26 14t-29 15-32.5 10-35.5 0q-214-101-260-122-6-3-44-19t-69.5-30-61.5-29.5-34-22.5q-4-4-4-14zm0-267q10-15 31.5-26.5t52.5-22.5 41-16l348-162q30 0 53.5 7t56.5 26 40 22q39 18 117 54.5t117 54.5q4 2 36.5 15t54.5 24 27 20q3 4 4 13-9 13-26 22.5t-43.5 19-34.5 13.5q-47 22-140 66.5t-139 66.5q-6 3-20 11t-23 12.5-25 10.5-27 6-28-1q-245-114-256-119-4-2-63-27.5t-102-46.5-48-30q-4-4-4-13z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_linkedin', $delay, $zero ) : '').($fallback ? '<strong>B</strong>' : '').'</a>';
 			break;
 
 
 			case 'reddit':
-				$link = '<a href="http://www.reddit.com/submit?url='.$url.'&amp;title='.$text.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="reddit-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 512 512" xml:space="preserve"><path class="inner" d="M480.5 251c0-27.7-22.2-50.2-49.5-50.2-13 0-24.7 5-33.6 13.3-32.4-22.8-76.1-37.8-124.9-40.6l21.9-73.2 67.1 13.5c2.3 22.7 21.2 40.4 44.3 40.4 0.1 0 0.1 0 0.2 0 0.1 0 0.1 0 0.2 0 24.6 0 44.5-20.2 44.5-45.1S430.7 64 406.1 64c-0.1 0-0.1 0-0.2 0 0 0-0.1 0-0.1 0-17.2 0-32 9.8-39.5 24.3l-89.7-18-30.8 103-2.5 0.1c-50.3 2.2-95.5 17.4-128.7 40.7-8.8-8.3-20.6-13.3-33.6-13.3-27.3 0-49.5 22.5-49.5 50.2 0 19.6 11 36.5 27.1 44.8-0.8 4.9-1.2 9.8-1.2 14.8C57.5 386.4 146.4 448 256 448s198.5-61.6 198.5-137.5c0-5-0.4-9.9-1.1-14.8C469.5 287.4 480.5 270.5 480.5 251zM65.8 271.1c-6.6-4.5-10.9-12.1-10.9-20.8 0-13.8 11.1-25.1 24.7-25.1 5.6 0 10.8 1.9 15 5.1C81.1 242.2 71.1 256 65.8 271.1zM389.3 109.1c0-9.2 7.4-16.8 16.5-16.8s16.5 7.5 16.5 16.8c0 9.2-7.4 16.8-16.5 16.8S389.3 118.4 389.3 109.1zM158.5 288.4c0-17.6 14.2-31.8 31.8-31.8s31.8 14.2 31.8 31.8c0 17.6-14.2 31.8-31.8 31.8S158.5 306 158.5 288.4zM256 400c-47.6-0.2-76-28.5-77.2-29.7l12.6-12.4c0.2 0.2 23.7 24.2 64.6 24.4 40.3-0.2 64.2-24.2 64.5-24.4l12.6 12.4C331.9 371.5 303.6 399.8 256 400zM322.3 320.2c-17.6 0-31.8-14.2-31.8-31.8 0-17.6 14.2-31.8 31.8-31.8s31.8 14.2 31.8 31.8C354.1 306 339.8 320.2 322.3 320.2zM446.4 271.5c-5.4-15.3-15.6-29.4-29.3-41.4 4.2-3.3 9.5-5.2 15.2-5.2 13.9 0 25.1 11.4 25.1 25.5C457.5 259.2 453.1 266.9 446.4 271.5z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_reddit', $delay, $zero, $real ) : '').($fallback ? '<strong>R</strong>' : '').'</a>';
+				$link = '<a href="http://www.reddit.com/submit?url='.$url.'&amp;title='.$text.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="reddit-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M1.473 9.368c-.04.185-.06.374-.06.566 0 2.3 2.94 4.173 6.554 4.173 3.613 0 6.553-1.872 6.553-4.173 0-.183-.02-.364-.055-.54l-.01-.022c-.013-.036-.02-.073-.02-.11-.2-.784-.745-1.497-1.533-2.072-.03-.01-.058-.026-.084-.047-.017-.013-.03-.028-.044-.043-1.198-.824-2.91-1.34-4.807-1.34-1.88 0-3.576.506-4.772 1.315-.01.012-.02.023-.033.033-.026.022-.056.04-.087.05-.805.576-1.364 1.293-1.572 2.086 0 .038-.01.077-.025.114l-.005.01zM8 13.003c-1.198 0-2.042-.26-2.58-.8-.116-.116-.116-.305 0-.422.117-.116.307-.116.424 0 .42.42 1.125.625 2.155.625 1.03 0 1.735-.204 2.156-.624.116-.116.306-.116.422 0 .117.118.117.307 0 .424-.538.538-1.382.8-2.58.8zM5.592 7.945c-.61 0-1.12.51-1.12 1.12 0 .608.51 1.102 1.12 1.102.61 0 1.103-.494 1.103-1.102 0-.61-.494-1.12-1.103-1.12zm4.83 0c-.61 0-1.12.51-1.12 1.12 0 .608.51 1.102 1.12 1.102.61 0 1.103-.494 1.103-1.102 0-.61-.494-1.12-1.103-1.12zM13.46 6.88c.693.556 1.202 1.216 1.462 1.94.3-.225.48-.578.48-.968 0-.67-.545-1.214-1.214-1.214-.267 0-.52.087-.728.243zM1.812 6.64c-.67 0-1.214.545-1.214 1.214 0 .363.16.7.43.927.268-.72.782-1.375 1.478-1.924-.202-.14-.443-.218-.694-.218zm6.155 8.067c-3.944 0-7.152-2.14-7.152-4.77 0-.183.016-.363.046-.54C.33 9.068 0 8.487 0 7.852c0-1 .813-1.812 1.812-1.812.446 0 .87.164 1.2.455 1.24-.796 2.91-1.297 4.75-1.33l1.208-3.69.264.063c.002 0 .004 0 .006.002l2.816.663c.228-.533.757-.908 1.373-.908.822 0 1.49.67 1.49 1.492 0 .823-.668 1.492-1.49 1.492-.823 0-1.492-.67-1.493-1.49l-2.57-.606L8.39 5.17c1.773.07 3.374.572 4.57 1.35.333-.307.767-.48 1.228-.48 1 0 1.812.814 1.812 1.813 0 .665-.354 1.26-.92 1.578.025.166.04.334.04.504-.002 2.63-3.21 4.77-7.153 4.77zM13.43 1.893c-.494 0-.895.4-.895.894 0 .493.4.894.894.894.49 0 .892-.4.892-.893s-.4-.894-.893-.894z" /></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_reddit', $delay, $zero ) : '').($fallback ? '<strong>R</strong>' : '').'</a>';
 			break;
 
 
 			case 'dribbble':
-				$link = '<a href="https://dribbble.com/'.$page.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="dribbble-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 430.1 430.1" xml:space="preserve"><path class="inner" d="M215.1 0C96.3 0 0 96.3 0 215.1c0 118.8 96.3 215 215.1 215 118.8 0 215.1-96.3 215.1-215C430.1 96.3 333.8 0 215.1 0zM346.8 111.5c21 26.6 34.1 59.6 35.8 95.7-24.3-5.2-47.2-7.7-68.6-7.7v0h-0.2c-17.2 0-33.4 1.6-48.6 4.3-3.7-9.1-7.5-17.8-11.2-26.1C287.9 162.8 320.5 141.6 346.8 111.5zM215.1 47.3c39.6 0 75.9 13.8 104.6 36.9-22 26.3-51 45.4-82.4 58.9-22-42.6-43.3-73.1-57.9-91.7C190.9 48.7 202.8 47.3 215.1 47.3zM140.9 64.8c11.6 13.8 35 44 59.9 91.3-50.6 15.1-101.7 18.6-132.5 18.6-0.9 0-1.7 0-2.6 0h0c-5.2 0-9.7-0.1-13.4-0.2C64.3 126.3 97.3 86.4 140.9 64.8zM47.3 215.1c0-0.8 0-1.6 0.1-2.4 4.8 0.2 10.9 0.3 18.3 0.3h0c33.7-0.2 92.6-3 152.3-21.9 3.3 7.1 6.5 14.5 9.7 22.2-39.9 13.3-71.2 34.6-94.5 55.7C110.9 289.4 95.8 309.5 86.9 323 62.2 293.8 47.3 256.2 47.3 215.1zM215.1 382.9c-37.3 0-71.8-12.3-99.7-33.1 5.9-9.8 18.7-28.5 38.9-47.9 20.8-20 49.6-40.5 87.2-52.8 12.8 35.8 24.3 76.7 33.1 122.8C256.1 378.9 236 382.9 215.1 382.9zM310 353.1c-8.5-41.7-19.2-79.2-31-112.7 10.9-1.6 22.3-2.4 34.4-2.4h0.4 0 0c20 0 42 2.5 65.9 7.9C371.5 290.1 345.8 328.4 310 353.1z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_dribbble', $delay, $zero ) : '').($fallback ? '<strong>D</strong>' : '').'</a>';
+				$link = '<a href="https://dribbble.com/'.$page.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="dribbble-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 16c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm6.747-6.905c-.234-.074-2.115-.635-4.257-.292.894 2.456 1.258 4.456 1.328 4.872 1.533-1.037 2.624-2.68 2.93-4.58zM10.67 14.3c-.102-.6-.5-2.688-1.46-5.18l-.044.014C5.312 10.477 3.93 13.15 3.806 13.4c1.158.905 2.614 1.444 4.194 1.444.947 0 1.85-.194 2.67-.543zm-7.747-1.72c.155-.266 2.03-3.37 5.555-4.51.09-.03.18-.056.27-.08-.173-.39-.36-.778-.555-1.16C4.78 7.85 1.47 7.807 1.17 7.8l-.003.208c0 1.755.665 3.358 1.756 4.57zM1.31 6.61c.307.005 3.122.017 6.318-.832-1.132-2.012-2.353-3.705-2.533-3.952-1.912.902-3.34 2.664-3.784 4.785zM6.4 1.368c.188.253 1.43 1.943 2.548 4 2.43-.91 3.46-2.293 3.582-2.468C11.323 1.827 9.736 1.176 8 1.176c-.55 0-1.087.066-1.6.19zm6.89 2.322c-.145.194-1.29 1.662-3.816 2.694.16.325.31.656.453.99.05.117.1.235.147.352 2.274-.286 4.533.172 4.758.22-.015-1.613-.59-3.094-1.543-4.257z" /></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_dribbble', $delay, $zero ) : '').($fallback ? '<strong>D</strong>' : '').'</a>';
 			break;
 
 
 			case 'stumbleupon':
-				$link = '<a href="http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$extract.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="stumbleupon-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 100 76" xml:space="preserve"><path d="M55.3 28.3l6.8 3.3 10.3-3.3v-6C72.4 10 62.3 0 50 0S27.6 10 27.6 22.3v31.3c0 2.9-2.4 5.2-5.3 5.2s-5.3-2.4-5.3-5.2V40.5H0v13.1C0 66 10 76 22.4 76c12.3 0 22.4-10 22.4-22.3V22.3c0-2.9 2.4-5.2 5.3-5.2s5.3 2.4 5.3 5.2V28.3zM82.9 40.5v13.1c0 2.9-2.4 5.2-5.3 5.2s-5.3-2.4-5.3-5.2V40.3l-10.3 3.3 -6.8-3.3v13.4C55.3 66 65.3 76 77.6 76 90 76 100 66 100 53.7V40.5H82.9z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_stumbleupon', $delay, $zero ) : '').($fallback ? '<strong>S</strong>' : '').'</a>';
+				$link = '<a href="http://www.stumbleupon.com/submit?url='.$url.'&amp;title='.$title.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="stumbleupon-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.58 0 0 3.582 0 8c0 4.42 3.58 8 8 8s8-3.58 8-8c0-4.418-3.58-8-8-8zm-.412 5.938v3.3c0 1.236-1.128 2.167-2.3 2.167-1.096 0-2.12-.518-2.236-1.756V7.587h1.65v1.65c0 .41.29.477.585.477.293 0 .65-.066.65-.478v-3.3c.034-1.236 1.053-2.01 2.194-2.01 1.162 0 1.932.878 1.932 2.01v.696l-.818.39-.832-.39V5.526s-.11-.12-.28-.12c-.283 0-.544.12-.544.532zm5.36 3.3c0 1.236-1.06 2.074-2.235 2.074-1.174 0-2.3-.838-2.3-2.075v-1.65h1.65v1.65c0 .412.357.478.65.478.294 0 .586-.066.586-.478v-1.65h1.648v1.65z" fill-rule="nonzero"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_stumbleupon', $delay, $zero ) : '').($fallback ? '<strong>S</strong>' : '').'</a>';
 			break;
 
 
 			case 'delicious':
-				$link = '<a href="http://del.icio.us/post?url='.$url.'" title="'.$tooltip.'" class="social-link"'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="stumbleupon-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" enable-background="new 0 0 32 32" viewBox="0 0 32 32" xml:space="preserve"><g><rect fill="#ffffff" height="16" width="16"/><rect fill="#dddddd" height="16" width="16" x="16" y="16"/><rect height="16" width="16" y="16"/><rect fill="#3274d1" height="16" width="16" x="16"/></g><g/><g/><g/><g/><g/><g/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero ) : '').($fallback ? '<strong>D</strong>' : '').'</a>';
+				$link = '<a href="http://del.icio.us/post?url='.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="stumbleupon-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 8H0v8h8V8zm8-8H8v8h8V0z" /></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_delicious', $delay, $zero ) : '').($fallback ? '<strong>D</strong>' : '').'</a>';
 			break;
 
 
 			case 'instagram':
-				$link = '<a href="https://instagram.com/'.$instagram.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="instagram-icon" x="0" y="0" width="'.$width.'" height="'.$height.'"  enable-background="new 0 0 30 30" viewBox="0 0 30 30" xml:space="preserve"><path d="M26 0C26 0 3.5 0 3.5 0 1.6 0 0 1.6 0 3.5L0 3.5c0 0 0 23 0 23C0 28.4 1.6 30 3.5 30c0 0 23 0 23 0 1.9-0.1 3.5-1.6 3.5-3.5 0 0 0-23 0-23C30 1.6 27.9 0.1 26 0zM15 9.5c3 0 5.5 2.5 5.5 5.5 0 3-2.5 5.5-5.5 5.5 -3 0-5.5-2.5-5.5-5.5C9.5 12 12 9.5 15 9.5zM26 24c0 1.1-0.9 2-2 2H6c-1.1 0-2-0.9-2-2V12.5h2.4C6.1 13.3 6 14.1 6 15c0 5 4 9 9 9 5 0 9-4 9-9 0-0.9-0.1-1.7-0.4-2.5H26l0 11.5C26 24 26 24 26 24zM26 5v3h0c0 0.5-0.4 1-1 1V9H22c-0.5 0-1-0.4-1-1H21V5h0C21 5 21 5 21 5c0-0.6 0.4-1 1-1h3v0C25.6 4 26 4.5 26 5c0 0 0 0 0 0H26z"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_instagram', $delay, $zero ) : '').($fallback ? '<strong>I</strong>' : '').'</a>';
+				$link = '<a href="https://instagram.com/'.$instagram.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="instagram-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M14.154 16H1.846C.826 16 0 15.173 0 14.153V1.846C0 .826.826 0 1.846 0h12.308C15.174 0 16 .826 16 1.846v12.307c0 1.02-.826 1.847-1.846 1.847M8 4.923C6.3 4.923 4.923 6.3 4.923 8S6.3 11.077 8 11.077 11.077 9.7 11.077 8C11.077 6.3 9.7 4.923 8 4.923m6.154-2.462c0-.34-.275-.614-.616-.614h-1.846c-.34 0-.615.275-.615.615V4.31c0 .34.276.615.615.615h1.846c.34 0 .616-.276.616-.615V2.46zm0 4.31H12.76c.103.392.163.804.163 1.23 0 2.72-2.204 4.923-4.923 4.923-2.72 0-4.923-2.204-4.923-4.923 0-.426.06-.838.162-1.23H1.845v6.768c0 .34.275.615.616.615h11.076c.34 0 .616-.275.616-.615v-6.77z" /></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_instagram', $delay, $zero ) : '').($fallback ? '<strong>I</strong>' : '').'</a>';
 			break;
 
 			case 'email':
-				$link = '<a href="mailto:?subject='.urlencode($prefs['sitename']).'&amp;body='.urlencode($text).'%0A%0A'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 485.4 485.4" xml:space="preserve"><path d="M0 81.8v321.8h485.4V81.8H0zM242.7 280.5L43.6 105.7h398.2L242.7 280.5zM163.4 242.6L23.9 365.2V120.1L163.4 242.6zM181.5 258.5l61.2 53.8 61.2-53.8L441.9 379.7H43.5L181.5 258.5zM322 242.7l139.5-122.5v245.1L322 242.7z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';'
+				$link = '<a href="mailto:?subject='.$prefs['sitename'].'&amp;body='.urlencode($text).'%0A%0A'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 485.4 485.4" xml:space="preserve"><path d="M0 81.8v321.8h485.4V81.8H0zM242.7 280.5L43.6 105.7h398.2L242.7 280.5zM163.4 242.6L23.9 365.2V120.1L163.4 242.6zM181.5 258.5l61.2 53.8 61.2-53.8L441.9 379.7H43.5L181.5 258.5zM322 242.7l139.5-122.5v245.1L322 242.7z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';
 			break;
+
 
 			case 'permalink':
 				global $pretext, $plugins;
 
-				// Deal with smd_short_url plugin if exists.
+				// Deals with smd_short_url plugin if exists.
 				$rs = safe_row("name, status", "txp_plugin", 'name="smd_short_url" and status="1"');
 				if ($rs)
 					$url = hu.$pretext['id'];
@@ -700,28 +718,22 @@ function pat_article_social($atts)
 
 	} elseif ( empty($site) ) {
 
-		return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING );
-	
+		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
+
 	} else {
 
 		return '';
 	}
-
 }
 
 
 /**
  * Read or create a file with content
  *
- * @param  string  $file  A flat file name
- * @param  string  $url   URI
- * @param  string  $type  A function to call
- * @param  integer $delay Caching time in minutes
- * @param  boolean $zero  Choose to display zero count
- * @return string File's content
+ * @param $file, $url, $type, $delay, $zero
+ * @return String  File's content
  */
-function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zero)
-{
+function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zero) {
 
 	global $path_to_site, $pat_article_social_dir;
 
@@ -729,9 +741,9 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 	$file = $path_to_site.'/'.$pat_article_social_dir.'/'.$file.'.txt';
 
 	// Times.
-	$current_time = time();
 	if($delay <= 0)
-		$delay = 1;
+	$delay = 1;
+	$current_time = time();
 	$expire_time = (int)$delay * 60 * 60;
 
 	// Grab content file or create it.
@@ -740,7 +752,7 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 		$out = @file_get_contents($file);
 	} else {
 		// Check what kind of datas.
-		if ( function_exists($type) || $delay == 0)
+		if ( function_exists($type) || $delay == 0 )
 			$out = $type($url);
 		else
 			$out = $type;
@@ -756,10 +768,9 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 /**
  * Get social counts.
  *
- * @param  string $url Social service URLs
- * @return integer Share counts
+ * @param  String Integer URLs  Share counts
+ * @return integer
  */
-
 // Twitter
 function _pat_article_social_get_twitter($url, $unit = NULL)
 {
@@ -773,23 +784,27 @@ function _pat_article_social_get_twitter($url, $unit = NULL)
 
 	return $tw;
 }
-// Facebook
-function _pat_article_social_get_facebook($url)
-{
+// Facebook®
+function _pat_article_social_get_facebook($url) {
+
 	$src = json_decode( @file_get_contents('http://graph.facebook.com/'.$url) );
 	$src->shares ? $fb_count = $src->shares : $fb_count = 0;
 
-	return $fb_count;
+	$other = json_decode( @file_get_contents('http://graph.facebook.com/'.str_replace('.net', '.eu', $url)) );
+	$other->shares ? $f_count = $other->shares : $f_count = 0;
+
+	return $fb_count + f_count;
+
 }
-// G+
-function _pat_article_social_get_google($url)
-{
-	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, "https://clients6.google.com/rpc");
-	curl_setopt($curl, CURLOPT_POST, 1);
+// G+®
+function _pat_article_social_get_google($url) {
+
+ 	$curl = curl_init();
+ 	curl_setopt($curl, CURLOPT_URL, "https://clients6.google.com/rpc");
+ 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, '[{"method":"pos.plusones.get", "id":"p", "params":{"nolog":true, "id":"'.$url.'", "source":"widget", "userId":"@viewer", "groupId":"@self"}, "jsonrpc":"2.0","key":"p", "apiVersion":"v1"}]');
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt( $curl, CURLOPT_HTTPHEADER, array('Content-type: application/json') );
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
 	$curl_results = curl_exec ($curl);
 	curl_close ($curl);
 	$json = json_decode($curl_results, true);
@@ -797,78 +812,85 @@ function _pat_article_social_get_google($url)
 	$g_count ? $g_count : $g_count = 0;
 
 	return $g_count;
-}
-// Pinterest
-function _pat_article_social_get_pinterest($url)
-{
-	$pinfo = json_decode(preg_replace('/^receiveCount\((.*)\)$/', "\\1", @file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url)));
 
-	if ( isset($pinfo->count) ) return $pinfo->count;
 }
-// LinkedIn
-function _pat_article_social_get_linkedin($url)
-{
+// Pinterest®
+function _pat_article_social_get_pinterest($url) {
+
+	$pinfo = json_decode( preg_replace('/^receiveCount\((.*)\)$/', "\\1", @file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url)) );
+
+ 	if ( isset($pinfo->count) ) return $pinfo->count;
+
+}
+// LinkedIn®
+function _pat_article_social_get_linkedin($url) {
+
 	$linfo = json_decode( @file_get_contents('https://www.linkedin.com/countserv/count/share?url='.$url.'&amp;format=json') );
 
 	return ( isset($linfo->count) ? $linfo->count : 0 );
+
 }
-// Buffer
-function _pat_article_social_get_buffer($url)
-{
-	$binfo = json_decode( @file_get_contents('https://api.bufferapp.com/1/links/shares.json?url='.$url) );
+// Buffer®
+function _pat_article_social_get_buffer($url) {
+
+ 	$binfo = json_decode( @file_get_contents('https://api.bufferapp.com/1/links/shares.json?url='.$url) );
 
 	if ( isset($binfo->shares) ) return $binfo->shares;
+
 }
-// Reddit
-function _pat_article_social_get_reddit($url)
-{
+// Reddit®
+function _pat_article_social_get_reddit($url) {
+
 	global $real;
+ 	$score = $up = $down = 0;
 
-	$score = $up = $down = 0;
-
-	$content = json_decode( @file_get_contents('http://www.reddit.com/api/info.json?url='.$url) );
-	if($content) {
+ 	$content = json_decode( @file_get_contents('http://www.reddit.com/api/info.json?url='.$url) );
+ 	if($content) {
 		$score = (int) $content->data->children[0]->data->score;
-		$up = (int) $content->data->children[0]->data->up;
-		$down = (int) $content->data->children[0]->data->down;
-	}
-	if ($real)
+ 		$up = (int) $content->data->children[0]->data->up;
+ 	 	$down = (int) $content->data->children[0]->data->down;
+ 	}
+ 	if ($real)
 		$score = $score + $up - $down;
 
 	return $score;
-}
-// Dribbble
-function _pat_article_social_get_dribbble($url)
-{
-	global $dribbble_data, $shot;
 
-	if( false === _pat_article_social_occurs($dribbble_data, array('followers', 'likes', 'comments', 'shots')) )
-		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'dribbble_data')), E_USER_WARNING);
+}
+// Dribbble®
+function _pat_article_social_get_dribbble($url) {
+
+ 	global $dribbble_data, $shot;
+
+ 	if( false === _pat_article_social_occurs($dribbble_data, array('followers', 'likes', 'comments', 'shots')) )
+ 		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'dribbble_data')), E_USER_WARNING);
 
 	$data = $dribbble_data.'_count';
 	$counter = 0;
 
-	$content = json_decode( @file_get_contents('http://api.dribbble.com/shots/'.$shot) );
+	$json = json_decode( @file_get_contents('http://api.dribbble.com/shots/'.$shot) );
 
-	if ($content) 
-		$counter = (int) $content->player->{$data};
+	 if ($json) 
+		$counter = (int) $json->player->{$data};
 	
-	return $counter;
-}
-// Stumbleupon
-function _pat_article_social_get_stumbleupon($url)
-{
-	$json = json_decode( @file_get_contents('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url), true );
+ 	return $counter;
 
-	return isset($json['result']['views']) ? intval($json['result']['views']) : 0;
 }
-// Delicious
+// Stumbleupon®
+function _pat_article_social_get_stumbleupon($url) {
+
+	$json = json_decode( @file_get_contents('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url), true );
+ 	return isset($json['result']['views']) ? intval($json['result']['views']) : 0;
+
+}
+// Delicious®
 function _pat_article_social_get_delicious($url) {
-	$json = json_decode( @file_get_contents_curl('http://feeds.delicious.com/v2/json/urlinfo/data?url='.$url), true );
+
+	$json = json_decode( @file_get_contents('http://feeds.delicious.com/v2/json/urlinfo/data?url='.$url), true );
 
 	return isset($json[0]['total_posts']) ? intval($json[0]['total_posts']) : 0;
+
 }
-// Instagram
+// Instagram®
 function _pat_article_social_get_instagram() {
 
 	global $user, $token, $instagram_type;
@@ -883,10 +905,9 @@ function _pat_article_social_get_instagram() {
 /**
  * Sum of share counts
  *
- * @param  array $atts Tag attributes
- * @return string HTML tag
+ * @param  $atts array
+ * @return String  HTML tag
  */
-
 function pat_article_social_sum($atts)
 {
 
@@ -894,55 +915,64 @@ function pat_article_social_sum($atts)
 
 	extract(lAtts(array(
 		'site'		=> NULL,
-		'lang'		=> $prefs['language'],
-		'zero' 		=> false,
 		'unit'		=> 'k',
 		'delay'		=> 3,
 		'showalways' 	=> 0,
 		'text'		=> false,
-		'plural'	=> 's',
-		'alternative' 	=> '',
+		'alternative'	=> '',
+		'plural' 	=> 's',
+		'lang'		=> $prefs['language'],
+		'zero' 		=> false,
 		'class' 	=> 'shares',
 	), $atts));
 
-	if ( $site && !gps('txpreview') ) {
+	($lang == 'fr-fr') ? $space = '&thinsp;' : '';
 
-		($lang == 'fr-fr') ? $space = '&thinsp;' : '';
+	if ( $site ) {
 
-		$list = explode( ',', strtolower($site) );
-		$n = count($list);
+		if ( !gps('txpreview') ) {
 
-		foreach ( $list as $el ) {
-			if ( false === _pat_article_social_occurs($el, $refs) )
-				return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
-		}
+			$list = explode( ',', strtolower($site) );
+			$n = count($list);
 
-		$sum = 0;
-
-		for ($i = 0; $i < $n; ++$i)
-			if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
-				$sum += @file_get_contents( $path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
+			foreach ( $list as $el ) {
+				if ( false == _pat_article_social_occurs($el, $refs) )
+					return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
 			}
 
-		// Check to render a zero value
-		$zero ? '' : ($sum > 0 ? '' : $sum = false);
+			$sum = 0;
 
-	return ( $showalways || $sum > 0) ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="'.$class.'"') : ( $zero ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '') ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="'.$class.'"') : tag('<b>'.$alternative.'</b>', 'span', ' class="'.$class.'"') );
+			if( !file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-shares.txt') )
+				_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
+
+			for ($i=0; $i < $n; ++$i)
+				if ( file_exists($path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt') ) {
+					$sum += @file_get_contents( $path_to_site.'/'.$pat_article_social_dir.'/'.$thisarticle['thisid'].'-'.$list[$i].'.txt' );
+				}
+
+			_pat_article_social_get_content( $thisarticle['thisid'].'-shares', '', $sum, $delay, $zero );
+
+			// Check to render a zero value
+			$zero ? '' : ($sum > 0 ? '' : $sum = '');
+
+			return ($showalways || $sum > 0) ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '' ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="'.$class.'"') : ( $zero ? tag('<b>'.$text.( ($sum > 1 && $text) ? $plural.$space.':' : '' ).' </b>'._pat_format_count($sum, $unit, $lang), 'span', ' class="'.$class.'"') : tag('<b>'.$alternative.$space.' </b>', 'span', ' class="'.$class.'"') );
+
+		} else {
+			return '';
+		}
 
 	} else {
-		return;
-	}
 
-	return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site or cache directory')), E_USER_WARNING );
+	return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site or cache directory')), E_USER_WARNING);
+	}
 }
 
 
 /**
  * Check values from a list
  *
- * @param string $el 
- * @param $array Array
- * @return boolean
+ * @param  $el $array	String 	Array
+ * @return boolean      $el is or isn't in the $array
  */
 function _pat_article_social_occurs($el, $array)
 {
@@ -957,14 +987,12 @@ function _pat_article_social_occurs($el, $array)
 /**
  * Format count results
  *
- * @param integer $number 
- * @param string  $unit 
- * @param string  $lang
+ * @param  $number $unit $lang
  * @return String rounding up (e.g. 3K)
  */
-
 function _pat_format_count($number, $unit, $lang)
 {
+
 	($lang == 'fr-fr') ? $separator = ',' : $separator = '.';
 
 	if($number >= 1000)
@@ -973,6 +1001,25 @@ function _pat_format_count($number, $unit, $lang)
 		return $number;
 }
 
+
+/**
+ * i18n from adi_plugins. Tks ;)
+ * @param   $phrase   $atts
+ */
+function pat_article_social_gTxt($phrase, $atts = array()) {
+// will check installed language strings before embedded English strings - to pick up Textpack
+// - for TXP standard strings gTxt() & pat_hyphenate_gTxt() are functionally equivalent
+	global $pat_article_social_gTxt;
+
+	if (strpos(gTxt($phrase, $atts), $phrase) !== FALSE) { // no TXP translation found
+		if (array_key_exists($phrase, $pat_article_social_gTxt)) // translation found
+			return strtr($pat_article_social_gTxt[$phrase], $atts);
+		else // last resort
+			return $phrase;
+		}
+	else // TXP translation
+		return gTxt($phrase, $atts);
+}
 
 
 /**
@@ -1023,8 +1070,8 @@ function pat_article_social_cleanup()
 		safe_repair($table);
 	}
 
-	echo graf('The "cache" directory and all its files will be removed. '.gTxt('are_you_sure'));
+	//echo graf('The "cache" directory and all its files will be removed. '.gTxt('are_you_sure'));
 
-	array_map('unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt"));
+	//array_map('unlink', glob("'.$path_to_site.'/'.$pat_article_social_dir.'/'*.txt"));
 
 }
