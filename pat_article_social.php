@@ -331,13 +331,17 @@ function _pat_locale($locale, $striped = NULL)
  */
 function bq($atts)
 {
+	global $prefs;
+
+	include_once txpath.'/lib/classTextile.php';
+ 	$textile = new Textile($prefs['doctype']);
 
  	extract(lAtts(array(
 		'text'	 => NULL,
 	), $atts));
 
  	if ($text) {
- 	 	return '<blockquote><p>'._pat_article_social_trim($text, 200).'</p></blockquote>'.pat_article_social(array('site'=>'facebook','content'=>$text,'icon'=>1,'count'=>0,'class'=>'facebook')).pat_article_social(array('site'=>'google','content'=>$text,'icon'=>1,'count'=>0,'class'=>'google')).pat_article_social(array('site'=>'twitter','content'=>$text,'icon'=>1,'count'=>0,'class'=>'twitter'));
+ 	 	return '<blockquote><p>'._pat_article_social_trim( $textile->TextileThis($text), 200 ).'</p></blockquote>'.pat_article_social(array('site'=>'facebook','content'=>$text,'icon'=>1,'count'=>0,'class'=>'facebook')).pat_article_social(array('site'=>'google','content'=>$text,'icon'=>1,'count'=>0,'class'=>'google')).pat_article_social(array('site'=>'twitter','content'=>$text,'icon'=>1,'count'=>0,'class'=>'twitter'));
 
  	}
 
