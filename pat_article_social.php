@@ -298,7 +298,7 @@ function _pat_article_social_trim($input, $length, $strip_html = true, $no_dot =
 
 	// Trim if longer than trim length with last dot removed, if needed.
 	if ( strlen($input) > $length )
-		return $no_dot ? substr(trim( $input, '.' ), 0, $length).'...' : substr($input, 0, $length).'...';
+		return ( $no_dot ? substr(trim( $input, '.' ), 0, $length) : substr($input, 0, $length) ).'...';
 	else
 		// No need to trim, already shorter than trim length.
 		return $input;
