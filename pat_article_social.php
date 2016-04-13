@@ -284,29 +284,27 @@ function _pat_article_social_get_uri()
 
 /** 
  * Trims text to a space then adds ellipses
- * @param string $input text to trim
- * @param int $length in characters to trim to
- * @param bool $strip_html strip html tags if present
+ * @param string $input      text to trim
+ * @param int    $length     in characters to trim to
+ * @param bool   $strip_html strip html tags if present
+ * @param boll   $no_dot     remove last dot if present
  * @return string
  */
-function _pat_article_social_trim($input, $length, $strip_html = true)
-{
+function _pat_article_social_trim($input, $length, $strip_html = true, $no_dot = true) {
+    
+	// Sanitize input.
+	$input = preg_replace('/\s+/S', " ", $input);
+
 	// Strip tags, if desired.
 	if ($strip_html)
 		$input = strip_tags($input);
 
-	// No need to trim, already shorter than trim length.
-	if ( mb_strlen($input) <= $length )
+	// Trim if longer than trim length with last dot removed, if needed.
+	if ( strlen($input) > $length )
+		return $no_dot ? substr(trim( $input, '.' ), 0, $length).'...' : substr($input, 0, $length).'...';
+	else
+		// No need to trim, already shorter than trim length.
 		return $input;
-
-	// Sanitize and remove last dot if present.
-	$input = trim( rtrim($input), '.' );
-
-	// Find last space within length.
-	$space = strrpos( substr($input, 0, $length), ' ' );
-	$shrink = substr($input, 0, $space).'...';
-
-	return $shrink;
 }
 
 
