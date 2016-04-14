@@ -56,7 +56,7 @@ global $refs, $twcards;
 
 // List of social networks that support share count.
 $refs = array('facebook', 'twitter', 'google', 'pinterest', 'Linkedin', 'buffer', 'reddit', 'dribbble', 'stumbleupon', 'delicious', 'instagram');
-// List of Twitter Cards type.
+// List of Twitter Card types.
 $twcards = array('summary', 'summary_large_image', 'product');
 
 /**
@@ -96,19 +96,19 @@ function pat_article_social_meta($atts)
 
 	if ( $type && !gps('txpreview') ) {
 
-		// Create an array of social services from list
+		// Create an array of social services from list.
 		$type = explode(',', $type);
 		// Format the lang code
 		$locale = _pat_locale($locale);
-		// Get URI
+		// Get URI.
 		$current = _pat_article_social_get_uri;
 		// Check image.
 		$image ? $image : $image = _pat_article_social_image();
-		// Sanitize
+		// Sanitize.
 		$description = str_replace(array('\r\n', '\r'), '\n', $description);
-		// Social Networks often limit description to 200 characters
+		// Social Networks often limit description to 200 characters.
 		$description = strip_tags(_pat_article_social_trim($description, $lenght));
-		// Remove some URLs into text content
+		// Remove some URLs into text content.
 		$description = preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', $description);
 
 
@@ -118,7 +118,6 @@ function pat_article_social_meta($atts)
 			switch( strtolower($service) ) {
 
 			case 'twitter':
-
 				if( false == _pat_article_social_occurs($card, $twcards) )
 					return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'card')), E_USER_WARNING);
 
@@ -144,6 +143,7 @@ EOF;
 
 			case 'facebook':
 	$tags .= <<<EOF
+<meta property="og:rich_attachment" content="true">
 <meta property="og:locale" content="$locale">
 <meta property="og:site_name" content="{$prefs['sitename']}">
 <meta property="og:title" content="{$title}">
@@ -171,7 +171,6 @@ EOF;
 <meta itemprop="url" content="{$current()}">
 
 EOF;
-
 	$tags .= ($image ? '<meta itemprop="image" content="'.$image.'">'.n : '');
 	$tags .= ($g_author ? '<link rel="author" href="https://plus.google.com/'.$g_author.'">'.n : '');
 	$tags .= ($g_publisher ? '<link rel="publisher" href="https://plus.google.com/'.$g_publisher.'">'.n : '');
@@ -185,7 +184,7 @@ EOF;
 
 	}
 
-	return '';
+	return;
 }
 
 
@@ -203,21 +202,22 @@ function _pat_article_social_validate_user($entry, $attribute = NULL)
 	if ( preg_match("/\@[a-z0-9_]+/i", $entry) )
 		$out = ( $attribute ? '<meta name="twitter:'.$attribute.'" content="'.$entry.'">'.n : str_replace('@', '', $entry) );
 
-	return $out ? $out : trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING);
+	return $out ? $out : trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'user or creator')), E_USER_WARNING );
 }
 
 
 /**
  * Display article image
  *
- * @param  int $pic  image ID
- * @return string  Full article image URI
+ * @param  int $pic  Image ID
+ * @return string    Full article image URI
  */
 function _pat_article_social_image($pic = NULL)
 {
 
 	global $thisarticle;
 
+	// Individual image or not?
 	if (false == $pic)
 		$img = $thisarticle['article_image'];
 	else
@@ -225,7 +225,7 @@ function _pat_article_social_image($pic = NULL)
 
 	if (intval($img)) {
 
-		if ($rs = safe_row('*', 'txp_image', 'id = ' . intval($img)))
+		if ( $rs = safe_row('*', 'txp_image', 'id = ' . intval($img)) )
 			$img = imagesrcurl($rs['id'], $rs['ext']);
 		else
 			$img = null;
@@ -315,8 +315,8 @@ function _pat_article_social_trim($input, $length, $strip_html = true, $no_dot =
  * Convert into proper local code
  *
  * @param string  $locale   ISO code
- * @param boolean $stripped 
- * @return string           formatted ISO code
+ * @param boolean $stripped Convert to underscore
+ * @return string           Formatted ISO code
  */
 function _pat_locale($locale, $striped = NULL)
 {
@@ -370,10 +370,10 @@ function twttr($atts)
 		'status'	 => NULL,
 		'markup'	 => ($prefs['pat_article_social_twttr'] == 1 ? 'blockquote' : 'iframe'),
 		'align' 	 => 'center',
-		'max_width' 	 => 500,
-		'media' 	 => 'false',
-		'thread' 	 => 'false',
-		'related' 	 => 'false',
+		'max_width' 	 => '500',
+		'media' 	 => false,
+		'thread' 	 => false,
+		'related' 	 => false,
 		'locale'	 => $prefs['language'],
 	), $atts));
 
@@ -394,22 +394,25 @@ function twttr($atts)
 
 		}
 
-
+		// Full URL of a Twitter link given.
 		if ( preg_match('#http(s|):\/\/twitter\.com(\/\#\!\/|\/)([a-zA-Z0-9_]{1,20})\/status(es)*\/(\d+)#i', $status) ) {
 
 			if ($markup == 'iframe' || $markup == 'object')
 			
 				$out = '<!-- Embedded Tweet - pat-article-social --> <div class="pat-twttr"><'.$markup.$_att.'"http://twitframe.com/show?url='.urlencode($status).'"></'.$markup.'></div>';
 
+			// Blockquote markup.
 			else
 				$id = basename($status);
 
+		// Short URL of a Twitter link given.
 		} elseif ( preg_match('#^[0-9]+$#i', $status) )
 				$id = $status;
 
 			$json = 'https://api.twitter.com/1/statuses/oembed.json?id='.$id.'&amp;align='.$align.'&amp;maxwidth='.$max_width.'&amp;hide_media='.$media.'&amp;hide_thread='.$thread.'&amp;related='.$related.'&amp;lang='.$locale;
 			$datas = json_decode( @file_get_contents($json), true );
 
+			// Display json result.
 			if ($datas)
 				$out = '<!-- Embedded Tweet - pat-article-social --> ' . str_replace(
 					array(' align="center"', ' width="500"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
@@ -608,14 +611,15 @@ function pat_article_social($atts)
 
 	if ( $site && !gps('txpreview') ) {
 
+		// Check text content.
 		if( in_array($content, array('excerpt', 'body')) )
 			$extract = $thisarticle[$content];
 		elseif( !empty($content) )
 			$extract = $content;
 		else
-			trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING);
+			trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'content')), E_USER_WARNING );
 
-		$url = permlink(array());
+		$url = permlink( array() );
 		// Sanitize
 		$text = ($with_title ? $thisarticle['title'].'.' : '').preg_replace('/(([&-a-z0-9;])?(#[a-z0-9;])?)[a-z0-9]+;/i', '', strip_tags($extract) );
 		// Limit content
@@ -642,7 +646,7 @@ function pat_article_social($atts)
 
 
 			case 'pinterest':
-				if( true == _pat_article_social_image() )
+				if ( true == _pat_article_social_image() )
 					$link = '<a itemprop="url" href="http://pinterest.com/pin/create/button/?url='.$url.'&amp;description='.$words.'&amp;media='._pat_article_social_image($image).($campaign ? $campaign : '').'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg width="'.$width.'" height="'.$height.'" class="pinterest-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.582 0 0 3.582 0 8c0 3.39 2.108 6.285 5.084 7.45-.07-.633-.133-1.604.028-2.295.146-.625.938-3.977.938-3.977s-.24-.48-.24-1.188c0-1.11.646-1.943 1.448-1.943.683 0 1.012.513 1.012 1.127 0 .687-.436 1.713-.662 2.664-.19.797.4 1.445 1.185 1.445 1.42 0 2.514-1.498 2.514-3.662 0-1.915-1.376-3.254-3.342-3.254-2.276 0-3.61 1.707-3.61 3.472 0 .687.263 1.424.593 1.825.066.08.075.15.057.23-.06.252-.196.796-.223.907-.035.146-.115.178-.268.107-.998-.465-1.624-1.926-1.624-3.1 0-2.524 1.834-4.84 5.287-4.84 2.774 0 4.932 1.977 4.932 4.62 0 2.757-1.74 4.977-4.153 4.977-.81 0-1.572-.422-1.833-.92l-.5 1.902c-.18.695-.667 1.566-.994 2.097.75.232 1.545.357 2.37.357 4.417 0 8-3.582 8-8s-3.583-8-8-8z" fill-rule="nonzero"/></svg>' : '').'<b>'.$title.'</b>'.($count ? _pat_article_social_get_content( $thisarticle['thisid'].'-'.$site, urlencode(permlink(array()) ), '_pat_article_social_get_pinterest', $delay, $zero ) : '').($fallback ? '<strong>P</strong>' : '').'</a>';
 			break;
 
@@ -718,11 +722,11 @@ function pat_article_social($atts)
 
 	} elseif ( empty($site) ) {
 
-		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING);
+		return trigger_error( gTxt('invalid_attribute_value', array('{name}' => 'site')), E_USER_WARNING );
 
 	} else {
 
-		return '';
+		return;
 	}
 }
 
@@ -730,7 +734,11 @@ function pat_article_social($atts)
 /**
  * Read or create a file with content
  *
- * @param $file, $url, $type, $delay, $zero
+ * @param  string  $file  A flat file name
+ * @param  string  $url   URI
+ * @param  string  $type  A function to call
+ * @param  integer $delay Caching time in minutes
+ * @param  boolean $zero  Choose to display zero count
  * @return String  File's content
  */
 function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zero) {
@@ -768,7 +776,8 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
 /**
  * Get social counts.
  *
- * @param  String Integer URLs  Share counts
+ * @param  string URLs  Share counts
+ * @param  string       Letter format
  * @return integer
  */
 // Twitter
@@ -790,10 +799,7 @@ function _pat_article_social_get_facebook($url) {
 	$src = json_decode( @file_get_contents('http://graph.facebook.com/'.$url) );
 	$src->shares ? $fb_count = $src->shares : $fb_count = 0;
 
-	$other = json_decode( @file_get_contents('http://graph.facebook.com/'.str_replace('.net', '.eu', $url)) );
-	$other->shares ? $f_count = $other->shares : $f_count = 0;
-
-	return $fb_count + f_count;
+	return $fb_count;
 
 }
 // G+®
@@ -971,8 +977,9 @@ function pat_article_social_sum($atts)
 /**
  * Check values from a list
  *
- * @param  $el $array	String 	Array
- * @return boolean      $el is or isn't in the $array
+ * @param  string $el
+ * @param array $array
+ * @return boolean
  */
 function _pat_article_social_occurs($el, $array)
 {
@@ -987,7 +994,9 @@ function _pat_article_social_occurs($el, $array)
 /**
  * Format count results
  *
- * @param  $number $unit $lang
+ * @param integer $number
+ * @param string  $unit
+ * @param string  $lang
  * @return String rounding up (e.g. 3K)
  */
 function _pat_format_count($number, $unit, $lang)
