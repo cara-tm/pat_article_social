@@ -47,8 +47,8 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 >    **type**: String (required). Coma separated list of social network's name [1]. Default: none (empty).
 > 
->    **card**: String (optional). Twitter card type among: "summary", "summary_large_image", "photo", "gallery", "product". Default: summary. Note "gallery" had been removing on July 3, 2015 https://dev.twitter.com/cards/types/gallery
-    Notice: If there are more than one image associated with the current article, the value of the card attribute changes accordingly.
+>    **card**: String (optional). Twitter card type among: "summary", "summary_large_image", "product". Default: summary. Note "gallery" had been removing on July 3, 2015 https://dev.twitter.com/cards/types/gallery. This plugin takes care of images associated with the current article and changes the Twitter's card format accordingly (changed to "summary_large_image"). Basically, in normal contexts you just need to set the card attribute with "summary" or keep it blank.
+    ~~Notice: If there are more than one image associated with the current article, the value of the card attribute changes accordingly.~~
 > 
 >    **image**: URL (optional). Full path to a custom image for replacement. Default: article image.
 > 
@@ -132,8 +132,6 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 ###Attributes
 
 >    **site**: String (required). A comma separated list of social websites (facebook, twitter, google, pinterest, tumblr, instapaper, pocket, linkedin, buffer, reddit, dribbble, stumbleupon, delicious, ello). Default: permalink. Notice: "permalink" attribute creates a show/hide input bellow the icon with the current article's permalink.
-> 
->    **card**: String (optional). Choose which Twitter card format to use (among: summary, summary_large_image, product). This plugin takes care of images associated with the current article and changes the Twitter's card format accordingly (changed to "summary_large_image"). Basically, in normal contexts you just need to set the card attribute with "summary" or keep it blank. Default: "summary".
 > 
 >    **tooltip**: String (optional). Tooltip of the link. Default: none (empty).
 > 
