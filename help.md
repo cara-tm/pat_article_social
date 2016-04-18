@@ -240,6 +240,8 @@ CSS rules:
 
     <txp:bq text="" />
 
+**Warning**: you can't use quote signs in you input (`"`) but Textile converted ones (`“` and `”` or `«` and `»`).
+
 ##Attributes
 
 > 
