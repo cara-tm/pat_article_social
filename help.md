@@ -234,7 +234,7 @@ CSS rules:
 
 ![pat-article-social sneak peek](http://postimg.org/image/fn8alxwj5/)!
 
-#Incorporate a citation as a part of text (extract) in your article's body followed by social shares (facebook, twitter & G+)
+#Incorporate a quotation as a part of text (extract) in your article's body followed by social shares (facebook, twitter & G+)
 
 ##Usage:
 
