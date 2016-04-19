@@ -3,7 +3,7 @@
 
 ##Purpose
 
-**Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist.**
+**Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist and create quotations (part of texts) followed by share links.**
 
 ~~Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform))~~. No more with v 0.5.7: a third part service is used to display the Twitter share counts (see below).
 
@@ -240,7 +240,8 @@ CSS rules:
 
     <txp:bq text="" />
 
-**Warning**: you can't use quote signs in you input (`"`) but Textile converted ones (`“` and `”` or `«` and `»`).
+**Warning**: you can't use quote signs in you input (`"`) but Textile converted ones (`“` and `”` or `«` and `»`) otherwise this tag will not render anything.
+Some attentive users may invoke the use of `.notextile` (i.e. `.notextile <txp:bq text="" />`) for a better markup. But that is not important: basically, Google considers a perfect pages structure suspect without any errors.
 
 ##Attributes
 
