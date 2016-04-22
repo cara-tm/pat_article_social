@@ -181,9 +181,9 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 > 
 >    **fallback**: Boolean (optional). Choose to display the social website first letter as a fallback for browsers which do not support SVG format. Default: 1 (true), show first letters. 
 > 
->    **campaign**: string (optional). Choose to add some queries in the URLs for tracking campaigns. Default: none (empty).
+>    **campaign**: String (optional). Choose to add some queries in the URLs for tracking campaigns. Default: none (empty).
 > 
->    **with_title**: boolean (optional). Choose to add the article title into the share content. Default: 1 (yes).
+>    **with_title**: Boolean (optional). Choose to add the article title into the share content. Default: 1 (yes).
 > 
 
 Notice: Default color icons are black. See below how to change it.
@@ -255,30 +255,30 @@ Some attentive users may invoke the use of `.notextile` (i.e. `.notextile <txp:b
 
 Generates this into your HTML page:
 
-> 
->    <blockquote class="pat-bq">
->     	<p>My text followed by social shares.</p>
->     	<p>
->     		<span itemprop="sharedContent" itemscope="" itemtype="http://schema.org/WebPage" class="pat-social">
->     			<span itemprop="headline" class="txt-indent">Welcome to your site</span> 
->     			<meta itemprop="datePublished" content="2016-01-06"> 
->     				<a itemprop="url" href="http://www.facebook.com/sharer/sharer.php?u=http://example.com/welcome-to-your-site&amp;t=Welcome+to+your+site" title="" class="social-link facebook" target="_blank"><svg width="16" height="16" class="facebook-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M15.117 0H.883C.395 0 0 .395 0 .883v14.234c0 .488.395.883.883.883h7.663V9.804H6.46V7.39h2.086V5.607c0-2.066 1.262-3.19 3.106-3.19.883 0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.476-1.195 1.176v1.54h2.39l-.31 2.416h-2.08V16h4.077c.488 0 .883-.395.883-.883V.883C16 .395 15.605 0 15.117 0" fill-rule="nonzero"></path></svg><b></b><strong>F</strong></a>
->     			</span>
->     			<span itemprop="sharedContent" itemscope="" itemtype="http://schema.org/WebPage" class="pat-social">
->     				<span itemprop="headline" class="txt-indent">Welcome to your site</span> 
->     				<meta itemprop="datePublished" content="2016-01-06"> 
->     					<a itemprop="url" href="https://plus.google.com/share?url=http://example.com/txp/articles/welcome-to-your-site" title="" class="social-link google" target="_blank"><svg width="16" height="16" class="gplus-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><g><path d="M5.09 7.273v1.745H7.98c-.116.75-.873 2.197-2.887 2.197-1.737 0-3.155-1.44-3.155-3.215S3.353 4.785 5.09 4.785c.99 0 1.652.422 2.03.786l1.382-1.33c-.887-.83-2.037-1.33-3.41-1.33C2.275 2.91 0 5.184 0 8s2.276 5.09 5.09 5.09c2.94 0 4.888-2.065 4.888-4.974 0-.334-.036-.59-.08-.843H5.09zM16 7.273h-1.455V5.818H13.09v1.455h-1.454v1.454h1.455v1.455h1.455V8.727H16"></path></g></svg><b></b><strong>G</strong>
->     					</a>
->     			</span>
->     			<span itemprop="sharedContent" itemscope="" itemtype="http://schema.org/WebPage" class="pat-social">
->     				<span itemprop="headline" class="txt-indent">Welcome to your site</span> 
->     				<meta itemprop="datePublished" content="2016-01-06"> 
->     					<a itemprop="url" href="https://twitter.com/intent/tweet?text=My+text+followed+by+social+share.&amp;url=http://example.com/txp/articles/welcome-to-your-site" title="" class="social-link twitter" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="twitter-icon" x="0" y="0" width="16" height="16" viewBox="0 0 16 16" xml:space="preserve"><path d="M16 3c-0.6 0.3-1.2 0.4-1.9 0.5 0.7-0.4 1.2-1 1.4-1.8-0.6 0.4-1.3 0.7-2.1 0.8C12.9 1.9 12 1.5 11.1 1.5c-1.8 0-3.3 1.5-3.3 3.3 0 0.3 0 0.5 0.1 0.8C5.2 5.4 2.7 4.1 1.1 2.1 0.8 2.6 0.7 3.2 0.7 3.8c0 1.1 0.6 2.1 1.5 2.7C1.6 6.5 1.1 6.3 0.6 6.1v0c0 1.6 1.1 2.9 2.6 3.2C3 9.4 2.7 9.5 2.4 9.5c-0.2 0-0.4 0-0.6-0.1 0.4 1.3 1.6 2.3 3.1 2.3-1.1 0.9-2.5 1.4-4.1 1.4-0.3 0-0.5 0-0.8 0C1.5 14 3.2 14.5 5 14.5c6 0 9.3-5 9.3-9.3L14.4 4.7C15 4.3 15.6 3.7 16 3z"></path></svg><b></b><strong>T</strong>
->     					</a>
->     				</span>
->     			</p>
->     		</blockquote>
-> 
+
+    <blockquote class="pat-bq">
+     	<p>My text followed by social shares.</p>
+     	<p>
+     		<span itemprop="sharedContent" itemscope="" itemtype="http://schema.org/WebPage" class="pat-social">
+     			<span itemprop="headline" class="txt-indent">Welcome to your site</span> 
+     			<meta itemprop="datePublished" content="2016-01-06"> 
+     				<a itemprop="url" href="http://www.facebook.com/sharer/sharer.php?u=http://example.com/welcome-to-your-site&amp;t=Welcome+to+your+site" title="" class="social-link facebook" target="_blank"><svg width="16" height="16" class="facebook-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M15.117 0H.883C.395 0 0 .395 0 .883v14.234c0 .488.395.883.883.883h7.663V9.804H6.46V7.39h2.086V5.607c0-2.066 1.262-3.19 3.106-3.19.883 0 1.642.064 1.863.094v2.16h-1.28c-1 0-1.195.476-1.195 1.176v1.54h2.39l-.31 2.416h-2.08V16h4.077c.488 0 .883-.395.883-.883V.883C16 .395 15.605 0 15.117 0" fill-rule="nonzero"></path></svg><b></b><strong>F</strong></a>
+     			</span>
+     			<span itemprop="sharedContent" itemscope="" itemtype="http://schema.org/WebPage" class="pat-social">
+     				<span itemprop="headline" class="txt-indent">Welcome to your site</span> 
+     				<meta itemprop="datePublished" content="2016-01-06"> 
+     					<a itemprop="url" href="https://plus.google.com/share?url=http://example.com/txp/articles/welcome-to-your-site" title="" class="social-link google" target="_blank"><svg width="16" height="16" class="gplus-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><g><path d="M5.09 7.273v1.745H7.98c-.116.75-.873 2.197-2.887 2.197-1.737 0-3.155-1.44-3.155-3.215S3.353 4.785 5.09 4.785c.99 0 1.652.422 2.03.786l1.382-1.33c-.887-.83-2.037-1.33-3.41-1.33C2.275 2.91 0 5.184 0 8s2.276 5.09 5.09 5.09c2.94 0 4.888-2.065 4.888-4.974 0-.334-.036-.59-.08-.843H5.09zM16 7.273h-1.455V5.818H13.09v1.455h-1.454v1.454h1.455v1.455h1.455V8.727H16"></path></g></svg><b></b><strong>G</strong>
+     					</a>
+     			</span>
+     			<span itemprop="sharedContent" itemscope="" itemtype="http://schema.org/WebPage" class="pat-social">
+     				<span itemprop="headline" class="txt-indent">Welcome to your site</span> 
+     				<meta itemprop="datePublished" content="2016-01-06"> 
+     					<a itemprop="url" href="https://twitter.com/intent/tweet?text=My+text+followed+by+social+share.&amp;url=http://example.com/txp/articles/welcome-to-your-site" title="" class="social-link twitter" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="twitter-icon" x="0" y="0" width="16" height="16" viewBox="0 0 16 16" xml:space="preserve"><path d="M16 3c-0.6 0.3-1.2 0.4-1.9 0.5 0.7-0.4 1.2-1 1.4-1.8-0.6 0.4-1.3 0.7-2.1 0.8C12.9 1.9 12 1.5 11.1 1.5c-1.8 0-3.3 1.5-3.3 3.3 0 0.3 0 0.5 0.1 0.8C5.2 5.4 2.7 4.1 1.1 2.1 0.8 2.6 0.7 3.2 0.7 3.8c0 1.1 0.6 2.1 1.5 2.7C1.6 6.5 1.1 6.3 0.6 6.1v0c0 1.6 1.1 2.9 2.6 3.2C3 9.4 2.7 9.5 2.4 9.5c-0.2 0-0.4 0-0.6-0.1 0.4 1.3 1.6 2.3 3.1 2.3-1.1 0.9-2.5 1.4-4.1 1.4-0.3 0-0.5 0-0.8 0C1.5 14 3.2 14.5 5 14.5c6 0 9.3-5 9.3-9.3L14.4 4.7C15 4.3 15.6 3.7 16 3z"></path></svg><b></b><strong>T</strong>
+     					</a>
+     				</span>
+     			</p>
+     		</blockquote>
+ 
 
 
 ##Example of CSS for a quick start usage
