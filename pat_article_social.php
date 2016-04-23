@@ -415,10 +415,10 @@ function twttr($atts)
 			// Display json result.
 			if ($datas)
 				$out = '<!-- Embedded Tweet - pat-article-social --> ' . str_replace(
-					array(' align="center"', ' width="500"', '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>'),
+					array(' align="center"', ' width="500"'),
 					array('', ' style="width:500px"', ''),
 					$datas['html']
-					)._injectjs(1);
+					);
 
 		} else {
 
@@ -452,7 +452,7 @@ function fb($atts)
 
 		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*(.*)?$#i', $status) ) {
 
-			return '<!-- Embedded fb status - pat-article-social --> <div id="fb-root"></div>'._injectjs(2, $locale).'<div class="fb-post" data-href="'.$status.'"></div>';
+			return '<!-- Embedded fb status - pat-article-social --> <div id="fb-root"></div><script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script><div class="fb-post" data-href="'.$status.'"></div>';
 
 		}
 
@@ -478,46 +478,10 @@ function gplus($atts)
 	if ( !gps('txpreview') ) {
 
 		if( preg_match('#^https:\/\/plus\.google\.com\/[a-z-A-Z-0-9+]*\/posts\/[a-z-A-Z-0-9]*$#i', $status) ) {
-			return '<!-- Embedded G+ status - pat-article-social --> ' . _injectjs(3) . '<div class="g-post" data-href="'.$status.'"></div>';
+			return '<!-- Embedded G+ status - pat-article-social --> <div class="g-post" data-href="'.$status.'"></div><script src="https://apis.google.com/js/platform.js" async defer></script>';
 		}
 
 		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'status')), E_USER_WARNING);
-	}
-
-}
-
-// TO DO: better function
-/**
- * Inject js script only once.
- *
- * @type   integer 1: Twitter, 2: facebook, 3: G+
- * @param  locale  Locale country code
- * @return script  social network script link
- */
-function _injectjs($type, $locale = NULL) {
-
-	static $cache = array();
-
-	// Function has never run.
-	if ( empty($cache[$type]) ) {
-		// Assign variable.
-		switch ( $cache[$type] ) {
-
-			case '1':
-				$cache[$type] = '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
-			break;
-
-			case '2':
-				$cache['type'] = '<script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script>';
-			break;
-
-			case '3':
-				$cache['type'] = '<script src="https://apis.google.com/js/platform.js" async defer></script>';
-			break;
-
-		}
-
-		return $cache[$type];
 	}
 
 }
