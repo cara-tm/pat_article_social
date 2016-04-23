@@ -289,8 +289,8 @@ function _pat_article_social_get_uri()
  * @param boll   $no_dot     remove last dot if present
  * @return string
  */
-function _pat_article_social_trim($input, $length, $strip_html = true, $no_dot = true) {
-    
+function _pat_article_social_trim($input, $length, $strip_html = true) {
+
 	// Sanitize input.
 	$input = preg_replace('/\s+/S', " ", $input);
 
@@ -298,13 +298,17 @@ function _pat_article_social_trim($input, $length, $strip_html = true, $no_dot =
 	if ($strip_html)
 		$input = strip_tags($input);
 
-	// Remove last dot removed, if needed.
-	if ($no_dot)
-		$input = trim( $input, '.' );
-
-	// Trim if longer than trim length with last dot removed, if needed.
+	// Trim if longer than trim length.
 	if ( strlen($input) > $length )
-		return substr($input, 0, $length).'...';
+
+		// Special signs found?
+		if ( in_array( substr($input, $length, 1), array(' ', '.', '!', '?') ) )
+			// Remove last special sign, add hellips.
+			return substr( trim( $input, '.' ), 0, $length - 1).'...';
+		else
+			// No special signs, add hellips.
+			return substr($input, 0, $length).'...';
+
 	else
 		// No need to trim, already shorter than trim length.
 		return $input;
@@ -347,7 +351,7 @@ function bq($atts)
  	$textile = new Textile($prefs['doctype']);
 
  	if ($text)
- 	 	return '<blockquote class="pat-bq">'.$textile->TextileThis($text).'<p>'.pat_article_social(array('site'=>'facebook','tooltip'=>$tooltip,'content'=>$text,'icon'=>1,'count'=>0,'class'=>'facebook','with_title'=>0)).pat_article_social(array('site'=>'google','tooltip'=>$tooltip,'content'=>$text,'icon'=>1,'count'=>0,'class'=>'google','with_title'=>0)).pat_article_social(array('site'=>'twitter','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 117, true, false),'icon'=>1,'count'=>0,'class'=>'twitter','with_title'=>0)).'</p></blockquote>';
+ 	 	return '<blockquote class="pat-bq">'.$textile->TextileThis($text).'<p>'.pat_article_social(array('site'=>'facebook','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 40),'icon'=>1,'count'=>0,'class'=>'facebook','with_title'=>0)).pat_article_social(array('site'=>'google','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 60),'icon'=>1,'count'=>0,'class'=>'google','with_title'=>0)).pat_article_social(array('site'=>'twitter','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 116),'icon'=>1,'count'=>0,'class'=>'twitter','with_title'=>0)).'</p></blockquote>';
 
  	else
  	 	trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'text')), E_USER_WARNING);
