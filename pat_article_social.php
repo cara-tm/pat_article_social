@@ -19,6 +19,7 @@ if (class_exists('\Textpattern\Tag\Registry')) {
 		->register('pat_article_social_meta')
 		->register('pat_article_social')
 		->register('pat_article_social_sum')
+		->register('share')
 		->register('twttr')
 		->register('fb')
 		->register('instagram')
@@ -332,6 +333,29 @@ function _pat_locale($locale, $striped = NULL)
 
 
 /**
+ * Helper tag to display share links
+ *
+ * @param  array Tag attributes
+ * @return MTML  markup Share links
+ */
+function share($atts)
+{
+	global $prefs, $thisaticle;
+
+	extract(lAtts(array(
+		'text'		 => NULL,
+		'tooltip'	 => NULL,
+	), $atts));
+
+	if ($text)
+		return pat_article_social(array('site'=>'facebook','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 40),'icon'=>1,'count'=>0,'class'=>'facebook','with_title'=>0)).pat_article_social(array('site'=>'google','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 60),'icon'=>1,'count'=>0,'class'=>'google','with_title'=>0)).pat_article_social(array('site'=>'twitter','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 116),'icon'=>1,'count'=>0,'class'=>'twitter','with_title'=>0));
+	else
+		trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'text')), E_USER_WARNING);
+
+}
+
+
+/**
  * Display a blockquote with social links
  *
  * @param  array        Tag attributes
@@ -350,11 +374,8 @@ function bq($atts)
  	include_once txpath.'/lib/classTextile.php';
  	$textile = new Textile($prefs['doctype']);
 
- 	if ($text)
- 	 	return '<blockquote class="pat-bq">'.$textile->TextileThis($text).'<p>'.pat_article_social(array('site'=>'facebook','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 40),'icon'=>1,'count'=>0,'class'=>'facebook','with_title'=>0)).pat_article_social(array('site'=>'google','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 60),'icon'=>1,'count'=>0,'class'=>'google','with_title'=>0)).pat_article_social(array('site'=>'twitter','tooltip'=>$tooltip,'content'=>_pat_article_social_trim($text, 116),'icon'=>1,'count'=>0,'class'=>'twitter','with_title'=>0)).'</p></blockquote>';
+	return '<blockquote class="pat-bq">'.$textile->TextileThis($text).'<p>'.share($atts).'</p></blockquote>';
 
- 	else
- 	 	trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'text')), E_USER_WARNING);
 
 }
 
@@ -370,7 +391,7 @@ function twttr($atts)
 
 	global $prefs;
 
- 	extract(lAtts(array(
+	extract(lAtts(array(
 		'status'	 => NULL,
 		'markup'	 => ($prefs['pat_article_social_twttr'] == 1 ? 'blockquote' : 'iframe'),
 		'align' 	 => 'center',
@@ -444,9 +465,9 @@ function twttr($atts)
  */
 function fb($atts)
 {
- 	global $prefs;
+	global $prefs;
 
- 	extract(lAtts(array(
+	extract(lAtts(array(
 		'status'	 => NULL,
 		'locale'	 => $prefs['language'],
 	 ), $atts));
@@ -475,9 +496,9 @@ function fb($atts)
 function gplus($atts)
 {
 
- 	extract(lAtts(array(
+	extract(lAtts(array(
 		'status' => NULL,
-	 ), $atts));
+	), $atts));
 
 	if ( !gps('txpreview') ) {
 
@@ -503,7 +524,7 @@ function instagram($atts)
 	extract(lAtts(array(
 		'status' => NULL,
 		'size'	 => 'm',
-	 ), $atts));
+	), $atts));
 
 
 	$url = preg_replace('/\?.*/', '', $status);
@@ -526,12 +547,12 @@ function instagram($atts)
 function gist($atts)
 {
 
- 	extract(lAtts(array(
+	extract(lAtts(array(
 		'url'	=> NULL,
-	 ), $atts));
+	), $atts));
 
- 	if ( preg_match('#^https:\/\/gist.github.com\/[a-z-0-9-]+\/[a-z-0-9]+$#i', $url) )
- 	 	return '<!-- Embedded Gist code - pat-article-social --> <script src="'.$url.'.js"></script>';
+	if ( preg_match('#^https:\/\/gist.github.com\/[a-z-0-9-]+\/[a-z-0-9]+$#i', $url) )
+	 	return '<!-- Embedded Gist code - pat-article-social --> <script src="'.$url.'.js"></script>';
 
 }
 
@@ -793,7 +814,7 @@ function _pat_article_social_get_pinterest($url) {
 
 	$pinfo = json_decode( preg_replace('/^receiveCount\((.*)\)$/', "\\1", @file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=receiveCount&url='.$url)) );
 
- 	if ( isset($pinfo->count) ) return $pinfo->count;
+	if ( isset($pinfo->count) ) return $pinfo->count;
 
 }
 // LinkedIn®
@@ -816,15 +837,15 @@ function _pat_article_social_get_buffer($url) {
 function _pat_article_social_get_reddit($url) {
 
 	global $real;
- 	$score = $up = $down = 0;
+	$score = $up = $down = 0;
 
- 	$content = json_decode( @file_get_contents('http://www.reddit.com/api/info.json?url='.$url) );
- 	if($content) {
+	$content = json_decode( @file_get_contents('http://www.reddit.com/api/info.json?url='.$url) );
+	if($content) {
 		$score = (int) $content->data->children[0]->data->score;
- 		$up = (int) $content->data->children[0]->data->up;
- 	 	$down = (int) $content->data->children[0]->data->down;
- 	}
- 	if ($real)
+		$up = (int) $content->data->children[0]->data->up;
+	 	$down = (int) $content->data->children[0]->data->down;
+	}
+	if ($real)
 		$score = $score + $up - $down;
 
 	return $score;
@@ -833,10 +854,10 @@ function _pat_article_social_get_reddit($url) {
 // Dribbble®
 function _pat_article_social_get_dribbble($url) {
 
- 	global $dribbble_data, $shot;
+	global $dribbble_data, $shot;
 
- 	if( false === _pat_article_social_occurs($dribbble_data, array('followers', 'likes', 'comments', 'shots')) )
- 		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'dribbble_data')), E_USER_WARNING);
+	if( false === _pat_article_social_occurs($dribbble_data, array('followers', 'likes', 'comments', 'shots')) )
+		return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'dribbble_data')), E_USER_WARNING);
 
 	$data = $dribbble_data.'_count';
 	$counter = 0;
@@ -853,7 +874,7 @@ function _pat_article_social_get_dribbble($url) {
 function _pat_article_social_get_stumbleupon($url) {
 
 	$json = json_decode( @file_get_contents('http://www.stumbleupon.com/services/1.01/badge.getinfo?url='.$url), true );
- 	return isset($json['result']['views']) ? intval($json['result']['views']) : 0;
+	return isset($json['result']['views']) ? intval($json['result']['views']) : 0;
 
 }
 // Delicious®
@@ -938,6 +959,7 @@ function pat_article_social_sum($atts)
 	} else {
 
 	return trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'site or cache directory')), E_USER_WARNING);
+
 	}
 }
 
