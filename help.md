@@ -1,9 +1,9 @@
 
-#pat_article_social v 0.6.0 (formerly pat_article_tweet)
+#pat_article_social v 0.6.0/0.6.1 (formerly pat_article_tweet)
 
 ##Purpose
 
-**Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist and create quotations (part of texts) followed by share links.**
+**Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist and create quotations (part of texts) followed by share links. Google AMP capable (v 0.6.1)**
 
 ~~Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform))~~. No more with v 0.5.7: a third part service is used to display the Twitter share counts (see below).
 
@@ -446,7 +446,26 @@ Just insert this line into your article's body (Textile rendering):
     <txp:gist url="https://gist.github.com/cara-tm/15589a11130949510e25" />
 
 
-#9.° CSS layout for social links
+#9.° Google AMP support
+
+This plugin version 0.6.1 is AMP capable with the help of this plugin compagnon: [Download this plugin](https://github.com/cara-tm/mkp_if_amp)
+
+How to?
+
+First, install and activate the mkp_if_amp v 3.1 plugin.
+Then, add this into your HTML head part:
+
+    <txp:mkp_if_amp /><txp:if_variable name="mkp_amp" value="1"><txp:amp_social_script site="" /></txp:if_variable>
+
+That's all. The pat-article-social plugin check the AMP context and serves and render the proper tags and ressources "AMPowered".
+
+Attribute
+
+    **site** String (required): A comma separated list of social network among: facebook,twitter,instagram. Default: none (empty).
+
+
+
+#10.° CSS layout for social links
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
@@ -1232,7 +1251,7 @@ Color palettes for social websites are available here: designpieces.com
 	100% {transform: scale(1, 1)}
     }
 
-###10°. Tips and advices
+###11°. Tips and advices
 
 You can choose to place your hidden social links on images and reveal its on mouse over.
 
@@ -1262,6 +1281,8 @@ And the corresponding CSS rules:
 
 ##Changelog
 
+- 30th April 2016. v 0.6.1. Support for Google AMP added.
+- 27th April 2016. v 0.6.0. Restaures the omitted external js. Respects the ideal limitation of shares on social networks. Better shrinking function with support of final signs (., ?, !). 
 - 14th April 2016. v 0.5.9. Adds the "bq" tag to render quotation text with social shares. Remove deprecated Twitter card formats. Some corrections/improvements.
 - 30th March 2016. v 0.5.8. Adds the itemprop attribute in the share count tags (default: true. Else itemprop="0"). Adds new fb Open Graph meta tags.
 - 22nd March 2016. v 0.5.7. Corrects errors with Twitter embedded statuses. All the plugin preferences had been added. Twitter share counting restored. No need to add javascript dependencies into page templates (the plugin does only once). Textpack support. Plugin installation and deletion added.
