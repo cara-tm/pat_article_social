@@ -25,7 +25,8 @@ if (class_exists('\Textpattern\Tag\Registry')) {
 		->register('instagram')
 		->register('gplus')
 		->register('gist')
-		->register('bq');
+		->register('bq')
+		->register('amp_social_script');
 }
 
 
@@ -389,7 +390,7 @@ function bq($atts)
 function twttr($atts)
 {
 
-	global $prefs;
+	global $prefs, $variable;
 
 	extract(lAtts(array(
 		'status'	 => NULL,
@@ -439,10 +440,15 @@ function twttr($atts)
 
 			// Display json result.
 			if ($datas)
-				$out = '<!-- Embedded Tweet - pat-article-social --> ' . str_replace(
-					array(' align="center"', ' width="500"'),
-					array('', ' style="width:500px"', ''),
-					$datas['html']
+				$out = '<!-- Embedded Tweet - pat-article-social --> ' . (
+					$variable['mkp_amp'] ? 
+						'<amp-twitter width="390" height="450" layout="responsive" data-tweetid="'.$id.'"></amp-twitter>' 
+					: 
+						str_replace(
+							array(' align="center"', ' width="500"'),
+							array('', ' style="width:500px"'),
+							$datas['html']
+						)
 					);
 
 		} else {
@@ -465,7 +471,7 @@ function twttr($atts)
  */
 function fb($atts)
 {
-	global $prefs;
+	global $prefs, $variable;
 
 	extract(lAtts(array(
 		'status'	 => NULL,
@@ -477,7 +483,9 @@ function fb($atts)
 
 		if( preg_match('#^https:\/\/w{3}\.facebook\.com\/[a-z-A-Z-0-9.]*\/posts\/[0-9]*(.*)?$#i', $status) ) {
 
-			return '<!-- Embedded fb status - pat-article-social --> <div id="fb-root"></div><script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script><div class="fb-post" data-href="'.$status.'"></div>';
+			return '<!-- Embedded fb status - pat-article-social --> ' . ( $variable['mkp_amp'] ? 
+				'<amp-facebook width="486" height="657" layout="responsive" data-href="'.$status.'"></amp-facebook>' : 
+				'<div id="fb-root"></div><script>!function(e,t,n){var c,o=e.getElementsByTagName(t)[0];e.getElementById(n)||(c=e.createElement(t),c.id=n,c.src="//connect.facebook.net/'._pat_locale($locale).'/all.js#xfbml=1",o.parentNode.insertBefore(c,o))}(document,"script","facebook-jssdk");</script><div class="fb-post" data-href="'.$status.'"></div>' );
 
 		}
 
@@ -520,6 +528,7 @@ function gplus($atts)
  */
 function instagram($atts)
 {
+	global $variable;
 
 	extract(lAtts(array(
 		'status' => NULL,
@@ -533,7 +542,8 @@ function instagram($atts)
 	$json = 'http://api.instagram.com/publicapi/oembed/?url='.$status;
 	$datas = json_decode( @file_get_contents($json), true );
 
-	return $datas ? '<!-- Embedded Instagram status - pat-article-social --> ' . $datas['html'] : '';
+	return $datas ? '<!-- Embedded Instagram status - pat-article-social --> ' . ( $variable['mkp_amp'] ?
+				'<amp-instagram data-shortcode="'.$status.'" width="320" height="392" layout="responsive"></amp-instagram>' : $datas['html'] ) : '';
 
 }
 
@@ -553,6 +563,53 @@ function gist($atts)
 
 	if ( preg_match('#^https:\/\/gist.github.com\/[a-z-0-9-]+\/[a-z-0-9]+$#i', $url) )
 	 	return '<!-- Embedded Gist code - pat-article-social --> <script src="'.$url.'.js"></script>';
+
+}
+
+
+/*
+ * Inject custom social network scripts for Google AMP
+ *
+ * @param  array  Tag attribute
+ * @return script External scripts
+ */
+function amp_social_script($atts)
+{
+
+	extract(lAtts(array(
+		'site'	=> NULL,
+	), $atts));
+
+	if ($site) {
+
+		$type = explode(',', $site);
+		$out = '';
+
+		foreach ($type as $service) {
+
+			switch ( strtolower($service) ) {
+
+				case 'twitter':
+					$out .= '<script async custom-element="amp-twitter" src="https://cdn.ampproject.org/v0/amp-twitter-0.1.js"></script>'.n;
+				break;
+
+				case 'facebook':
+					$out .= '<script async custom-element="amp-facebook" src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"></script>'.n;
+ 	 	 		break;
+
+				case 'instagram':
+					$out .= '<script async custom-element="amp-instagram" src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js"></script>'.n;
+				break;
+			}
+
+		}
+
+		return $out;
+
+	} else {
+
+		return trigger_error(gTxt('invalid_attribute_value', array('{site}' => 'status')), E_USER_WARNING);
+	}
 
 }
 
