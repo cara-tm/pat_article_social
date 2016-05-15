@@ -125,7 +125,7 @@ Note: to display the Twitter share counts, you need to add the Opensharecount se
 If you don't want to display the default SVG icons, you can replace all one by a font. Best choose is fontAwesome.
 Add this line into your &lt;head&gt; document part:
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="https://opensource.keycdn.com/fontawesome/4.5.0/font-awesome.min.css" rel="stylesheet">
 
 Then, set the "icon" attribute to 0 value and set the "class" attribute with the fontAwesome one.
 
