@@ -1,25 +1,25 @@
-#prefs
+#@prefs
 #@language en-gb
 pat_article_social_dir => Cache directory
 pat_article_social_twttr => Default "blockquote" markup for twttr short tag?
 pat_article_social_delay => Caching delay for the social counting values
 
 
-#prefs
+#@prefs
 #@language fr-fr
 pat_article_social_dir => Répertoire du cache
 pat_article_social_twttr => Balisage "blockquote" par défaut pour la balise txp:twttr ?
 pat_article_social_delay => Délai de mise en cache des décomptes sociaux (en heure)
 
 
-#prefs
+#@prefs
 #@language de-de
 pat_article_social_dir => Cache-Verzeichnis
 pat_article_social_twttr => Standard "blockquote" Markup für twttr Kurz Tag?
 pat_article_social_delay => Caching Verzögerung für die sozialen Zählwerte
 
 
-#prefs
+#@prefs
 #@language es-es
 pat_article_social_dir => Directorio de cachés
 pat_article_social_twttr => "blockquote" marcado por defecto para twttr etiqueta corta?
