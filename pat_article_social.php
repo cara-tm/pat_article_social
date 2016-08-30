@@ -826,7 +826,7 @@ function _pat_article_social_get_content($file, $url = NULL, $type, $delay, $zer
  * @param  string       Letter format
  * @return integer
  */
-// Twitter
+// Twitter®
 function _pat_article_social_get_twitter($url, $unit = NULL)
 {
 	$json_string = @file_get_contents('http://opensharecount.com/count.json?url='.$url);
@@ -843,7 +843,7 @@ function _pat_article_social_get_twitter($url, $unit = NULL)
 function _pat_article_social_get_facebook($url) {
 
 	$src = json_decode( @file_get_contents('http://graph.facebook.com/'.$url) );
-	$src->shares ? $fb_count = $src->shares : $fb_count = 0;
+	$src->share->share_count ? $fb_count = $src->share->share_count : $fb_count = 0;
 
 	return $fb_count;
 
