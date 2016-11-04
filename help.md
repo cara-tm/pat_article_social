@@ -1290,6 +1290,7 @@ And the corresponding CSS rules:
 
 ##Changelog
 
+- 3rd November 2016. Intermediate v 0.6.1.a. Support the changes into the new facebook API.
 - 30th April 2016. v 0.6.1. Support for Google AMP added.
 - 27th April 2016. v 0.6.0. Restaures the omitted external js. Respects the ideal limitation of shares on social networks. Better shrinking function with support of final signs (., ?, !). 
 - 14th April 2016. v 0.5.9. Adds the "bq" tag to render quotation text with social shares. Remove deprecated Twitter card formats. Some corrections/improvements.
