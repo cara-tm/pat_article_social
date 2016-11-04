@@ -445,6 +445,15 @@ Just insert this line into your article's body (Textile rendering):
 
     <txp:gist url="https://gist.github.com/cara-tm/15589a11130949510e25" />
 
+###Advice
+
+If you wish to center horizontally all the generated iframes into your page template, just add this simple CSS rule:
+
+    iframe {
+    	display: table;
+	margin: 0 auto;
+    }
+
 
 #9.° Google AMP support
 
