@@ -3,7 +3,7 @@
  * pat_article_social (formerly pat_article_tweet) Textpattern CMS plugin
  * @author:  © Patrick LEFEVRE, all rights reserved. <patrick[dot]lefevre[at]gmail[dot]com>
  * @link:    http://pat-article-social.cara-tm.com
- * @type:    Public
+ * @type:    Admin+Public
  * @prefs:   no
  * @order:   5
  * @version: 0.6.2
@@ -747,7 +747,7 @@ function pat_article_social($atts)
 			break;
 
 			case 'email':
-				$link = '<a href="mailto:?subject='.$prefs['sitename'].'&amp;body='.urlencode($text).'%0A%0A'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 485.4 485.4" xml:space="preserve"><path d="M0 81.8v321.8h485.4V81.8H0zM242.7 280.5L43.6 105.7h398.2L242.7 280.5zM163.4 242.6L23.9 365.2V120.1L163.4 242.6zM181.5 258.5l61.2 53.8 61.2-53.8L441.9 379.7H43.5L181.5 258.5zM322 242.7l139.5-122.5v245.1L322 242.7z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';
+				$link = '<a rel="nofollow" href="mailto:?subject='.$prefs['sitename'].'&amp;body='.urlencode($text).'%0A%0A'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" target="_blank">'.($icon ? '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 485.4 485.4" xml:space="preserve"><path d="M0 81.8v321.8h485.4V81.8H0zM242.7 280.5L43.6 105.7h398.2L242.7 280.5zM163.4 242.6L23.9 365.2V120.1L163.4 242.6zM181.5 258.5l61.2 53.8 61.2-53.8L441.9 379.7H43.5L181.5 258.5zM322 242.7l139.5-122.5v245.1L322 242.7z"/></svg>' : '').'<b>'.$title.'</b>'.($fallback ? '<strong>I</strong>' : '').'</a>';
 			break;
 
 
@@ -759,7 +759,7 @@ function pat_article_social($atts)
 				if ($rs)
 					$url = hu.$pretext['id'];
 
-				$link = '<span class="link-container"><a href="'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" onclick="toggle(\'show-link\');return false"><strong>&#128279;</strong>'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="permalink-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 512 512"><path d="M482.3 210.8L346.5 346.5c-37.5 37.5-98.2 37.5-135.7 0l-45.2-45.2 45.3-45.2 45.3 45.3c12.5 12.5 32.8 12.5 45.3 0L437 165.5c12.5-12.5 12.5-32.8 0-45.3l-45.2-45.2c-12.5-12.5-32.8-12.5-45.2 0l-48.5 48.5c-22.5-13.2-48-18.9-73.3-17.2l76.5-76.5c37.5-37.5 98.3-37.5 135.8 0l45.3 45.3C519.8 112.5 519.8 173.3 482.3 210.8zM213.9 388.6L165.5 437c-12.5 12.5-32.8 12.5-45.2 0L75 391.8c-12.5-12.5-12.5-32.7 0-45.2l135.8-135.7c12.5-12.5 32.8-12.5 45.3 0l45.3 45.3 45.3-45.2 -45.2-45.2c-37.5-37.5-98.2-37.5-135.7 0L29.8 301.3c-37.5 37.5-37.5 98.3 0 135.8L75 482.3c37.5 37.5 98.3 37.5 135.8 0l76.5-76.5C262 407.4 236.5 401.8 213.9 388.6z"/></svg>' : '').'<b>'.$title.'</b></a>'.n.'<input type="text" value="'.$url.'" '.($input_tooltip ? 'title="'.$input_tooltip.'" ' : '').'id="show-link" onclick="this.setSelectionRange(0,9999);return false" readonly></span>'.n.'<script>function toggle(e){var l=document.getElementById(e);l.style.display="block"==l.style.display?"none":"block"}</script>';
+				$link = '<span class="link-container"><a rel="nofollow" href="'.$url.'" title="'.$tooltip.'" class="social-link'.($class ? ' '.$class : '').'" onclick="toggle(\'show-link\');return false"><strong>&#128279;</strong>'.($icon ? '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="permalink-icon" x="0" y="0" width="'.$width.'" height="'.$height.'" viewBox="0 0 512 512"><path d="M482.3 210.8L346.5 346.5c-37.5 37.5-98.2 37.5-135.7 0l-45.2-45.2 45.3-45.2 45.3 45.3c12.5 12.5 32.8 12.5 45.3 0L437 165.5c12.5-12.5 12.5-32.8 0-45.3l-45.2-45.2c-12.5-12.5-32.8-12.5-45.2 0l-48.5 48.5c-22.5-13.2-48-18.9-73.3-17.2l76.5-76.5c37.5-37.5 98.3-37.5 135.8 0l45.3 45.3C519.8 112.5 519.8 173.3 482.3 210.8zM213.9 388.6L165.5 437c-12.5 12.5-32.8 12.5-45.2 0L75 391.8c-12.5-12.5-12.5-32.7 0-45.2l135.8-135.7c12.5-12.5 32.8-12.5 45.3 0l45.3 45.3 45.3-45.2 -45.2-45.2c-37.5-37.5-98.2-37.5-135.7 0L29.8 301.3c-37.5 37.5-37.5 98.3 0 135.8L75 482.3c37.5 37.5 98.3 37.5 135.8 0l76.5-76.5C262 407.4 236.5 401.8 213.9 388.6z"/></svg>' : '').'<b>'.$title.'</b></a>'.n.'<input type="text" value="'.$url.'" '.($input_tooltip ? 'title="'.$input_tooltip.'" ' : '').'id="show-link" onclick="this.setSelectionRange(0,9999);return false" readonly></span>'.n.'<script>function toggle(e){var l=document.getElementById(e);l.style.display="block"==l.style.display?"none":"block"}</script>';
 			break;
 
 		}
