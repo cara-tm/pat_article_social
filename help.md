@@ -23,7 +23,7 @@ Notice: All the following pat_article_social tags are intented to be used as sin
 
 ## 1.° In your doctype HTML document (before &lt;/head&gt;)
 
-## Creates HTML meta tags for the social website:##
+## Creates HTML meta tags for the social website:
 
     <txp:pat_article_social_meta type="" card="" image="" user="" creator="" label1="" data1="" label2="" data2="" locale="" fb_api="" fb_admins="" fb_type="" fb_author="" fb_publisher="" g_author="" g_publisher="" title="" description="" lenght="" />
 
@@ -91,9 +91,9 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
 
 Note: to display the Twitter share counts, you need to add the Opensharecount service in you Twitter account. See more here: [http://opensharecount.com](http://opensharecount.com).
 
-##2.° In an article form (individual articles)
+## 2.° In an article form (individual articles)
 
-###Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:
+### Creates an HTML link for the current article. Allow visitors to publish a link to their social accounts:
 
     <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" text="" content="" itemprop="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" instagram="" user="" token="" zero="" unit="" delay="" image="" fallback="" />
 
@@ -321,7 +321,7 @@ Just use this line into your article's body (Textile rendering):
 
 ~~&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;~~
 
-###Attribute
+### Attribute
 
 >    **status**: String (required). The link of the Tweet to embed (given by Twitter). Default: none (empty).
 >    Note: since v 0.5.1, this attribute can be set with full link URL or a short one (i.e.: status="601628600098488320" with only the tweet id)
@@ -470,8 +470,9 @@ That's all. The pat-article-social plugin check the AMP context and serves and r
 
 Attribute
 
-    **site** String (required): A comma separated list of social network among: facebook,twitter,instagram. Default: none (empty).
-
+> 
+>    `site` String (required): A comma separated list of social network among: facebook,twitter,instagram. Default: none (empty).
+> 
 
 
 # 10.° CSS layout for social links
