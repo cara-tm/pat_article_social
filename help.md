@@ -1,35 +1,35 @@
 
-#pat_article_social v 0.6.0/0.6.1 (formerly pat_article_tweet)
+# pat_article_social v 0.6.0/0.6.1 (formerly pat_article_tweet)
 
-##Purpose
+## Purpose
 
 **Create social links for your articles (support for facebook, Twitter, G+, Pinterest, Tumblr, Pocket, Instapaper, Linkedin, Reddit, Dribbble, Stumbleupon, Delicious & Instagram) with an icon (optional and in SVG format) a share counting (optional) plus all needed Open Graph meta tags for your head document. No cookies, no javascript: UE compiliant. Allow embedded social posts into your article's body from Twitter, fb, G+, Instagram and Gist and create quotations (part of texts) followed by share links. Google AMP capable (v 0.6.1)**
 
 ~~Note: no more Twitter share counts since v 0.5.4 (see: [Twitter official announce](https://blog.twitter.com/2015/hard-decisions-for-a-sustainable-platform))~~. No more with v 0.5.7: a third part service is used to display the Twitter share counts (see below).
 
-##Plugin Preferences
+## Plugin Preferences
 
 After installation, choose "Admin"->"Preferences" tab to access this plugin prefs and to set the "cache" directory. Default: /root/cache; the default markup for the short txp:twttr tag; the default delay to cache the share counts. 
 
 Note: you need to create the cache directory; this plugin doesn't.
 
-##Uninstallation
+## Uninstallation
 
 You can safely remove this plugin without changes in your database except all the content into the cache directory field.
 
-##Usages
+## Usages
 
 Notice: All the following pat_article_social tags are intented to be used as single tags, not container ones. Previews of articles don't show the renderings of this plugin, voluntarily. Depending of the number of social links (each are individual TXP tags) and the value of the "delay" attribute when the counting feature is chosen, pages rendering can be a little bit slow when catching time is over. In all cases, you can take advantages to use the [asy_jpcache](https://github.com/netcarver/asy_jpcache) plugin or [aks_cache](http://makss.uaho.net/plugins/aks_cache).
 
-##1.° In your doctype HTML document (before &lt;/head&gt;)
+## 1.° In your doctype HTML document (before &lt;/head&gt;)
 
-##Creates HTML meta tags for the social website:##
+## Creates HTML meta tags for the social website:##
 
     <txp:pat_article_social_meta type="" card="" image="" user="" creator="" label1="" data1="" label2="" data2="" locale="" fb_api="" fb_admins="" fb_type="" fb_author="" fb_publisher="" g_author="" g_publisher="" title="" description="" lenght="" />
 
 Important Note: facebook **use the first occurrence** of Open Graph meta tags in the HTML document even if specific ones exist (i.e.: Twitter Open Graph). You are strongly encouraged to call facebook first and all other social networks after it (see: "type" attribute below).
 
-##Quick Start Example
+## Quick Start Example
 
     <!DOCTYPE html>
     <html lang="<txp:lang />" dir="<txp:text item="lang_dir" />">
@@ -43,7 +43,7 @@ Important Note: facebook **use the first occurrence** of Open Graph meta tags in
     <txp:pat_article_social_meta type="twitter,facebook,google" card="summary_large_image" fb_publisher="Mark-Zuckerberg" fb_author="Mark-Zuckerberg" g_publisher="+PatrickLEFEVRE-lowel" g_author="+PatrickLEFEVRE-lowel" description='<txp:if_individual_article><txp:body /></txp:if_individual_article>' user="@lowel" creator="@lowel" />
 
 
-###Attributes
+### Attributes
 
 >    **type**: String (required). Coma separated list of social network's name [1]. Default: none (empty).
 > 
@@ -97,7 +97,7 @@ Note: to display the Twitter share counts, you need to add the Opensharecount se
 
     <txp:pat_article_social site="" tooltip="" input_tooltip="" title="" text="" content="" itemprop="" via="" shot="" page="" icon="" class="" width="" height="" count="" real="" instagram="" user="" token="" zero="" unit="" delay="" image="" fallback="" />
 
-###Quick Start Example
+### Quick Start Example
 
     <txp:hide>
     Display summ of shares. Set which social networks you want to add in the sum.
@@ -129,7 +129,7 @@ Add this line into your &lt;head&gt; document part:
 
 Then, set the "icon" attribute to 0 value and set the "class" attribute with the fontAwesome one.
 
-###Attributes
+### Attributes
 
 >    **site**: String (required). A comma separated list of social websites (facebook, twitter, google, pinterest, tumblr, instapaper, pocket, linkedin, buffer, reddit, dribbble, stumbleupon, delicious, ello). Default: permalink. Notice: "permalink" attribute creates a show/hide input bellow the icon with the current article's permalink.
 > 
@@ -188,7 +188,7 @@ Then, set the "icon" attribute to 0 value and set the "class" attribute with the
 
 Notice: Default color icons are black. See below how to change it.
 
-###Removing the fallback social network names to keep only icons
+### Removing the fallback social network names to keep only icons
 
 CSS rules:
 
@@ -203,17 +203,17 @@ CSS rules:
     	clip: rect(1px 1px 1px 1px);
     }
 
-##3.° Creates a total shares count as shown in the Mashable.com website:
+## 3.° Creates a total shares count as shown in the Mashable.com website:
 
-###Whatever place you want (individual or article lists)
+### Whatever place you want (individual or article lists)
 
     <txp:pat_article_social_sum site="" lang="" showalways="" text="" plural="" alternative="" count="" zero="" delay="" unit="" />
 
-###Quick Start Example
+### Quick Start Example
 
     <txp:pat_article_social_sum site="twitter,facebook,google,pinterest,reddit" lang="en-us" showalways="0" text="Total of share" plural="s" alternative="Share" count="1" zero="0" delay="24" unit="k" />
 
-###Attributes
+### Attributes
 
 >    **site**: String (required). Comma separated list of social websites to be added in the share counting (among: twitter, facebook, google, pinterest). Default: none (empty).
 > 
@@ -243,7 +243,7 @@ CSS rules:
 **Warning**: you can't use quote signs in you input (`"`) but Textile converted ones (`“` and `”` or `«` and `»`) otherwise this tag will not render anything.
 Some attentive users may invoke the use of `.notextile` (i.e. `.notextile <txp:bq text="" />`) for a better markup. But that is not important: basically, Google considers a perfect pages structure suspect without any errors.
 
-##Attributes
+## Attributes
 
 > 
 >    **text** String (required). The text content to display as a blockquote. Default: none (empty).
@@ -251,7 +251,7 @@ Some attentive users may invoke the use of `.notextile` (i.e. `.notextile <txp:b
 >    **tooltip** String (optional). The tooltip for each social icon links. Default: none (empty).
 >
 
-##HTML markup rendering
+## HTML markup rendering
 
 Generates this into your HTML page:
 
@@ -281,7 +281,7 @@ Generates this into your HTML page:
  
 
 
-##Example of CSS for a quick start usage
+## Example of CSS for a quick start usage
 
 > 
 >    .pat-bq {
@@ -292,7 +292,7 @@ Generates this into your HTML page:
 > 
 
 
-#Embedded statuses in article's bodies
+# Embedded statuses in article's bodies
 
 Note: Starting with version 0.5.7, this plugin stores the default delay time (in hours) to cache the share counts into the Preferences panel. Set it for all the social networks you use. If you want to restore individually the "delay" attribute in your tags, set this preference with a blank value. 
 In order to center your embedded statuses (best visual display), add these CSS rules into your stylesheets:
@@ -311,7 +311,7 @@ In order to center your embedded statuses (best visual display), add these CSS r
 
 All embedded statuses are "Responsive": but not on window resize events, only when a page is loaded.
 
-##4.° Insert a Tweet into your article's body
+## 4.° Insert a Tweet into your article's body
 
 Just use this line into your article's body (Textile rendering):
 
@@ -336,7 +336,7 @@ Just use this line into your article's body (Textile rendering):
 > 
 
 
-###Example
+### Example
 
     <txp:twttr status="https://twitter.com/txpfr/status/601628600098488320" />
 
@@ -348,7 +348,7 @@ This tag supports long URLs link, partial and short. Both works exactly the same
 
 
 
-###CSS layout (for "iframe" and "object" markup only. See "markup" attribute above)
+### CSS layout (for "iframe" and "object" markup only. See "markup" attribute above)
 
 All embedded Tweets except the short forms are wrapped into a div with a class selector named "pat-twttr".
 
@@ -382,70 +382,70 @@ Just insert this line into your article's body (Textile rendering):
 
     <txp:fb status="" />
 
-###Attribute
+### Attribute
 
 > 
 >    `status`string (required). The link URL of a __public__ facebook status. Default: none (empty).
 > 
 
-###Example
+### Example
 
     <txp:fb status="https://www.facebook.com/zuck/posts/10102329188394581" />
 
 
 
-##6.° Insert an embedded G+ post into your article's body
+## 6.° Insert an embedded G+ post into your article's body
 
 Just insert this line into the article's body (Textile rendering):
 
     <txp:gplus status="" />
 
-###Attribute
+### Attribute
 
 > 
 >    `status` string (required). The link URL of a G+ post. Default: none (empty).
 > 
 
-###Example
+### Example
 
     <txp:gplus status="https://plus.google.com/+google/posts/eTmjj1arLBq" />
 
 
-##7.° Insert an embedded Instagram image into your article's body
+## 7.° Insert an embedded Instagram image into your article's body
 
 Just insert this line into your articl's body (Textile rendering):
 
     <txp:instagram status="" />
 
-###Attribute
+### Attribute
 
 > 
 >    `status` string (required). The URL link to the Instagram image (present into the address bar). Default: none (empty).
 > 
 
-###Example
+### Example
 
     <txp:instagram status="https://instagram.com/p/1vpa3Sh-1G/?taken-by=rodinature" />
 
 
 
-##8.° Insert an embedded Gist code into your article's body
+## 8.° Insert an embedded Gist code into your article's body
 
 Just insert this line into your article's body (Textile rendering):
 
     <txp:gist url="" />
 
-###Attribute
+### Attribute
 
 > 
 >    `url` string (required). The URL link to a Gist from GitHub (present into the address bar). Default: none (empty).
 > 
 
-###Example
+### Example
 
     <txp:gist url="https://gist.github.com/cara-tm/15589a11130949510e25" />
 
-###Advice
+### Advice
 
 If you wish to center horizontally all the generated iframes into your page template, just add this simple CSS rule:
 
@@ -455,7 +455,7 @@ If you wish to center horizontally all the generated iframes into your page temp
     }
 
 
-#9.° Google AMP support
+# 9.° Google AMP support
 
 This plugin version 0.6.1 is AMP capable with the help of this plugin compagnon: [Download this plugin](https://github.com/cara-tm/mkp_if_amp)
 
@@ -474,7 +474,7 @@ Attribute
 
 
 
-#10.° CSS layout for social links
+# 10.° CSS layout for social links
 
 The links can easily been designed. Here is all CSS classes available for your purpose:
 
@@ -486,11 +486,11 @@ The links can easily been designed. Here is all CSS classes available for your p
     .social-link b: class attribute for the social network name.
     .social-link strong: class attribute for the social network's first letter name (fallback for browsers which don't support SVG format).
 
-##CSS layout examples
+## CSS layout examples
 
 Color palettes for social websites are available here: designpieces.com
 
-###1°. This beautiful professional CSS example creates a "Flat" style light grey mockup which reveal inclined square shapes with colors change on the mouseover:
+### 1°. This beautiful professional CSS example creates a "Flat" style light grey mockup which reveal inclined square shapes with colors change on the mouseover:
 
     /* Advanced flat layout */
     .social-link {
@@ -706,7 +706,7 @@ Color palettes for social websites are available here: designpieces.com
 	    background:url(data:image/png;base64,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) center center no-repeat
     }
 
-###2°. This another "Flat" example creates simple inline big colored but effective buttons:
+### 2°. This another "Flat" example creates simple inline big colored but effective buttons:
 
     /* Simple flat layout */
     .social-link {
@@ -811,7 +811,7 @@ Color palettes for social websites are available here: designpieces.com
     .reddit:hover path,
     .permalink path {fill: #333 !important}
 
-###3°. This another "Flat" example creates a gray vertical barr with monochrome social icons in it:
+### 3°. This another "Flat" example creates a gray vertical barr with monochrome social icons in it:
 
     /* Div container */
     .share-links {
@@ -901,7 +901,7 @@ Color palettes for social websites are available here: designpieces.com
        font: .6em/1 Arial
     }
 
-###4°. Another simple flat layout with each counters in a black box on the right of little rounded, colored social icons 
+### 4°. Another simple flat layout with each counters in a black box on the right of little rounded, colored social icons 
 
     .social-link {
 	display: inline-block;
@@ -1056,7 +1056,7 @@ Color palettes for social websites are available here: designpieces.com
     	font-size: 0
     }
 
-###5°. Another example extremly Flat and squared design especially for the TXP default layout
+### 5°. Another example extremly Flat and squared design especially for the TXP default layout
 
     .social-link {
 	display: inline-block;
@@ -1260,7 +1260,7 @@ Color palettes for social websites are available here: designpieces.com
 	100% {transform: scale(1, 1)}
     }
 
-###11°. Tips and advices
+### 11°. Tips and advices
 
 You can choose to place your hidden social links on images and reveal its on mouse over.
 
@@ -1288,7 +1288,7 @@ And the corresponding CSS rules:
 	z-index: 10
     }
 
-##Changelog
+## Changelog
 
 - 3rd November 2016. Intermediate v 0.6.1.a. Support the changes into the new facebook API.
 - 30th April 2016. v 0.6.1. Support for Google AMP added.
@@ -1336,11 +1336,11 @@ And the corresponding CSS rules:
 - 9th December 2013: v 0.2.0. Accepts Twitter, facebook and Google + as social links. Inject corresponding social meta tags into header document.
 - 7th December 2013: v 0.1.0. First release (formerly pat_article_tweet) only create links to Twitter.
 
-##Credits
+## Credits
 
 All embed plugin icons come from courtesy © flaticon.com.
 
-##Notes
+## Notes
 
 [1]: There are no Open Graph metatags for Pinterst & Tumblr. For G+ don't forget to use a proper declaration into your html document tag (i.e. `<html itemscope itemtype="http://schema.org/Article" lang="fr-fr" dir="ltr">`). See more here: schema.org.
 
