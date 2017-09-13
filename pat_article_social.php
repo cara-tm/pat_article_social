@@ -140,6 +140,7 @@ EOF;
 				$tags .= ($data1 ? '<meta name="twitter:data1" content="'.$data1.'">'.n : '');
 				$tags .= ($label2 ? '<meta name="twitter:label2" content="'.$label2.'">'.n : '');
 				$tags .= ($data2 ? '<meta name="twitter:data2" content="'.$data2.'">'.n : '');
+				$tags .= '<meta name="twitter:dnt" content="on">';
 			break;
 
 
